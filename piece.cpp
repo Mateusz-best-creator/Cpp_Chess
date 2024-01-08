@@ -17,7 +17,7 @@ void Piece::update()
 	sourceRect.x = 0;
 	sourceRect.y = 0;
 
-	destinationRect.x = xPosition;
+	destinationRect.x = xPosition; 
 	destinationRect.y = yPosition;
 	destinationRect.w = sourceRect.w;
 	destinationRect.h = sourceRect.h;
