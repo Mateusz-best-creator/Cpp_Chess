@@ -1,8 +1,6 @@
 #pragma once
 
 #include "board.h"
-#include <iostream>
-#include <memory>
 
 class Game
 {

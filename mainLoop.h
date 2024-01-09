@@ -1,8 +1,8 @@
 #pragma once
 
-#include "game.h"
+#include <iostream>
 
-const int SCREEN_HEIGHT = 600, SCREEN_WIDTH = 800;
+//const int SCREEN_HEIGHT = 600, SCREEN_WIDTH = 800;
 
 class MainLoop
 {

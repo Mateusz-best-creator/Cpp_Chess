@@ -7,7 +7,6 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	renderer = ren;
 	boardTexture = TextureManager::LoadTexture(filename, renderer);
 
-	int index = 0;
 	for (size_t i = 0; i < WIDTH; i++)
 	{
 		for (size_t j = 0; j < HEIGHT; j++)
@@ -43,11 +42,9 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 				else strcpy_s(filename, sizeof(filename), "ChessPieces/Chess_qdt60.png");
 				break;
 			}
-			pieces[index] = new Piece(filename, renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE);
-			index++;
+			pieces.push_back(std::make_unique<Pawn>(filename, renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
 		}
 	}
-	std::cout << "INDEX: " << index << std::endl;
 }
 
 Board::~Board() 

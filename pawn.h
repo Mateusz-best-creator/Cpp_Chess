@@ -1,25 +1,20 @@
 #pragma once
 
-/*
+#include "piece.h"
 
-class Pawn
+class Pawn : public Piece
 {
 private:
-	int xPosition, yPosition;
 	int boardSquare;
 	char color;
 
-	SDL_Texture* objectTexture;
-	SDL_Rect sourceRect, destinationRect;
-	SDL_Renderer* renderer;
+	const char pawn_filename_white[30] = "ChessPieces/Chess_plt60.png";
+	const char pawn_filename_black[30] = "ChessPieces/Chess_pdt60.png";
 
 public:
 	Pawn(const char* filename, SDL_Renderer* ren, int x, int y, int bSquare, char c);
 	~Pawn();
 
-	void update();
-	void render();
 	void move();
 
 };
-*/

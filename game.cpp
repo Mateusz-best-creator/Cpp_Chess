@@ -1,5 +1,7 @@
 #include "game.h"
 
+Pawn* pawn;
+
 Game::Game()
 {
 }
@@ -36,6 +38,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 	board = std::make_unique<Board>("ChessPieces/board.png", renderer);
+	pawn = new Pawn("ChessPieces/Chess_plt60.png", renderer, 100, 200, 8, 'w');
 }
 
 void Game::handleEvents()
@@ -62,6 +65,7 @@ void Game::handleEvents()
 void Game::update()
 {
 	board->update();
+	pawn->update();
 }
 
 /*
@@ -71,7 +75,7 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	board->render();
-	//piece->render();
+	pawn->render();
 	SDL_RenderPresent(renderer);
 }
 

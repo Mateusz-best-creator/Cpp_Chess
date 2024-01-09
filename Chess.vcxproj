@@ -159,6 +159,9 @@
     <ClInclude Include="rook.h" />
     <ClInclude Include="textureManager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="for_me.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

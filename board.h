@@ -1,6 +1,10 @@
 #pragma once
 
 #include "piece.h"
+#include "pawn.h"
+#include <vector>
+#include <memory>
+#include <iostream>
 
 const int HEIGHT = 8, WIDTH = 8, INITIAL_PIECES_NUMBER = 32;
 const int PIECES_X_DISTANCE = 90, PIECES_Y_DISTANCE = 67;
@@ -36,7 +40,7 @@ private:
 	SDL_Texture* boardTexture;
 	SDL_Renderer* renderer;
 
-	Piece* pieces[INITIAL_PIECES_NUMBER];
+	std::vector<std::unique_ptr<Piece>> pieces;
 
 public:
 	Board(const char* filename, SDL_Renderer* ren);
