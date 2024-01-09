@@ -2,11 +2,8 @@
 #include "textureManager.h"
 
 Pawn::Pawn(const char* filename, SDL_Renderer* ren, int x, int y, int bSquare, char c)
-	: Piece(filename, ren, x, y)
-{
-	boardSquare = bSquare;
-	color = c;
-}
+	: Piece(filename, ren, x, y, bSquare, c)
+{}
 
 Pawn::~Pawn() {}
 
