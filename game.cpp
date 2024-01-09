@@ -1,7 +1,5 @@
 #include "game.h"
 
-Piece* piece;
-
 Game::Game()
 {
 }
@@ -38,7 +36,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 	board = new Board("ChessPieces/board.png", renderer);
-	piece = new Piece("ChessPieces/Chess_blt60.png", renderer, 0, 0);
 }
 
 void Game::handleEvents()
@@ -51,7 +48,12 @@ void Game::handleEvents()
 	case SDL_QUIT:
 		isRunning = false;
 		break;
-
+	case SDL_KEYDOWN:
+		if (event.key.keysym.sym == SDLK_ESCAPE)
+		{
+			isRunning = false;
+		}
+		break;
 	default:
 		break;
 	}
@@ -59,7 +61,7 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	piece->update();
+	board->update();
 }
 
 /*
@@ -69,7 +71,7 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	board->render();
-	piece->render();
+	//piece->render();
 	SDL_RenderPresent(renderer);
 }
 

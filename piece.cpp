@@ -12,8 +12,8 @@ Piece::Piece(const char* filename, SDL_Renderer* ren, int x, int y)
 
 void Piece::update()
 {
-	sourceRect.h = 64;
-	sourceRect.w = 64;
+	sourceRect.h = PIECE_HEIGHT;
+	sourceRect.w = PIECE_WIDTH;
 	sourceRect.x = 0;
 	sourceRect.y = 0;
 

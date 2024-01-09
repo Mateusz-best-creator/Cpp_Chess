@@ -2,6 +2,9 @@
 
 #include "SDL.h"
 #include "SDL_image.h"
+#include <iostream>
+
+const int PIECE_HEIGHT = 64, PIECE_WIDTH = 64;
 
 class Piece
 {
@@ -18,5 +21,7 @@ public:
 
 	void update();
 	void render();
+
+	void p_pos() { std::cout << xPosition << " " << yPosition << std::endl; }
 
 };
