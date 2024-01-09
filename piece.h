@@ -11,7 +11,6 @@ class Piece
 private:
 	int xPosition, yPosition;
 
-protected:
 	SDL_Texture* objectTexture;
 	SDL_Rect sourceRect, destinationRect;
 	SDL_Renderer* renderer;

@@ -2,6 +2,7 @@
 
 #include "board.h"
 #include <iostream>
+#include <memory>
 
 class Game
 {
@@ -13,7 +14,7 @@ private:
 	// Define flags
 	enum class flags { FULLSCREEN = 0 };
 
-	Board* board;
+	std::unique_ptr<Board> board;
 
 public:
 	Game();

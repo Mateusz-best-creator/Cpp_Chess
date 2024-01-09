@@ -35,7 +35,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		isRunning = false;
 	}
-	board = new Board("ChessPieces/board.png", renderer);
+	board = std::make_unique<Board>("ChessPieces/board.png", renderer);
 }
 
 void Game::handleEvents()
@@ -80,5 +80,4 @@ void Game::clean()
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
-	delete board;
 }
