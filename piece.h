@@ -11,6 +11,7 @@ class Piece
 private:
 	int xPosition, yPosition;
 
+protected:
 	SDL_Texture* objectTexture;
 	SDL_Rect sourceRect, destinationRect;
 	SDL_Renderer* renderer;
@@ -22,6 +23,6 @@ public:
 	void update();
 	void render();
 
-	void p_pos() { std::cout << xPosition << " " << yPosition << std::endl; }
-
+	int getX() { return xPosition; }
+	int getY() { return yPosition; }
 };

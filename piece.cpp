@@ -10,6 +10,8 @@ Piece::Piece(const char* filename, SDL_Renderer* ren, int x, int y)
 	yPosition = y;
 }
 
+Piece::~Piece() {}
+
 void Piece::update()
 {
 	sourceRect.h = PIECE_HEIGHT;
