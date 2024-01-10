@@ -1,3 +1,4 @@
+/*
 #include "rook.h"
 
 Rook::Rook(const char* filename, SDL_Renderer* ren, int x, int y, int bSquare, char c)
@@ -10,3 +11,4 @@ void Rook::move()
 {
 
 }
+*/

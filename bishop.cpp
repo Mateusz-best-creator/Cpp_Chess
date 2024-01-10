@@ -1,3 +1,4 @@
+/*
 #include "bishop.h"
 
 Bishop::Bishop(const char* filename, SDL_Renderer* ren, int x, int y, int bSquare, char c)
@@ -10,3 +11,4 @@ void Bishop::move()
 {
 
 }
+*/

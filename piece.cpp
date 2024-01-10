@@ -1,14 +1,15 @@
 #include "piece.h"
 #include "textureManager.h"
 
-Piece::Piece(const char* filename, SDL_Renderer* ren, int x, int y, int bSquare, char c)
+Piece::Piece(const char* filename, SDL_Renderer* ren, int x, int y, int bRow, int bColumn, char c)
 {
 	renderer = ren;
 	objectTexture = TextureManager::LoadTexture(filename, ren);
 
 	xPosition = x;
 	yPosition = y;
-	boardSquare = bSquare;
+	boardRow = bRow;
+	boardColumn = bColumn;
 	color = c;
 }
 

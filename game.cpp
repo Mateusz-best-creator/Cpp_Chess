@@ -54,6 +54,18 @@ void Game::handleEvents()
 			isRunning = false;
 		}
 		break;
+	case SDL_MOUSEBUTTONDOWN:
+		if (event.button.button == SDL_BUTTON_LEFT) 
+		{
+			std::cout << event.button.x << " " << event.button.y << std::endl;
+			int board_row = (event.button.x - X_OFFSET) / PIECES_X_DISTANCE + 1;
+			int board_column = (event.button.y - Y_OFFSET) / PIECES_Y_DISTANCE + 1;
+			board_column = 9 - board_column;
+			board_column = (board_column < 1) ? 8 : board_column;
+
+			std::cout << board_row << " " << board_column << std::endl;
+		}
+		break;
 	default:
 		break;
 	}
