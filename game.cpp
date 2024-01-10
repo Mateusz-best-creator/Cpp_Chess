@@ -24,11 +24,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 			std::cout << "Renderer properly created..." << std::endl;
 		}
-
-
 		isRunning = true;
 	}
 	else
@@ -36,6 +34,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 	board = std::make_unique<Board>("ChessPieces/board.png", renderer);
+	interface = std::make_unique<Interface>();
 }
 
 void Game::handleEvents()
@@ -74,6 +73,7 @@ void Game::handleEvents()
 void Game::update()
 {
 	board->update();
+	interface->printInterface();
 }
 
 /*

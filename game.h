@@ -1,6 +1,7 @@
 #pragma once
 
 #include "board.h"
+#include "interface.h"
 
 class Game
 {
@@ -13,6 +14,7 @@ private:
 	enum class flags { FULLSCREEN = 0 };
 
 	std::unique_ptr<Board> board;
+	std::unique_ptr<Interface> interface;
 
 public:
 	Game();

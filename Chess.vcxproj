@@ -136,6 +136,7 @@
     <ClCompile Include="bishop.cpp" />
     <ClCompile Include="board.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="interface.cpp" />
     <ClCompile Include="king.cpp" />
     <ClCompile Include="knight.cpp" />
     <ClCompile Include="mainLoop.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="bishop.h" />
     <ClInclude Include="board.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="interface.h" />
     <ClInclude Include="king.h" />
     <ClInclude Include="knight.h" />
     <ClInclude Include="pawn.h" />

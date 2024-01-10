@@ -1,7 +1,4 @@
-#include <iostream>
 #include "game.h"
-
-const int SCREEN_HEIGHT = 600, SCREEN_WIDTH = 1200;
 
 int main(int argc, char* argv[])
 {
