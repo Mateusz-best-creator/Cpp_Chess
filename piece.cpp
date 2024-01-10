@@ -1,13 +1,11 @@
 #include "piece.h"
 #include "textureManager.h"
 
-Piece::Piece(const char* filename, SDL_Renderer* ren, int x, int y, int bRow, int bColumn, char c)
+Piece::Piece(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char c)
 {
 	renderer = ren;
 	objectTexture = TextureManager::LoadTexture(filename, ren);
 
-	xPosition = x;
-	yPosition = y;
 	boardRow = bRow;
 	boardColumn = bColumn;
 	color = c;
@@ -15,8 +13,16 @@ Piece::Piece(const char* filename, SDL_Renderer* ren, int x, int y, int bRow, in
 
 Piece::~Piece() {}
 
+void Piece::calculateXY()
+{
+	xPosition = 310 + 53 + boardColumn * PIECES_X_DISTANCE;
+	yPosition = 536 - (35 - 67 + boardRow * PIECES_Y_DISTANCE);
+}
+
 void Piece::update()
 {
+	calculateXY();
+
 	sourceRect.h = PIECE_HEIGHT;
 	sourceRect.w = PIECE_WIDTH;
 	sourceRect.x = 0;

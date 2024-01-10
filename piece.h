@@ -16,9 +16,10 @@ protected:
 	SDL_Renderer* renderer;
 
 public:
-	Piece(const char* filename, SDL_Renderer* ren, int x, int y, int bRow, int bColumn, char c);
+	Piece(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char c);
 	virtual ~Piece() = 0;
-
+	
+	void calculateXY();
 	void update();
 	void render();
 

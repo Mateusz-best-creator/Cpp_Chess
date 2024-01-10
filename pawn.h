@@ -12,7 +12,7 @@ private:
 	const char pawn_filename_black[30] = "ChessPieces/Chess_pdt60.png";
 
 public:
-	Pawn(const char* filename, SDL_Renderer* ren, int x, int y, int bRow, int bColumn, char c);
+	Pawn(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char c);
 	~Pawn();
 
 	void move();

@@ -7,23 +7,28 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	renderer = ren;
 	boardTexture = TextureManager::LoadTexture(filename, renderer);
 
-	for (size_t i = 0; i < WIDTH; i++)
+	int boardR = 0;
+
+	for (int i = 0; i < WIDTH; i++)
 	{
-		for (size_t j = 0; j < HEIGHT; j++)
+		// Get current row on board
+		boardR = 8 - i;
+
+		for (int j = 0; j < HEIGHT; j++)
 		{
 			if (colors[i][j] == 'e')
 				continue;
 			char filename[30];
-
 			switch (board[i][j]) 
 			{
 			case PAWN:
-				if (colors[i][j] == 'w') 
+
+				if (colors[i][j] == 'w')
 					pieces.push_back(std::make_unique<Pawn>
-						("ChessPieces/Chess_plt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 1, 'w'));
+						("ChessPieces/Chess_plt60.png", renderer, boardR, j + 1, 'w'));
 				else
 					pieces.push_back(std::make_unique<Pawn>
-						("ChessPieces/Chess_pdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 1, 'b'));
+						("ChessPieces/Chess_pdt60.png", renderer, boardR, j + 1, 'b'));
 				break;
 			case ROOK:
 				/*
