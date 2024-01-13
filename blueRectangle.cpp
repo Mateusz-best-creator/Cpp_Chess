@@ -1,25 +1,24 @@
-#include "piece.h"
+#include "blueRectangle.h"
 #include "textureManager.h"
 
-Piece::Piece(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char c)
+BlueRectangle::BlueRectangle(const char* filename, SDL_Renderer* ren, int bRow, int bColumn)
 {
 	renderer = ren;
 	objectTexture = TextureManager::LoadTexture(filename, ren);
 
 	boardRow = bRow;
 	boardColumn = bColumn;
-	color = c;
 }
 
-Piece::~Piece() {}
+BlueRectangle::~BlueRectangle() {}
 
-void Piece::calculateXY()
+void BlueRectangle::calculateXY()
 {
-	xPosition = boardColumn * PIECES_X_DISTANCE - 36;
-	yPosition = 35 - 67 + boardRow * PIECES_Y_DISTANCE;
+	xPosition = 300 + 53 + boardColumn * PIECES_X_DISTANCE;
+	yPosition = 539 - (35 - 67 + boardRow * PIECES_Y_DISTANCE);
 }
 
-void Piece::update()
+void BlueRectangle::update()
 {
 	calculateXY();
 
@@ -28,13 +27,13 @@ void Piece::update()
 	sourceRect.x = 0;
 	sourceRect.y = 0;
 
-	destinationRect.x = xPosition; 
+	destinationRect.x = xPosition;
 	destinationRect.y = yPosition;
 	destinationRect.w = sourceRect.w;
 	destinationRect.h = sourceRect.h;
 }
 
-void Piece::render()
+void BlueRectangle::render()
 {
 	SDL_RenderCopy(renderer, objectTexture, &sourceRect, &destinationRect);
 }

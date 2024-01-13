@@ -1,7 +1,8 @@
 #pragma once
 
 #include "board.h"
-#include "interface.h"
+
+const int SCREEN_WIDTH = 800, SCREEN_HEIGHT = 600;
 
 class Game
 {
@@ -9,12 +10,15 @@ private:
 	bool isRunning;
 	SDL_Window* window;
 	SDL_Renderer* renderer;
+	int choosenRow, choosenColumn;
 
 	// Define flags
 	enum class flags { FULLSCREEN = 0 };
 
 	std::unique_ptr<Board> board;
-	std::unique_ptr<Interface> interface;
+
+	// These variables will indicate if player arleady choosen a piece to move or is currently choosing
+	bool choosingPiece, movingPiece;
 
 public:
 	Game();

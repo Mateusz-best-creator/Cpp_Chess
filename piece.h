@@ -7,19 +7,20 @@ const int PIECE_HEIGHT = 64, PIECE_WIDTH = 64;
 
 class Piece
 {
-protected:
-	int xPosition, yPosition, boardRow, boardColumn;
-	char color;
-
+private:
 	SDL_Texture* objectTexture;
 	SDL_Rect sourceRect, destinationRect;
 	SDL_Renderer* renderer;
+
+protected:
+	int xPosition, yPosition, boardRow, boardColumn;
+	char color;
 
 public:
 	Piece(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char c);
 	virtual ~Piece() = 0;
 	
-	void calculateXY();
+	virtual void calculateXY();
 	void update();
 	void render();
 

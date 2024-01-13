@@ -2,6 +2,12 @@
 
 Game::Game()
 {
+	choosenRow = choosenColumn = 0;
+	isRunning = false;
+	window = nullptr;
+	renderer = nullptr;
+	choosingPiece = true;
+	movingPiece = false;
 }
 
 Game::~Game() {}
@@ -34,7 +40,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 	board = std::make_unique<Board>("ChessPieces/board.png", renderer);
-	interface = std::make_unique<Interface>();
 }
 
 void Game::handleEvents()
@@ -56,13 +61,21 @@ void Game::handleEvents()
 	case SDL_MOUSEBUTTONDOWN:
 		if (event.button.button == SDL_BUTTON_LEFT) 
 		{
+			int xValue = event.button.x;
+			int yValue = event.button.y;
+			if (xValue < 400 + X_OFFSET || xValue > SCREEN_WIDTH - X_OFFSET || yValue < Y_OFFSET || yValue > SCREEN_HEIGHT - Y_OFFSET)
+				break;
+			
 			std::cout << event.button.x << " " << event.button.y << std::endl;
-			int board_row = (event.button.x - X_OFFSET) / PIECES_X_DISTANCE + 1;
-			int board_column = (event.button.y - Y_OFFSET) / PIECES_Y_DISTANCE + 1;
-			board_column = 9 - board_column;
-			board_column = (board_column < 1) ? 8 : board_column;
+			int boardColumn = (xValue - X_OFFSET) / PIECES_X_DISTANCE - 3;
+			int boardRow = (yValue - Y_OFFSET) / PIECES_Y_DISTANCE + 1;
 
-			std::cout << board_row << " " << board_column << std::endl;
+			boardRow = 9 - boardRow;
+			boardRow = (boardRow < 1) ? 8 : boardRow;
+			choosenRow = boardRow;
+			choosenColumn = boardColumn;
+
+			std::cout << "ROWS and COLS: " << choosenRow << " " << choosenColumn << std::endl;
 		}
 		break;
 	default:
@@ -73,7 +86,6 @@ void Game::handleEvents()
 void Game::update()
 {
 	board->update();
-	interface->printInterface();
 }
 
 /*

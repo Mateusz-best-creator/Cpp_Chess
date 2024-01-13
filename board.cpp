@@ -6,16 +6,19 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 {
 	renderer = ren;
 	boardTexture = TextureManager::LoadTexture(filename, renderer);
+	blueRectangleTexture = TextureManager::LoadTexture("ChesPieces/blue.png", renderer);
 
 	int boardR = 0;
 
-	for (int i = 0; i < WIDTH; i++)
+	for (int i = 0; i < HEIGHT; i++)
 	{
 		// Get current row on board
 		boardR = 8 - i;
 
-		for (int j = 0; j < HEIGHT; j++)
+		for (int j = 0; j < WIDTH; j++)
 		{
+			rectangles.push_back(std::make_unique<BlueRectangle>("ChessPieces/blue.png", renderer, boardR, j+1));
+
 			if (colors[i][j] == 'e')
 				continue;
 			char filename[30];
@@ -94,13 +97,24 @@ void Board::update()
 	sourceRect.x = 0;
 	sourceRect.y = 0;
 
-	destinationRect.x = 400;
+	destinationRect.x = 0;
 	destinationRect.y = 0;
 	destinationRect.w = sourceRect.w;
 	destinationRect.h = sourceRect.h;
 	for (size_t i = 0; i < pieces.size(); i++)
 	{
 		pieces[i]->update();
+	}
+
+	int counter = 0;
+	for (size_t i = 0; i < HEIGHT; i++)
+	{
+		for (size_t j = 0; j < WIDTH; j++)
+		{
+			if (blueRectanglesBoard[i][j] != 'e')
+				rectangles[counter]->update();
+			counter++;
+		}
 	}
 }
 
@@ -112,4 +126,37 @@ void Board::render()
 	// Render all the pieces
 	for (size_t i = 0; i < pieces.size(); i++)
 		pieces[i]->render();
+	int counter = 0;
+	for (size_t i = 0; i < HEIGHT; i++)
+	{
+		for (size_t j = 0; j < WIDTH; j++)
+		{
+			if (blueRectanglesBoard[i][j] != 'e')
+				rectangles[counter]->render();
+			counter++;
+		}
+	}
+}
+
+void Board::choosingPiece(int row, int column)
+{
+	int pieceType = board[row][column];
+	if (pieceType == NONE)
+		return;
+
+	switch (pieceType)
+	{
+	case PAWN:
+		if (colors[row][column] == 'w')
+		{
+
+		}
+		else
+		{
+
+		}
+		break;
+	default:
+		break;
+	}
 }

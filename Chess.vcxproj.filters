@@ -54,7 +54,7 @@
     <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="interface.cpp">
+    <ClCompile Include="blueRectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,7 +89,7 @@
     <ClInclude Include="queen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="interface.h">
+    <ClInclude Include="blueRectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
