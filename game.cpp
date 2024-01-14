@@ -42,7 +42,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	board = std::make_unique<Board>("ChessPieces/board.png", renderer);
 }
 
-void Game::handleEvents()
+bool Game::handleEvents()
 {
 	SDL_Event event;
 	SDL_PollEvent(&event);
@@ -51,20 +51,20 @@ void Game::handleEvents()
 	{
 	case SDL_QUIT:
 		isRunning = false;
-		break;
+		return true;
 	case SDL_KEYDOWN:
 		if (event.key.keysym.sym == SDLK_ESCAPE)
 		{
 			isRunning = false;
 		}
-		break;
+		return true;
 	case SDL_MOUSEBUTTONDOWN:
 		if (event.button.button == SDL_BUTTON_LEFT) 
 		{
 			int xValue = event.button.x;
 			int yValue = event.button.y;
 			if (xValue < X_OFFSET || xValue > SCREEN_WIDTH - X_OFFSET || yValue < Y_OFFSET || yValue > SCREEN_HEIGHT - Y_OFFSET)
-				break;
+				return false;
 			
 			std::cout << event.button.x << " " << event.button.y << std::endl;
 			int boardColumn = (xValue - X_OFFSET) / PIECES_X_DISTANCE + 1;
@@ -86,10 +86,11 @@ void Game::handleEvents()
 				e.message();
 			}
 		}
-		break;
+		return true;
 	default:
-		break;
+		return false;
 	}
+	return false;
 }
 
 void Game::update()

@@ -7,6 +7,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	renderer = ren;
 	boardTexture = TextureManager::LoadTexture(filename, renderer);
 	blueRectangleTexture = TextureManager::LoadTexture("ChesPieces/blue.png", renderer);
+	movingPieceType = NONE;
 
 	int boardR = 0;
 	pieces.clear();
@@ -167,6 +168,19 @@ void Board::movingPiece(int row, int column)
 	{
 	case PAWN:
 		// Check if the move from fromRow, fromCol to toRow, toCol is valid for a pawn
+		for (size_t i = 0; i < pieces.size(); i++)
+		{
+			Pawn* ptr;
+			if (ptr = dynamic_cast<Pawn*>(pieces[i].get()))
+				if (!ptr->move(fromRow, fromCol, toRow, toCol, board, colors))
+				{
+					std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << std::endl;
+					fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
+					return;
+				}
+				else
+					break;
+		}
 		board[fromRow][fromCol] = NONE;
 		board[toRow][toCol] = PAWN;
 

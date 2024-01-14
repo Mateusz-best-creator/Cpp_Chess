@@ -7,4 +7,5 @@ class MainLoop
 public:
 	static void runChessGame();
 };
+
 */

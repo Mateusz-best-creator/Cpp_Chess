@@ -21,9 +21,11 @@ const int X_OFFSET = 42, Y_OFFSET = 29;
 
 class Board
 {
-private:
+protected:
 	enum colors : int { WHITE, BLACK, EMPTY };
 	enum pieces_types : int { NONE = 0, ROOK, KNIGHT, BISHOP, KING, QUEEN, PAWN = 6 };
+
+private:
 	int board[HEIGHT][WIDTH] =
 	{
 		{1, 2, 3, 5, 4, 3, 2, 1},
@@ -35,16 +37,16 @@ private:
 		{6, 6, 6, 6, 6, 6, 6, 6},
 		{1, 2, 3, 5, 4, 3, 2, 1}
 	};
-	std::string colors[HEIGHT] =
+	char colors[HEIGHT][WIDTH] =
 	{
-		"wwwwwwww",
-		"wwwwwwww",
-		"eeeeeeee",
-		"eeeeeeee",
-		"eeeeeeee",
-		"eeeeeeee",
-		"bbbbbbbb",
-		"bbbbbbbb"
+		{'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+		{'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
+		{'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'},
+		{'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'}
 	};
 	char blueRectanglesBoard[HEIGHT][WIDTH] =
 	{
@@ -63,7 +65,7 @@ private:
 	SDL_Rect sourceRect, destinationRect;
 
 	std::vector<std::unique_ptr<BlueRectangle>> rectangles;
-	std::vector<std::unique_ptr<Piece>> pieces;
+	std::vector<std::unique_ptr<Piece>> pieces; // Polymorphism
 
 	int fromRow, fromCol;
 	int toRow, toCol;

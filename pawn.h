@@ -1,6 +1,7 @@
 #pragma once
 
 #include "piece.h"
+#include <string>
 
 class Pawn : public Piece
 {
@@ -15,5 +16,5 @@ public:
 	Pawn(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char c);
 	~Pawn();
 
-	virtual void move(int fromRow, int fromCol, int toRow, int toCol, int* board[]) override;
+	virtual bool move(int fromRow, int fromCol, int toRow, int toCol, int board[][8], char colors[][8]) override;
 };

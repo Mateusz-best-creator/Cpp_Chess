@@ -38,3 +38,10 @@ void Piece::render()
 {
 	SDL_RenderCopy(renderer, objectTexture, &sourceRect, &destinationRect);
 }
+
+int Piece::absoluteValue(int a, int b)
+{
+	if (a - b < 0)
+		return b - a;
+	return a - b;
+}

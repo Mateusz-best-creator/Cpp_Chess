@@ -23,9 +23,10 @@ public:
 	virtual void calculateXY();
 	void update();
 	void render();
+	int absoluteValue(int a, int b);
 
 	int getX() { return xPosition; }
 	int getY() { return yPosition; }
 
-	virtual void move(int fromRow, int fromCol, int toRow, int toCol, int* board[]) = 0;
+	virtual bool move(int fromRow, int fromCol, int toRow, int toCol, int board[][8], char colors[][8]) = 0;
 };

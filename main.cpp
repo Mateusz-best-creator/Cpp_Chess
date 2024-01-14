@@ -7,6 +7,7 @@ int main(int argc, char* argv[])
 
 	Uint32 frameStart;
 	int frameTime;
+	bool initial = true;
 
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
 	{
@@ -22,9 +23,13 @@ int main(int argc, char* argv[])
 	{
 		frameStart = SDL_GetTicks();
 
-		game->handleEvents();
-		game->update();
-		game->render();
+		// Only if user did something, update() and then render()
+		if (game->handleEvents() || initial)
+		{
+			game->update();
+			game->render();
+			initial = false;
+		}
 
 		frameTime = SDL_GetTicks() - frameStart;
 		if (frameDelay > frameTime)
