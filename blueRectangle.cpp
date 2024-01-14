@@ -3,6 +3,7 @@
 
 BlueRectangle::BlueRectangle(const char* filename, SDL_Renderer* ren, int bRow, int bColumn)
 {
+	xPosition = yPosition = 0;
 	renderer = ren;
 	objectTexture = TextureManager::LoadTexture(filename, ren);
 
@@ -14,16 +15,15 @@ BlueRectangle::~BlueRectangle() {}
 
 void BlueRectangle::calculateXY()
 {
-	xPosition = 300 + 53 + boardColumn * PIECES_X_DISTANCE;
-	yPosition = 539 - (35 - 67 + boardRow * PIECES_Y_DISTANCE);
+	xPosition = boardColumn * PIECES_X_DISTANCE - 48;
+	yPosition = 595 - Y_OFFSET - boardRow * PIECES_Y_DISTANCE;
 }
 
 void BlueRectangle::update()
 {
 	calculateXY();
-
-	sourceRect.h = PIECE_HEIGHT;
-	sourceRect.w = PIECE_WIDTH;
+	sourceRect.h = 68;
+	sourceRect.w = 90;
 	sourceRect.x = 0;
 	sourceRect.y = 0;
 

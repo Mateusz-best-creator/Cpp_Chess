@@ -11,6 +11,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 
 	int boardR = 0;
 	pieces.clear();
+	rectangles.clear();
 
 	for (int i = 0; i < HEIGHT; i++)
 	{
@@ -19,7 +20,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 
 		for (int j = 0; j < WIDTH; j++)
 		{
-			rectangles.push_back(std::make_unique<BlueRectangle>("ChessPieces/blue.png", renderer, boardR, j));
+			rectangles.push_back(std::make_unique<BlueRectangle>("ChessPieces/blue.png", renderer, i + 1, j + 1));
 
 			if (colors[i][j] == 'e')
 				continue;
@@ -58,6 +59,18 @@ void Board::update()
 	{
 		pieces[i]->update();
 	}
+	int counter = 0;
+	for (size_t i = 0; i < HEIGHT; i++)
+	{
+		for (size_t j = 0; j < WIDTH; j++)
+		{
+			if (blueRectanglesBoard[i][j] != 'e')
+			{
+				rectangles[counter]->update();
+			}
+			counter++;
+		}
+	}
 }
 
 void Board::render()
@@ -68,6 +81,18 @@ void Board::render()
 	// Render all the pieces
 	for (size_t i = 0; i < pieces.size(); i++)
 		pieces[i]->render();
+	int counter = 0;
+	for (size_t i = 0; i < HEIGHT; i++)
+	{
+		for (size_t j = 0; j < WIDTH; j++)
+		{
+			if (blueRectanglesBoard[i][j] != 'e')
+			{
+				rectangles[counter]->render();
+			}
+			counter++;
+		}
+	}
 }
 
 void Board::addPieces(int i, int j, int boardR)
@@ -183,6 +208,7 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 		{
 			Pawn* ptr;
 			if (ptr = dynamic_cast<Pawn*>(pieces[i].get()))
+			{
 				if (!ptr->move(fromRow, fromCol, toRow, toCol, board, colors))
 				{
 					std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << std::endl;
@@ -191,6 +217,7 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 				}
 				else
 					break;
+			}
 		}
 		board[fromRow][fromCol] = NONE;
 		board[toRow][toCol] = PAWN;

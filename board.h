@@ -53,7 +53,7 @@ private:
 		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
-		{'b', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
@@ -80,6 +80,5 @@ public:
 	void render();
 	void update();
 	void addPieces(int i, int j, int boardR);
-	void updatePiece(int initRow, int initColumn, int destRow, int destColumn) {} // Not implemented yet
 	void movingPiece(int row, int column, int& playerIndex);
 };

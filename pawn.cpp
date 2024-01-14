@@ -42,3 +42,8 @@ bool Pawn::move(int fromRow, int fromCol, int toRow, int toCol, int board[][WIDT
 	}
 	return true;
 }
+
+void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8])
+{
+
+}
