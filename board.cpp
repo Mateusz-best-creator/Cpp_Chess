@@ -28,6 +28,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 		}
 	}
 	fromRow = fromCol = toRow = toCol = -1;
+	// Create seperate instance of each pawn for simplicity
 	pawn = std::make_unique<Pawn>("ChessPieces/Chess_plt60.png", renderer,1,1,'w');
 }
 
@@ -193,12 +194,7 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	if (fromRow < 0 || toRow < 0 || fromRow > 7 || toCol > 7)
 		throw InvalidIndexException(fromRow, fromCol, toRow, toCol);
 
-	if (colors[fromRow][fromCol] == 'w' && playerIndex == 2)
-	{
-		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
-		return;
-	}
-	else if (colors[fromRow][fromCol] == 'b' && playerIndex == 1)
+	if ((colors[fromRow][fromCol] == 'w' && playerIndex == 2) || (colors[fromRow][fromCol] == 'b' && playerIndex == 1))
 	{
 		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
 		return;

@@ -15,8 +15,8 @@ BlueRectangle::~BlueRectangle() {}
 
 void BlueRectangle::calculateXY()
 {
-	xPosition = boardColumn * PIECES_X_DISTANCE - 48;
-	yPosition = 595 - Y_OFFSET - boardRow * PIECES_Y_DISTANCE;
+	xPosition = (boardColumn - 1) * (PIECES_X_DISTANCE - 1) + 44;
+	yPosition = 600 - 33 - boardRow * PIECES_Y_DISTANCE;
 }
 
 void BlueRectangle::update()

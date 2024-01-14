@@ -58,6 +58,13 @@ void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 	}
 	else if (colors[fromRow][fromCol] == 'b')
 	{
-
+		if (board[fromRow - 2][fromCol] == 0 && fromRow == 6)
+			blueRectangles[fromRow - 2][fromCol] = 'w';
+		if (board[fromRow - 1][fromCol] == 0)
+			blueRectangles[fromRow - 1][fromCol] = 'w';
+		if (board[fromRow - 1][fromCol + 1] == 6 && colors[fromRow - 1][fromCol + 1] == 'w')
+			blueRectangles[fromRow - 1][fromCol + 1] = 'w';
+		if (board[fromRow - 1][fromCol - 1] == 6 && colors[fromRow - 1][fromCol - 1] == 'w')
+			blueRectangles[fromRow - 1][fromCol - 1] = 'w';
 	}
 }
