@@ -1,6 +1,7 @@
 #include "pawn.h"
 #include "textureManager.h"
 #include <iostream>
+
 Pawn::Pawn(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char c)
 	: Piece(filename, ren, bRow, bColumn, c)
 {}
@@ -9,7 +10,7 @@ Pawn::~Pawn() {}
 
 static int previousRow, previousCol;
 
-bool Pawn::move(int fromRow, int fromCol, int toRow, int toCol, int board[][WIDTH], char colors[][WIDTH], char blueRectangles[][8])
+bool Pawn::move(int toRow, int toCol, char blueRectangles[][8])
 {
 	return blueRectangles[toRow][toCol] == BLUE_RECTANGLE;
 }
@@ -39,3 +40,4 @@ void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 			blueRectangles[fromRow - 1][fromCol - 1] = BLUE_RECTANGLE;
 	}
 }
+

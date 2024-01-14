@@ -1,13 +1,14 @@
 #include "rook.h"
 #include "game.h"
 #include <iostream>
+
 Rook::Rook(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c)
 	: Piece(filename, ren, bRow, bCol, c)
 {}
 
 Rook::~Rook() {}
 
-bool Rook::move(int fromRow, int fromCol, int toRow, int toCol, int board[][8], char colors[][8], char blueRectangles[][8])
+bool Rook::move(int toRow, int toCol, char blueRectangles[][8])
 {
 	return blueRectangles[toRow][toCol] == BLUE_RECTANGLE;
 }

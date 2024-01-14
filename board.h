@@ -66,8 +66,8 @@ private:
 
 	std::vector<std::unique_ptr<BlueRectangle>> rectangles;
 	std::vector<std::unique_ptr<Piece>> pieces; // Polymorphism
-	std::unique_ptr<Pawn> pawn;
-	std::unique_ptr<Rook> rook;
+	std::shared_ptr<Pawn> pawn;
+	std::shared_ptr<Rook> rook;
 
 	int fromRow, fromCol;
 	int toRow, toCol;
@@ -86,6 +86,5 @@ public:
 
 	// Functions for updating pieces
 	bool updatePieces();
-	bool updatePawn();
-	bool updateRook();
+	bool updatePiece(std::shared_ptr<Piece> piece);
 };

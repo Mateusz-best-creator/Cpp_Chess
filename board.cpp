@@ -1,6 +1,7 @@
 #include "board.h"
 #include "textureManager.h"
 #include <cstring>
+#include <typeinfo>
 
 // Helper function
 void resetBlueRectanglesBoard(char blueRectanglesBoard[][WIDTH])
@@ -38,8 +39,8 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	}
 	fromRow = fromCol = toRow = toCol = -1;
 	// Create seperate instance of each pawn for simplicity
-	pawn = std::make_unique<Pawn>("ChessPieces/Chess_plt60.png", renderer, 1, 1, WHITE);
-	rook = std::make_unique<Rook>("ChessPieces/Chess_rlt60.png", renderer, 1, 1, WHITE);
+	pawn = std::make_shared<Pawn>("ChessPieces/Chess_plt60.png", renderer, 1, 1, WHITE);
+	rook = std::make_shared<Rook>("ChessPieces/Chess_rlt60.png", renderer, 1, 1, WHITE);
 }
 
 Board::~Board() {}
@@ -224,11 +225,11 @@ bool Board::updatePieces()
 	switch (movingPieceType)
 	{
 	case PAWN:
-		if (!updatePawn())
+		if (!updatePiece(pawn))
 			return false;
 		break;
 	case ROOK:
-		if (!updateRook())
+		if (!updatePiece(rook))
 			return false;
 	default:
 		break;
@@ -247,28 +248,28 @@ bool Board::updatePieces()
 	}
 }
 
-bool Board::updatePawn()
+bool Board::updatePiece(std::shared_ptr<Piece> piece)
 {
-	if (!pawn->move(fromRow, fromCol, toRow, toCol, board, colors, blueRectanglesBoard))
+	if (!piece->move(toRow, toCol, blueRectanglesBoard))
 	{
 		std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << " with pawn" << std::endl;
 		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
 		return false;
 	}
 	board[fromRow][fromCol] = NONE;
-	board[toRow][toCol] = PAWN;
-	return true;
-}
-
-bool Board::updateRook()
-{
-	if (!rook->move(fromRow, fromCol, toRow, toCol, board, colors, blueRectanglesBoard))
-	{
-		std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << " with rook" << std::endl;
-		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
-		return false;
-	}
-	board[fromRow][fromCol] = NONE;
-	board[toRow][toCol] = ROOK;
+	if (typeid(Pawn) == typeid(*piece))
+		board[toRow][toCol] = PAWN;
+	else if (typeid(Rook) == typeid(*piece))
+		board[toRow][toCol] = ROOK;
+	/*
+	else if (typeid(Knight) == typeid(*piece))
+		board[toRow][toCol] = KNIGHT;
+	else if (typeid(Bishop) == typeid(*piece))
+		board[toRow][toCol] = BISHOP;
+	else if (typeid(King) == typeid(*piece))
+		board[toRow][toCol] = KING;
+	else if (typeid(Queen) == typeid(*piece))
+		board[toRow][toCol] = QUEEN;
+	*/
 	return true;
 }
