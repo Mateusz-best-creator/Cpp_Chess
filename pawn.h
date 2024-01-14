@@ -15,6 +15,5 @@ public:
 	Pawn(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char c);
 	~Pawn();
 
-	void move();
-
+	virtual void move(int fromRow, int fromCol, int toRow, int toCol, int* board[]) override;
 };

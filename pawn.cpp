@@ -7,7 +7,7 @@ Pawn::Pawn(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char 
 
 Pawn::~Pawn() {}
 
-void Pawn::move()
+void Pawn::move(int fromRow, int fromCol, int toRow, int toCol, int* board[])
 {
 
 }

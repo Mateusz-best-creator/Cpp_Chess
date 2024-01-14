@@ -9,6 +9,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	blueRectangleTexture = TextureManager::LoadTexture("ChesPieces/blue.png", renderer);
 
 	int boardR = 0;
+	pieces.clear();
 
 	for (int i = 0; i < HEIGHT; i++)
 	{
@@ -17,75 +18,14 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 
 		for (int j = 0; j < WIDTH; j++)
 		{
-			rectangles.push_back(std::make_unique<BlueRectangle>("ChessPieces/blue.png", renderer, boardR, j+1));
+			rectangles.push_back(std::make_unique<BlueRectangle>("ChessPieces/blue.png", renderer, boardR, j));
 
 			if (colors[i][j] == 'e')
 				continue;
-			char filename[30];
-			switch (board[i][j]) 
-			{
-			case PAWN:
-
-				if (colors[i][j] == 'w')
-					pieces.push_back(std::make_unique<Pawn>
-						("ChessPieces/Chess_plt60.png", renderer, boardR, j + 1, 'w'));
-				else
-					pieces.push_back(std::make_unique<Pawn>
-						("ChessPieces/Chess_pdt60.png", renderer, boardR, j + 1, 'b'));
-				break;
-			case ROOK:
-				/*
-				if (colors[i][j] == 'w')
-					pieces.push_back(std::make_unique<Rook>
-						("ChessPieces/Chess_rlt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
-				else
-					pieces.push_back(std::make_unique<Rook>
-						("ChessPieces/Chess_rdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
-						*/
-				break;
-			case KNIGHT:
-				/*
-				if (colors[i][j] == 'w')
-					pieces.push_back(std::make_unique<Knight>
-						("ChessPieces/Chess_nlt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
-				else
-					pieces.push_back(std::make_unique<Knight>
-						("ChessPieces/Chess_ndt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
-						*/
-				break;
-			case BISHOP:
-				/*
-				if (colors[i][j] == 'w')
-					pieces.push_back(std::make_unique<Bishop>
-						("ChessPieces/Chess_blt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
-				else
-					pieces.push_back(std::make_unique<Bishop>
-						("ChessPieces/Chess_bdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
-						*/
-				break;
-			case KING:
-				/*
-				if (colors[i][j] == 'w')
-					pieces.push_back(std::make_unique<King>
-						("ChessPieces/Chess_klt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
-				else
-					pieces.push_back(std::make_unique<King>
-						("ChessPieces/Chess_kdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
-						*/
-				break;
-			case QUEEN:
-				/*
-				if (colors[i][j] == 'w')
-					pieces.push_back(std::make_unique<Queen>
-						("ChessPieces/Chess_qlt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
-				else
-					pieces.push_back(std::make_unique<Queen>
-						("ChessPieces/Chess_qdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
-						*/
-				break;
-			}
+			addPieces(i, j, boardR);
 		}
 	}
+	fromRow = fromCol = toRow = toCol = -1;
 }
 
 Board::~Board() {}
@@ -101,20 +41,21 @@ void Board::update()
 	destinationRect.y = 0;
 	destinationRect.w = sourceRect.w;
 	destinationRect.h = sourceRect.h;
-	for (size_t i = 0; i < pieces.size(); i++)
-	{
-		pieces[i]->update();
-	}
 
-	int counter = 0;
+	pieces.clear();
 	for (size_t i = 0; i < HEIGHT; i++)
 	{
 		for (size_t j = 0; j < WIDTH; j++)
 		{
-			if (blueRectanglesBoard[i][j] != 'e')
-				rectangles[counter]->update();
-			counter++;
+			if (board[i][j] == NONE)
+				continue;
+			addPieces(i, j, 8 - i);
 		}
+	}
+
+	for (size_t i = 0; i < pieces.size(); i++)
+	{
+		pieces[i]->update();
 	}
 }
 
@@ -122,41 +63,124 @@ void Board::render()
 {
 	// Render the board
 	SDL_RenderCopy(renderer, boardTexture, &sourceRect, &destinationRect);
-
+	
 	// Render all the pieces
 	for (size_t i = 0; i < pieces.size(); i++)
 		pieces[i]->render();
-	int counter = 0;
-	for (size_t i = 0; i < HEIGHT; i++)
+}
+
+void Board::addPieces(int i, int j, int boardR)
+{
+	switch (board[i][j])
 	{
-		for (size_t j = 0; j < WIDTH; j++)
-		{
-			if (blueRectanglesBoard[i][j] != 'e')
-				rectangles[counter]->render();
-			counter++;
-		}
+	case PAWN:
+
+		if (colors[i][j] == 'w')
+			pieces.push_back(std::make_unique<Pawn>
+				("ChessPieces/Chess_plt60.png", renderer, boardR, j + 1, 'w'));
+		else
+			pieces.push_back(std::make_unique<Pawn>
+				("ChessPieces/Chess_pdt60.png", renderer, boardR, j + 1, 'b'));
+		break;
+	case ROOK:
+		/*
+		if (colors[i][j] == 'w')
+			pieces.push_back(std::make_unique<Rook>
+				("ChessPieces/Chess_rlt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
+		else
+			pieces.push_back(std::make_unique<Rook>
+				("ChessPieces/Chess_rdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
+				*/
+		break;
+	case KNIGHT:
+		/*
+		if (colors[i][j] == 'w')
+			pieces.push_back(std::make_unique<Knight>
+				("ChessPieces/Chess_nlt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
+		else
+			pieces.push_back(std::make_unique<Knight>
+				("ChessPieces/Chess_ndt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
+				*/
+		break;
+	case BISHOP:
+		/*
+		if (colors[i][j] == 'w')
+			pieces.push_back(std::make_unique<Bishop>
+				("ChessPieces/Chess_blt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
+		else
+			pieces.push_back(std::make_unique<Bishop>
+				("ChessPieces/Chess_bdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
+				*/
+		break;
+	case KING:
+		/*
+		if (colors[i][j] == 'w')
+			pieces.push_back(std::make_unique<King>
+				("ChessPieces/Chess_klt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
+		else
+			pieces.push_back(std::make_unique<King>
+				("ChessPieces/Chess_kdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
+				*/
+		break;
+	case QUEEN:
+		/*
+		if (colors[i][j] == 'w')
+			pieces.push_back(std::make_unique<Queen>
+				("ChessPieces/Chess_qlt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
+		else
+			pieces.push_back(std::make_unique<Queen>
+				("ChessPieces/Chess_qdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
+				*/
+		break;
 	}
 }
 
-void Board::choosingPiece(int row, int column)
+void Board::movingPiece(int row, int column)
 {
-	int pieceType = board[row][column];
-	if (pieceType == NONE)
+	// Subtract one beacuse arrays are indexes from 0 (rows and cols from 1)
+	row--;
+	column--;
+	if (board[row][column] == NONE && (toRow != INITIAL_VALUE && toCol != INITIAL_VALUE))
+		return;
+	else if (fromRow == INITIAL_VALUE && fromCol == INITIAL_VALUE)
+		movingPieceType = board[row][column];
+	if (movingPieceType == NONE)
 		return;
 
-	switch (pieceType)
+	if (fromRow == INITIAL_VALUE && fromCol == INITIAL_VALUE)
+	{
+		fromRow = row;
+		fromCol = column;
+		// Display blue rectangles
+		return;
+	}
+	else
+	{
+		toRow = row;
+		toCol = column;
+	}
+	switch (movingPieceType)
 	{
 	case PAWN:
-		if (colors[row][column] == 'w')
-		{
+		// Check if the move from fromRow, fromCol to toRow, toCol is valid for a pawn
+		board[fromRow][fromCol] = NONE;
+		board[toRow][toCol] = PAWN;
 
-		}
-		else
+		if (colors[fromRow][fromCol] == 'w') // white
 		{
-
+			colors[fromRow][fromCol] = 'e';
+			colors[toRow][toCol] = 'w';
 		}
+
+		else if (colors[fromRow][fromCol] == 'b') // black
+		{
+			colors[fromRow][fromCol] = 'e';
+			colors[toRow][toCol] = 'b';
+		}
+
 		break;
 	default:
 		break;
 	}
+	fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
 }

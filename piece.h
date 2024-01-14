@@ -27,5 +27,5 @@ public:
 	int getX() { return xPosition; }
 	int getY() { return yPosition; }
 
-	virtual void move() = 0;
+	virtual void move(int fromRow, int fromCol, int toRow, int toCol, int* board[]) = 0;
 };

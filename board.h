@@ -12,6 +12,7 @@
 #include <vector>
 #include <memory>
 #include <iostream>
+#include <string>
 
 const int HEIGHT = 8, WIDTH = 8, INITIAL_PIECES_NUMBER = 32;
 const int PIECES_X_DISTANCE = 90, PIECES_Y_DISTANCE = 67;
@@ -27,22 +28,22 @@ private:
 		{1, 2, 3, 5, 4, 3, 2, 1},
 		{6, 6, 6, 6, 6, 6, 6, 6},
 		{0, 0, 0, 0, 0, 0, 0, 0},
-		{0, 0, 0, 6, 6, 0, 0, 0},
-		{0, 0, 0, 0, 0, 0, 6, 6},
+		{0, 0, 0, 0, 0, 0, 0, 0},
+		{0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{6, 6, 6, 6, 6, 6, 6, 6},
 		{1, 2, 3, 5, 4, 3, 2, 1}
 	};
-	char colors[HEIGHT][WIDTH] =
+	std::string colors[HEIGHT] =
 	{
-		{'w', 'w', 'w', 'w', 'w', 'w' , 'w', 'w'},
-		{'w', 'w', 'w', 'w', 'w', 'w' , 'w', 'w'},
-		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
-		{'e', 'e', 'e', 'b', 'w', 'e' , 'e', 'e'},
-		{'e', 'e', 'e', 'e', 'e', 'e' , 'w', 'w'},
-		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
-		{'b', 'b', 'b', 'b', 'b', 'b' , 'b', 'b'},
-		{'b', 'b', 'b', 'b', 'b', 'b' , 'b', 'b'},
+		"wwwwwwww",
+		"wwwwwwww",
+		"eeeeeeee",
+		"eeeeeeee",
+		"eeeeeeee",
+		"eeeeeeee",
+		"bbbbbbbb",
+		"bbbbbbbb"
 	};
 	char blueRectanglesBoard[HEIGHT][WIDTH] =
 	{
@@ -62,6 +63,11 @@ private:
 
 	std::vector<std::unique_ptr<BlueRectangle>> rectangles;
 	std::vector<std::unique_ptr<Piece>> pieces;
+
+	int fromRow, fromCol;
+	int toRow, toCol;
+	int movingPieceType;
+	enum { INITIAL_VALUE = -1 };
 	
 
 public:
@@ -70,6 +76,7 @@ public:
 
 	void render();
 	void update();
+	void addPieces(int i, int j, int boardR);
 	void updatePiece(int initRow, int initColumn, int destRow, int destColumn) {} // Not implemented yet
-	void choosingPiece(int row, int column);
+	void movingPiece(int row, int column);
 };
