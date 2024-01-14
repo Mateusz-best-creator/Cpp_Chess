@@ -159,6 +159,10 @@ void Board::movingPiece(int row, int column)
 		toRow = row;
 		toCol = column;
 	}
+
+	if (fromRow < 0 || toRow < 0 || fromRow > 7 || toCol > 7)
+		throw InvalidIndexException(fromRow, fromCol, toRow, toCol);
+
 	switch (movingPieceType)
 	{
 	case PAWN:

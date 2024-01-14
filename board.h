@@ -8,6 +8,7 @@
 #include "king.h"
 #include "queen.h"
 #include "blueRectangle.h"
+#include "errorsObjects.h"
 
 #include <vector>
 #include <memory>

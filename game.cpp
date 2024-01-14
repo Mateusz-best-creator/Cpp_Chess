@@ -76,7 +76,15 @@ void Game::handleEvents()
 			choosenColumn = boardColumn;
 
 			std::cout << "ROWS and COLS: " << choosenRow << " " << choosenColumn << std::endl;
-			board->movingPiece(choosenRow, choosenColumn);
+			try
+			{
+				board->movingPiece(choosenRow, choosenColumn);
+			}
+			catch (InvalidIndexException& e)
+			{
+				std::cout << e.what();
+				e.message();
+			}
 		}
 		break;
 	default:
