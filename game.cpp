@@ -6,8 +6,7 @@ Game::Game()
 	isRunning = false;
 	window = nullptr;
 	renderer = nullptr;
-	choosingPiece = true;
-	movingPiece = false;
+	playerIndex = 1; // white pieces starts
 }
 
 Game::~Game() {}
@@ -78,7 +77,7 @@ bool Game::handleEvents()
 			std::cout << "ROWS and COLS: " << choosenRow << " " << choosenColumn << std::endl;
 			try
 			{
-				board->movingPiece(choosenRow, choosenColumn);
+				board->movingPiece(choosenRow, choosenColumn, playerIndex);
 			}
 			catch (InvalidIndexException& e)
 			{

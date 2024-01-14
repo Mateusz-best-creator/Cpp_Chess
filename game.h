@@ -16,9 +16,7 @@ private:
 	enum class flags { FULLSCREEN = 0 };
 
 	std::unique_ptr<Board> board;
-
-	// These variables will indicate if player arleady choosen a piece to move or is currently choosing
-	bool choosingPiece, movingPiece;
+	int playerIndex;
 
 public:
 	Game();

@@ -136,7 +136,7 @@ void Board::addPieces(int i, int j, int boardR)
 	}
 }
 
-void Board::movingPiece(int row, int column)
+void Board::movingPiece(int row, int column, int& playerIndex)
 {
 	// Subtract one beacuse arrays are indexes from 0 (rows and cols from 1)
 	row--;
@@ -163,6 +163,17 @@ void Board::movingPiece(int row, int column)
 
 	if (fromRow < 0 || toRow < 0 || fromRow > 7 || toCol > 7)
 		throw InvalidIndexException(fromRow, fromCol, toRow, toCol);
+
+	if (colors[fromRow][fromCol] == 'w' && playerIndex == 2)
+	{
+		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
+		return;
+	}
+	else if (colors[fromRow][fromCol] == 'b' && playerIndex == 1)
+	{
+		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
+		return;
+	}
 
 	switch (movingPieceType)
 	{
@@ -201,4 +212,5 @@ void Board::movingPiece(int row, int column)
 		break;
 	}
 	fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
+	playerIndex = (playerIndex == 1) ? 2 : 1;
 }
