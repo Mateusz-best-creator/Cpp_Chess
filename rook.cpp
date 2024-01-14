@@ -1,4 +1,5 @@
 #include "rook.h"
+#include "game.h"
 #include <iostream>
 Rook::Rook(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c)
 	: Piece(filename, ren, bRow, bCol, c)
@@ -6,50 +7,70 @@ Rook::Rook(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c)
 
 Rook::~Rook() {}
 
-bool Rook::move(int fromRow, int fromCol, int toRow, int toCol, int board[][8], char colors[][8])
+bool Rook::move(int fromRow, int fromCol, int toRow, int toCol, int board[][8], char colors[][8], char blueRectangles[][8])
 {
-	return true;
+	return blueRectangles[toRow][toCol] == BLUE_RECTANGLE;
 }
 
 void Rook::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8])
 {
-	std::cout << "HALOO" << std::endl;
-	if (colors[fromRow][fromCol] == 'w')
+	std::cout << fromRow << " " << fromCol << std::endl;
+	if (colors[fromRow][fromCol] == WHITE)
 	{
-		// Upper and lower checks
-		for (size_t i = fromRow + 1; i < 8; i++)
+		size_t i;
+		for (i = fromRow + 1; i < 8; i++)
 		{
-			if (colors[i][fromCol] == 'e' || colors[i][fromCol] == 'b')
+			if (colors[i][fromCol] == EMPTY)
+				blueRectangles[i][fromCol] = BLUE_RECTANGLE;
+			else if (colors[i][fromCol] == BLACK)
 			{
-				blueRectangles[fromRow][i] = 'b';
+				blueRectangles[i][fromCol] = BLUE_RECTANGLE;
 				break;
 			}
+			else
+				break;
 		}
-		for (size_t i = fromRow - 1; i >= 0; i--)
+		for (i = fromRow - 1; i >= 0; i--)
 		{
-			if (colors[i][fromCol] == 'e' || colors[i][fromCol] == 'b')
+			if (colors[i][fromCol] == EMPTY)
+				blueRectangles[i][fromCol] = BLUE_RECTANGLE;
+			else if (colors[i][fromCol] == BLACK)
 			{
-				blueRectangles[i][fromCol] = 'b';
+				blueRectangles[i][fromCol] = BLUE_RECTANGLE;
 				break;
 			}
+			else
+				break;
 		}
+
 		// Left and right checks
-		for (size_t i = fromCol + 1; i < 8; i++)
-		{
-			if (colors[fromRow][i] == 'e' || colors[fromRow][i] == 'b')
+		for (i = fromCol + 1; i < 8; i++)
+		{	
+			if (colors[fromRow][i] == EMPTY)
+				blueRectangles[fromRow][i] = BLUE_RECTANGLE;
+			else if (colors[fromRow][i] == BLACK)
 			{
-				blueRectangles[fromRow][i] = 'b';
+				blueRectangles[fromRow][i] = BLUE_RECTANGLE;
 				break;
 			}
+			else
+				break;
 		}
-		for (size_t i = fromCol - 1; i >= 0; i--)
+		for (i = fromCol - 1; i >= 0; i--)
 		{
-			if (colors[fromRow][i] == 'e' || colors[fromRow][i] == 'b')
+			if (colors[fromRow][i] == EMPTY)
+				blueRectangles[fromRow][i] = BLUE_RECTANGLE;
+			else if (colors[fromRow][i] == BLACK)
 			{
-				blueRectangles[fromRow][i] = 'b';
+				blueRectangles[fromRow][i] = BLUE_RECTANGLE;
 				break;
 			}
+			else
+				break;
 		}
 	}
-	
+	else if (colors[fromRow][fromCol] == BLACK)
+	{
+
+	}
 }

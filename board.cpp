@@ -2,6 +2,15 @@
 #include "textureManager.h"
 #include <cstring>
 
+// Helper function
+void resetBlueRectanglesBoard(char blueRectanglesBoard[][WIDTH])
+{
+	// Reset blue rectangles
+	for (size_t i = 0; i < HEIGHT; i++)
+		for (size_t j = 0; j < WIDTH; j++)
+			blueRectanglesBoard[i][j] = EMPTY;
+}
+
 Board::Board(const char* filename, SDL_Renderer* ren)
 {
 	renderer = ren;
@@ -22,15 +31,15 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 		{
 			rectangles.push_back(std::make_unique<BlueRectangle>("ChessPieces/blue.png", renderer, i + 1, j + 1));
 
-			if (colors[i][j] == 'e')
+			if (colors[i][j] == EMPTY)
 				continue;
 			addPieces(i, j, boardR);
 		}
 	}
 	fromRow = fromCol = toRow = toCol = -1;
 	// Create seperate instance of each pawn for simplicity
-	pawn = std::make_unique<Pawn>("ChessPieces/Chess_plt60.png", renderer, 1, 1, 'w');
-	rook = std::make_unique<Rook>("ChessPieces/Chess_rlt60.png", renderer, 1, 1, 'w');
+	pawn = std::make_unique<Pawn>("ChessPieces/Chess_plt60.png", renderer, 1, 1, WHITE);
+	rook = std::make_unique<Rook>("ChessPieces/Chess_rlt60.png", renderer, 1, 1, WHITE);
 }
 
 Board::~Board() {}
@@ -62,7 +71,7 @@ void Board::update()
 	{
 		for (size_t j = 0; j < WIDTH; j++)
 		{
-			if (blueRectanglesBoard[i][j] != 'e')
+			if (blueRectanglesBoard[i][j] != EMPTY)
 			{
 				rectangles[counter]->update();
 			}
@@ -86,7 +95,7 @@ void Board::render()
 	{
 		for (size_t j = 0; j < WIDTH; j++)
 		{
-			if (blueRectanglesBoard[i][j] != 'e')
+			if (blueRectanglesBoard[i][j] != EMPTY)
 			{
 				rectangles[counter]->render();
 			}
@@ -104,20 +113,20 @@ void Board::addPieces(int i, int j, int boardR)
 	{
 	case PAWN:
 
-		if (colors[i][j] == 'w')
+		if (colors[i][j] == WHITE)
 			pieces.push_back(std::make_unique<Pawn>
-				("ChessPieces/Chess_plt60.png", renderer, boardR, j + 1, 'w'));
+				("ChessPieces/Chess_plt60.png", renderer, boardR, j + 1, WHITE));
 		else
 			pieces.push_back(std::make_unique<Pawn>
-				("ChessPieces/Chess_pdt60.png", renderer, boardR, j + 1, 'b'));
+				("ChessPieces/Chess_pdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case ROOK:
-		if (colors[i][j] == 'w')
+		if (colors[i][j] == WHITE)
 			pieces.push_back(std::make_unique<Rook>
-				("ChessPieces/Chess_rlt60.png", renderer, boardR, j + 1, 'w'));
+				("ChessPieces/Chess_rlt60.png", renderer, boardR, j + 1, WHITE));
 		else
 			pieces.push_back(std::make_unique<Rook>
-				("ChessPieces/Chess_rdt60.png", renderer, boardR, j + 1, 'b'));
+				("ChessPieces/Chess_rdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case KNIGHT:
 		/*
@@ -187,10 +196,6 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	{
 		toRow = row;
 		toCol = column;
-		// Reset blue rectangles
-		for (size_t i = 0; i < HEIGHT; i++)
-			for (size_t j = 0; j < WIDTH; j++)
-				blueRectanglesBoard[i][j] = 'e';
 	}
 
 	// Check if index is valid
@@ -198,50 +203,53 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 		throw InvalidIndexException(fromRow, fromCol, toRow, toCol);
 
 	// Check if it is player's turn
-	if ((colors[fromRow][fromCol] == 'w' && playerIndex == 2) || (colors[fromRow][fromCol] == 'b' && playerIndex == 1))
+	if ((colors[fromRow][fromCol] == WHITE && playerIndex == 2) || (colors[fromRow][fromCol] == BLACK && playerIndex == 1))
 	{
 		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
+		resetBlueRectanglesBoard(blueRectanglesBoard);
 		return;
 	}
 	// Update all the pieces
-	updatePieces();
+	if (updatePieces())
+		playerIndex = (playerIndex == 1) ? 2 : 1;
+
+	resetBlueRectanglesBoard(blueRectanglesBoard);
 
 	// Reset variables
 	fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
-	playerIndex = (playerIndex == 1) ? 2 : 1;
 }
 
-void Board::updatePieces()
+bool Board::updatePieces()
 {
 	switch (movingPieceType)
 	{
 	case PAWN:
 		if (!updatePawn())
-			return;
+			return false;
 		break;
 	case ROOK:
 		if (!updateRook())
-			return;
+			return false;
 	default:
 		break;
 	}
 
-	if (colors[fromRow][fromCol] == 'w') // white
+	if (colors[fromRow][fromCol] == WHITE)
 	{
-		colors[fromRow][fromCol] = 'e';
-		colors[toRow][toCol] = 'w';
+		colors[fromRow][fromCol] = EMPTY;
+		colors[toRow][toCol] = WHITE;
 	}
 
-	else if (colors[fromRow][fromCol] == 'b') // black
+	else if (colors[fromRow][fromCol] == BLACK)
 	{
-		colors[fromRow][fromCol] = 'e';
-		colors[toRow][toCol] = 'b';
+		colors[fromRow][fromCol] = EMPTY;
+		colors[toRow][toCol] = BLACK;
 	}
 }
 
 bool Board::updatePawn()
 {
-	if (!pawn->move(fromRow, fromCol, toRow, toCol, board, colors))
+	if (!pawn->move(fromRow, fromCol, toRow, toCol, board, colors, blueRectanglesBoard))
 	{
 		std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << " with pawn" << std::endl;
 		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
@@ -254,7 +262,7 @@ bool Board::updatePawn()
 
 bool Board::updateRook()
 {
-	if (!rook->move(fromRow, fromCol, toRow, toCol, board, colors))
+	if (!rook->move(fromRow, fromCol, toRow, toCol, board, colors, blueRectanglesBoard))
 	{
 		std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << " with rook" << std::endl;
 		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;

@@ -19,37 +19,34 @@ const int HEIGHT = 8, WIDTH = 8, INITIAL_PIECES_NUMBER = 32;
 const int PIECES_X_DISTANCE = 90, PIECES_Y_DISTANCE = 67;
 const int X_OFFSET = 42, Y_OFFSET = 29;
 
-enum Colors : int { WHITE, BLACK, EMPTY };
+enum Colors : char { WHITE = 'w', BLACK = 'b', EMPTY = 'e', BLUE_RECTANGLE = 'r' };
 enum PieceTypes : int { NONE = 0, ROOK, KNIGHT, BISHOP, KING, QUEEN, PAWN = 6 };
 
 class Board
 {
-protected:
-	enum colors : int { WHITE, BLACK, EMPTY };
-	enum pieces_types : int { NONE = 0, ROOK, KNIGHT, BISHOP, KING, QUEEN, PAWN = 6 };
 
 private:
 	int board[HEIGHT][WIDTH] =
 	{
-		{1, 2, 3, 5, 4, 3, 2, 1},
+		{1, 0, 0, 0, 0, 0, 0, 1},
 		{6, 6, 6, 6, 6, 6, 6, 6},
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{6, 6, 6, 6, 6, 6, 6, 6},
-		{1, 2, 3, 5, 4, 3, 2, 1}
+		{1, 0, 0, 0, 0, 0, 0, 1}
 	};
 	char colors[HEIGHT][WIDTH] =
 	{
-		{'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
+		{'w', 'e', 'e', 'e', 'e', 'e', 'e', 'w'},
 		{'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
 		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
 		{'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'},
-		{'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'}
+		{'b', 'e', 'e', 'e', 'e', 'e', 'e', 'b'}
 	};
 	char blueRectanglesBoard[HEIGHT][WIDTH] =
 	{
@@ -88,7 +85,7 @@ public:
 	void movingPiece(int row, int column, int& playerIndex);
 
 	// Functions for updating pieces
-	void updatePieces();
+	bool updatePieces();
 	bool updatePawn();
 	bool updateRook();
 };
