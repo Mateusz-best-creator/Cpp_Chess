@@ -19,6 +19,9 @@ const int HEIGHT = 8, WIDTH = 8, INITIAL_PIECES_NUMBER = 32;
 const int PIECES_X_DISTANCE = 90, PIECES_Y_DISTANCE = 67;
 const int X_OFFSET = 42, Y_OFFSET = 29;
 
+enum Colors : int { WHITE, BLACK, EMPTY };
+enum PieceTypes : int { NONE = 0, ROOK, KNIGHT, BISHOP, KING, QUEEN, PAWN = 6 };
+
 class Board
 {
 protected:
@@ -67,6 +70,7 @@ private:
 	std::vector<std::unique_ptr<BlueRectangle>> rectangles;
 	std::vector<std::unique_ptr<Piece>> pieces; // Polymorphism
 	std::unique_ptr<Pawn> pawn;
+	std::unique_ptr<Rook> rook;
 
 	int fromRow, fromCol;
 	int toRow, toCol;
@@ -82,4 +86,9 @@ public:
 	void update();
 	void addPieces(int i, int j, int boardR);
 	void movingPiece(int row, int column, int& playerIndex);
+
+	// Functions for updating pieces
+	void updatePieces();
+	bool updatePawn();
+	bool updateRook();
 };

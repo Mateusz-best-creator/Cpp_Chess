@@ -15,7 +15,7 @@ Piece::~Piece() {}
 
 void Piece::calculateXY()
 {
-	xPosition = boardColumn * PIECES_X_DISTANCE - 36;
+	xPosition = boardColumn * PIECES_X_DISTANCE - 38;
 	yPosition = 35 - 67 + boardRow * PIECES_Y_DISTANCE;
 }
 
