@@ -28,6 +28,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 		}
 	}
 	fromRow = fromCol = toRow = toCol = -1;
+	pawn = std::make_unique<Pawn>("ChessPieces/Chess_plt60.png", renderer,1,1,'w');
 }
 
 Board::~Board() {}
@@ -54,11 +55,6 @@ void Board::update()
 			addPieces(i, j, 8 - i);
 		}
 	}
-
-	for (size_t i = 0; i < pieces.size(); i++)
-	{
-		pieces[i]->update();
-	}
 	int counter = 0;
 	for (size_t i = 0; i < HEIGHT; i++)
 	{
@@ -71,6 +67,10 @@ void Board::update()
 			counter++;
 		}
 	}
+	for (size_t i = 0; i < pieces.size(); i++)
+	{
+		pieces[i]->update();
+	}
 }
 
 void Board::render()
@@ -78,9 +78,7 @@ void Board::render()
 	// Render the board
 	SDL_RenderCopy(renderer, boardTexture, &sourceRect, &destinationRect);
 	
-	// Render all the pieces
-	for (size_t i = 0; i < pieces.size(); i++)
-		pieces[i]->render();
+	// Render all blue rectangles
 	int counter = 0;
 	for (size_t i = 0; i < HEIGHT; i++)
 	{
@@ -93,6 +91,9 @@ void Board::render()
 			counter++;
 		}
 	}
+	// Render all the pieces
+	for (size_t i = 0; i < pieces.size(); i++)
+		pieces[i]->render();
 }
 
 void Board::addPieces(int i, int j, int boardR)
@@ -168,22 +169,25 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	column--;
 	if (board[row][column] == NONE && (toRow != INITIAL_VALUE && toCol != INITIAL_VALUE))
 		return;
-	else if (fromRow == INITIAL_VALUE && fromCol == INITIAL_VALUE)
-		movingPieceType = board[row][column];
-	if (movingPieceType == NONE)
-		return;
 
 	if (fromRow == INITIAL_VALUE && fromCol == INITIAL_VALUE)
 	{
+		movingPieceType = board[row][column];
+		if (movingPieceType == NONE)
+			return;
 		fromRow = row;
 		fromCol = column;
-		// Display blue rectangles
+		pawn->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
 		return;
 	}
 	else
 	{
 		toRow = row;
 		toCol = column;
+		// Reset blue rectangles
+		for (size_t i = 0; i < HEIGHT; i++)
+			for (size_t j = 0; j < WIDTH; j++)
+				blueRectanglesBoard[i][j] = 'e';
 	}
 
 	if (fromRow < 0 || toRow < 0 || fromRow > 7 || toCol > 7)
@@ -203,21 +207,11 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	switch (movingPieceType)
 	{
 	case PAWN:
-		// Check if the move from fromRow, fromCol to toRow, toCol is valid for a pawn
-		for (size_t i = 0; i < pieces.size(); i++)
+		if (!pawn->move(fromRow, fromCol, toRow, toCol, board, colors))
 		{
-			Pawn* ptr;
-			if (ptr = dynamic_cast<Pawn*>(pieces[i].get()))
-			{
-				if (!ptr->move(fromRow, fromCol, toRow, toCol, board, colors))
-				{
-					std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << std::endl;
-					fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
-					return;
-				}
-				else
-					break;
-			}
+			std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << std::endl;
+			fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
+			return;
 		}
 		board[fromRow][fromCol] = NONE;
 		board[toRow][toCol] = PAWN;

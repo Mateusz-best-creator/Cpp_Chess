@@ -66,6 +66,7 @@ private:
 
 	std::vector<std::unique_ptr<BlueRectangle>> rectangles;
 	std::vector<std::unique_ptr<Piece>> pieces; // Polymorphism
+	std::unique_ptr<Pawn> pawn;
 
 	int fromRow, fromCol;
 	int toRow, toCol;
