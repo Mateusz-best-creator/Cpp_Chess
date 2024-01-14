@@ -130,14 +130,12 @@ void Board::addPieces(int i, int j, int boardR)
 				("ChessPieces/Chess_rdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case KNIGHT:
-		/*
 		if (colors[i][j] == 'w')
 			pieces.push_back(std::make_unique<Knight>
-				("ChessPieces/Chess_nlt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
+				("ChessPieces/Chess_nlt60.png", renderer, boardR, j + 1, WHITE));
 		else
 			pieces.push_back(std::make_unique<Knight>
-				("ChessPieces/Chess_ndt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
-				*/
+				("ChessPieces/Chess_ndt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case BISHOP:
 		/*
