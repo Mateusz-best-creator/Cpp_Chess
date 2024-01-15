@@ -29,7 +29,7 @@ void BlueRectangle::update()
 
 	destinationRect.x = xPosition;
 	destinationRect.y = yPosition;
-	destinationRect.w = sourceRect.w;
+	destinationRect.w = sourceRect.w; 
 	destinationRect.h = sourceRect.h;
 }
 

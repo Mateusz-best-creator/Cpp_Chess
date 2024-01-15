@@ -41,7 +41,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	// Create seperate instance of each pawn for simplicity
 	pawn = std::make_shared<Pawn>("ChessPieces/Chess_plt60.png", renderer, 1, 1, WHITE);
 	rook = std::make_shared<Rook>("ChessPieces/Chess_rlt60.png", renderer, 1, 1, WHITE);
-	knight = std::make_shared<Knight>("ChessPieces/Chess_rlt60.png", renderer, 1, 1, WHITE);
+	knight = std::make_shared<Knight>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
 }
 
 Board::~Board() {}
@@ -131,14 +131,12 @@ void Board::addPieces(int i, int j, int boardR)
 				("ChessPieces/Chess_rdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case KNIGHT:
-		/*
 		if (colors[i][j] == 'w')
 			pieces.push_back(std::make_unique<Knight>
 				("ChessPieces/Chess_nlt60.png", renderer, boardR, j + 1, WHITE));
 		else
 			pieces.push_back(std::make_unique<Knight>
 				("ChessPieces/Chess_ndt60.png", renderer, boardR, j + 1, BLACK));
-		*/
 		break;
 	case BISHOP:
 		/*
@@ -197,7 +195,7 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 			rook->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
 			break;
 		case KNIGHT:
-			//knight->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			knight->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
 			break;
 		}
 		return;
@@ -240,10 +238,11 @@ bool Board::updatePieces()
 	case ROOK:
 		if (!updatePiece(rook))
 			return false;
-	/*case KNIGHT:
+		break;
+	case KNIGHT:
 		if (!updatePiece(knight))
 			return false;
-			*/
+		break;
 	default:
 		break;
 	}
@@ -266,7 +265,8 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 {
 	if (!piece->move(toRow, toCol, blueRectanglesBoard))
 	{
-		std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << " with pawn" << std::endl;
+		std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << " with " 
+			<< typeid(*piece).name() << std::endl;
 		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
 		return false;
 	}
@@ -275,8 +275,8 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 		board[toRow][toCol] = PAWN;
 	else if (typeid(Rook) == typeid(*piece))
 		board[toRow][toCol] = ROOK;
-	else if (typeid(Knight) == typeid(*piece));
-		//board[toRow][toCol] = KNIGHT;
+	else if (typeid(Knight) == typeid(*piece))
+		board[toRow][toCol] = KNIGHT;
 	/*
 	else if (typeid(Bishop) == typeid(*piece))
 		board[toRow][toCol] = BISHOP;
