@@ -24,11 +24,12 @@ void Bishop::updateRectangles(char color, int fromRow, int fromCol, int board[][
     // Define the possible directions for diagonal moves
     int directions[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
 
-    for (size_t d = 0; d < 4; ++d) {
+    for (size_t d = 0; d < 4; d++) 
+    {
         int dirRow = directions[d][0];
         int dirCol = directions[d][1];
 
-        for (int step = 1; step < 8; ++step) {
+        for (size_t step = 1; step < 8; step++) {
             int toRow = fromRow + step * dirRow;
             int toCol = fromCol + step * dirCol;
 
@@ -42,6 +43,7 @@ void Bishop::updateRectangles(char color, int fromRow, int fromCol, int board[][
                 if (colors[toRow][toCol] != EMPTY)
                     break;
             }
+            // Stop when going out of the board
             else 
                 break;
         }
