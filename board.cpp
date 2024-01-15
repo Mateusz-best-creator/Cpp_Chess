@@ -42,6 +42,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	pawn = std::make_shared<Pawn>("ChessPieces/Chess_plt60.png", renderer, 1, 1, WHITE);
 	rook = std::make_shared<Rook>("ChessPieces/Chess_rlt60.png", renderer, 1, 1, WHITE);
 	knight = std::make_shared<Knight>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
+	bishop = std::make_shared<Bishop>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
 }
 
 Board::~Board() {}
@@ -139,14 +140,12 @@ void Board::addPieces(int i, int j, int boardR)
 				("ChessPieces/Chess_ndt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case BISHOP:
-		/*
 		if (colors[i][j] == 'w')
 			pieces.push_back(std::make_unique<Bishop>
-				("ChessPieces/Chess_blt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
+				("ChessPieces/Chess_blt60.png", renderer, boardR, j + 1, WHITE));
 		else
 			pieces.push_back(std::make_unique<Bishop>
-				("ChessPieces/Chess_bdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
-				*/
+				("ChessPieces/Chess_bdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case KING:
 		/*
@@ -197,6 +196,9 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 		case KNIGHT:
 			knight->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
 			break;
+		case BISHOP:
+			bishop->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			break;
 		}
 		return;
 	}
@@ -243,6 +245,9 @@ bool Board::updatePieces()
 		if (!updatePiece(knight))
 			return false;
 		break;
+	case BISHOP:
+		if (!updatePiece(bishop))
+			return false;
 	default:
 		break;
 	}
@@ -277,10 +282,9 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 		board[toRow][toCol] = ROOK;
 	else if (typeid(Knight) == typeid(*piece))
 		board[toRow][toCol] = KNIGHT;
-	/*
 	else if (typeid(Bishop) == typeid(*piece))
 		board[toRow][toCol] = BISHOP;
-	else if (typeid(King) == typeid(*piece))
+	/*else if (typeid(King) == typeid(*piece))
 		board[toRow][toCol] = KING;
 	else if (typeid(Queen) == typeid(*piece))
 		board[toRow][toCol] = QUEEN;
