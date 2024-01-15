@@ -1,6 +1,5 @@
 #include "rook.h"
 #include "game.h"
-#include <iostream>
 
 Rook::Rook(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c)
 	: Piece(filename, ren, bRow, bCol, c)
@@ -15,64 +14,37 @@ bool Rook::move(int toRow, int toCol, char blueRectangles[][8])
 
 void Rook::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8])
 {
-	std::cout << fromRow << " " << fromCol << std::endl;
 	if (colors[fromRow][fromCol] == WHITE)
-		updateRectangles(BLACK, fromRow, fromCol, board, colors, blueRectangles);
-	else if (colors[fromRow][fromCol] == BLACK)
 		updateRectangles(WHITE, fromRow, fromCol, board, colors, blueRectangles);
+	else if (colors[fromRow][fromCol] == BLACK)
+		updateRectangles(BLACK, fromRow, fromCol, board, colors, blueRectangles);
 }
 
 void Rook::updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8])
 {
-	size_t i;
-	for (i = fromRow + 1; i < 8; i++)
-	{
-		if (colors[i][fromCol] == EMPTY)
-			blueRectangles[i][fromCol] = BLUE_RECTANGLE;
-		else if (colors[i][fromCol] == color)
-		{
-			blueRectangles[i][fromCol] = BLUE_RECTANGLE;
-			break;
-		}
-		else
-			break;
-	}
-	for (i = fromRow - 1; i >= 0; i--)
-	{
-		if (colors[i][fromCol] == EMPTY)
-			blueRectangles[i][fromCol] = BLUE_RECTANGLE;
-		else if (colors[i][fromCol] == color)
-		{
-			blueRectangles[i][fromCol] = BLUE_RECTANGLE;
-			break;
-		}
-		else
-			break;
-	}
+    int directions[4][2] = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
 
-	// Left and right checks
-	for (i = fromCol + 1; i < 8; i++)
-	{
-		if (colors[fromRow][i] == EMPTY)
-			blueRectangles[fromRow][i] = BLUE_RECTANGLE;
-		else if (colors[fromRow][i] == color)
-		{
-			blueRectangles[fromRow][i] = BLUE_RECTANGLE;
-			break;
-		}
-		else
-			break;
-	}
-	for (i = fromCol - 1; i >= 0; i--)
-	{
-		if (colors[fromRow][i] == EMPTY)
-			blueRectangles[fromRow][i] = BLUE_RECTANGLE;
-		else if (colors[fromRow][i] == color)
-		{
-			blueRectangles[fromRow][i] = BLUE_RECTANGLE;
-			break;
-		}
-		else
-			break;
-	}
+    for (int d = 0; d < 4; ++d) {
+        int dirRow = directions[d][0];
+        int dirCol = directions[d][1];
+
+        for (int step = 1; step < 8; ++step) 
+        {
+            int toRow = fromRow + step * dirRow;
+            int toCol = fromCol + step * dirCol;
+
+            // Check if the position is within the bounds of the chessboard
+            if (toRow >= 0 && toRow < 8 && toCol >= 0 && toCol < 8) {
+                // Check if the position is empty or has an opponent's piece
+                if (colors[toRow][toCol] == EMPTY || colors[toRow][toCol] != color)
+                    blueRectangles[toRow][toCol] = BLUE_RECTANGLE;
+
+                // Stop further moves if the position is not empty
+                if (colors[toRow][toCol] != EMPTY) 
+                    break;
+            }
+            else
+                break;
+        }
+    }
 }

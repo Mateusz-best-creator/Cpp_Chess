@@ -224,7 +224,11 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	}
 	// Update all the pieces
 	if (updatePieces())
+	{
 		playerIndex = (playerIndex == 1) ? 2 : 1;
+		updateColorsSquares(whiteSquaresBoard);
+		updateColorsSquares(blackSquaresBoard);
+	}
 
 	resetBlueRectanglesBoard(blueRectanglesBoard);
 
@@ -301,4 +305,44 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 	else if (typeid(King) == typeid(*piece))
 		board[toRow][toCol] = KING;
 	return true;
+}
+
+
+void Board::updateColorsSquares(char boardToUpdate[][8])
+{
+	for (size_t i = 0; i < HEIGHT; i++)
+		for (size_t j = 0; j < WIDTH; j++)
+			blackSquaresBoard[i][j] = EMPTY;
+	
+	for (size_t i = 0; i < HEIGHT; i++)
+	{
+		for (size_t j = 0; j < WIDTH; j++)
+		{
+			if (colors[i][j] == BLACK)
+			{
+				switch (board[i][j])
+				{
+				case NONE:
+					break;
+				case PAWN:
+					pawn->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
+					break;
+				case ROOK:
+					rook->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
+					break;
+				case KNIGHT:
+					knight->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
+					break;
+				case BISHOP:
+					bishop->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
+					break;
+				case QUEEN:
+					queen->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
+					break;
+				case KING:
+					king->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
+				}
+			}
+		}
+	}
 }

@@ -59,6 +59,29 @@ private:
 		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'}
 	};
+	// Board which indicate which squares "can be" under control for each color (useful for checks)
+	char whiteSquaresBoard[HEIGHT][WIDTH] =
+	{
+		{'o', 'o', 'o', 'o', 'o', 'o' , 'o', 'o'},
+		{'o', 'o', 'o', 'o', 'o', 'o' , 'o', 'o'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'}
+	};
+	char blackSquaresBoard[HEIGHT][WIDTH] =
+	{
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'e', 'e', 'e', 'e', 'e', 'e' , 'e', 'e'},
+		{'o', 'o', 'o', 'o', 'o', 'o' , 'o', 'o'},
+		{'o', 'o', 'o', 'o', 'o', 'o' , 'o', 'o'}
+	};
 
 	SDL_Texture* boardTexture, * blueRectangleTexture;
 	SDL_Renderer* renderer;
@@ -91,4 +114,7 @@ public:
 	// Functions for updating pieces
 	bool updatePieces();
 	bool updatePiece(std::shared_ptr<Piece> piece);
+
+	// Functions for updating occupied squares
+	void updateColorsSquares(char boardToUpdate[][8]);
 };

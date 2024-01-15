@@ -19,24 +19,24 @@ void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 {
 	if (colors[fromRow][fromCol] == WHITE)
 	{
-		if (board[fromRow + 2][fromCol] == NONE && fromRow == 1)
+		if (colors[fromRow + 2][fromCol] == EMPTY && fromRow == 1)
 			blueRectangles[fromRow + 2][fromCol] = BLUE_RECTANGLE;
-		if (board[fromRow + 1][fromCol] == NONE)
+		if (colors[fromRow + 1][fromCol] == EMPTY)
 			blueRectangles[fromRow + 1][fromCol] = BLUE_RECTANGLE;
-		if (board[fromRow + 1][fromCol + 1] != NONE && colors[fromRow + 1][fromCol + 1] == BLACK)
+		if (colors[fromRow + 1][fromCol + 1] != EMPTY && colors[fromRow + 1][fromCol + 1] == BLACK)
 			blueRectangles[fromRow + 1][fromCol + 1] = BLUE_RECTANGLE;
-		if (board[fromRow + 1][fromCol - 1] != NONE && colors[fromRow + 1][fromCol - 1] == BLACK)
+		if (colors[fromRow + 1][fromCol - 1] != EMPTY && colors[fromRow + 1][fromCol - 1] == BLACK)
 			blueRectangles[fromRow + 1][fromCol - 1] = BLUE_RECTANGLE;
 	}
 	else if (colors[fromRow][fromCol] == BLACK)
 	{
-		if (board[fromRow - 2][fromCol] == NONE && fromRow == 6)
+		if (colors[fromRow - 2][fromCol] == EMPTY && fromRow == 6)
 			blueRectangles[fromRow - 2][fromCol] = BLUE_RECTANGLE;
-		if (board[fromRow - 1][fromCol] == NONE)
+		if (colors[fromRow - 1][fromCol] == EMPTY)
 			blueRectangles[fromRow - 1][fromCol] = BLUE_RECTANGLE;
-		if (board[fromRow - 1][fromCol + 1] != NONE && colors[fromRow - 1][fromCol + 1] == WHITE)
+		if (colors[fromRow - 1][fromCol + 1] != EMPTY && colors[fromRow - 1][fromCol + 1] == WHITE)
 			blueRectangles[fromRow - 1][fromCol + 1] = BLUE_RECTANGLE;
-		if (board[fromRow - 1][fromCol - 1] != NONE && colors[fromRow - 1][fromCol - 1] == WHITE)
+		if (colors[fromRow - 1][fromCol - 1] != EMPTY && colors[fromRow - 1][fromCol - 1] == WHITE)
 			blueRectangles[fromRow - 1][fromCol - 1] = BLUE_RECTANGLE;
 	}
 }
