@@ -2,7 +2,7 @@
 
 #include "piece.h"
 
-class Bishop : public Piece
+class Bishop : virtual public Piece
 {
 public:
 	Bishop(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c);

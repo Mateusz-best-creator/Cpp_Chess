@@ -2,7 +2,7 @@
 
 #include "piece.h"
 
-class Rook : public Piece
+class Rook : virtual public Piece
 {
 public:
 	Rook(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c);
