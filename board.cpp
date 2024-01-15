@@ -41,6 +41,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	// Create seperate instance of each pawn for simplicity
 	pawn = std::make_shared<Pawn>("ChessPieces/Chess_plt60.png", renderer, 1, 1, WHITE);
 	rook = std::make_shared<Rook>("ChessPieces/Chess_rlt60.png", renderer, 1, 1, WHITE);
+	knight = std::make_shared<Knight>("ChessPieces/Chess_rlt60.png", renderer, 1, 1, WHITE);
 }
 
 Board::~Board() {}
@@ -130,12 +131,14 @@ void Board::addPieces(int i, int j, int boardR)
 				("ChessPieces/Chess_rdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case KNIGHT:
+		/*
 		if (colors[i][j] == 'w')
 			pieces.push_back(std::make_unique<Knight>
 				("ChessPieces/Chess_nlt60.png", renderer, boardR, j + 1, WHITE));
 		else
 			pieces.push_back(std::make_unique<Knight>
 				("ChessPieces/Chess_ndt60.png", renderer, boardR, j + 1, BLACK));
+		*/
 		break;
 	case BISHOP:
 		/*
@@ -185,10 +188,18 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 			return;
 		fromRow = row;
 		fromCol = column;
-		if (board[fromRow][fromCol] == PAWN)
+		switch (board[fromRow][fromCol])
+		{
+		case PAWN:
 			pawn->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
-		if (board[fromRow][fromCol] == ROOK)
+			break;
+		case ROOK:
 			rook->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			break;
+		case KNIGHT:
+			//knight->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			break;
+		}
 		return;
 	}
 	else
@@ -229,6 +240,10 @@ bool Board::updatePieces()
 	case ROOK:
 		if (!updatePiece(rook))
 			return false;
+	/*case KNIGHT:
+		if (!updatePiece(knight))
+			return false;
+			*/
 	default:
 		break;
 	}
@@ -244,6 +259,7 @@ bool Board::updatePieces()
 		colors[fromRow][fromCol] = EMPTY;
 		colors[toRow][toCol] = BLACK;
 	}
+	return true;
 }
 
 bool Board::updatePiece(std::shared_ptr<Piece> piece)
@@ -259,9 +275,9 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 		board[toRow][toCol] = PAWN;
 	else if (typeid(Rook) == typeid(*piece))
 		board[toRow][toCol] = ROOK;
+	else if (typeid(Knight) == typeid(*piece));
+		//board[toRow][toCol] = KNIGHT;
 	/*
-	else if (typeid(Knight) == typeid(*piece))
-		board[toRow][toCol] = KNIGHT;
 	else if (typeid(Bishop) == typeid(*piece))
 		board[toRow][toCol] = BISHOP;
 	else if (typeid(King) == typeid(*piece))

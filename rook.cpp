@@ -17,61 +17,62 @@ void Rook::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 {
 	std::cout << fromRow << " " << fromCol << std::endl;
 	if (colors[fromRow][fromCol] == WHITE)
-	{
-		size_t i;
-		for (i = fromRow + 1; i < 8; i++)
-		{
-			if (colors[i][fromCol] == EMPTY)
-				blueRectangles[i][fromCol] = BLUE_RECTANGLE;
-			else if (colors[i][fromCol] == BLACK)
-			{
-				blueRectangles[i][fromCol] = BLUE_RECTANGLE;
-				break;
-			}
-			else
-				break;
-		}
-		for (i = fromRow - 1; i >= 0; i--)
-		{
-			if (colors[i][fromCol] == EMPTY)
-				blueRectangles[i][fromCol] = BLUE_RECTANGLE;
-			else if (colors[i][fromCol] == BLACK)
-			{
-				blueRectangles[i][fromCol] = BLUE_RECTANGLE;
-				break;
-			}
-			else
-				break;
-		}
-
-		// Left and right checks
-		for (i = fromCol + 1; i < 8; i++)
-		{	
-			if (colors[fromRow][i] == EMPTY)
-				blueRectangles[fromRow][i] = BLUE_RECTANGLE;
-			else if (colors[fromRow][i] == BLACK)
-			{
-				blueRectangles[fromRow][i] = BLUE_RECTANGLE;
-				break;
-			}
-			else
-				break;
-		}
-		for (i = fromCol - 1; i >= 0; i--)
-		{
-			if (colors[fromRow][i] == EMPTY)
-				blueRectangles[fromRow][i] = BLUE_RECTANGLE;
-			else if (colors[fromRow][i] == BLACK)
-			{
-				blueRectangles[fromRow][i] = BLUE_RECTANGLE;
-				break;
-			}
-			else
-				break;
-		}
-	}
+		updateRectangles(BLACK, fromRow, fromCol, board, colors, blueRectangles);
 	else if (colors[fromRow][fromCol] == BLACK)
-	{
+		updateRectangles(WHITE, fromRow, fromCol, board, colors, blueRectangles);
+}
 
+void Rook::updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8])
+{
+	size_t i;
+	for (i = fromRow + 1; i < 8; i++)
+	{
+		if (colors[i][fromCol] == EMPTY)
+			blueRectangles[i][fromCol] = BLUE_RECTANGLE;
+		else if (colors[i][fromCol] == color)
+		{
+			blueRectangles[i][fromCol] = BLUE_RECTANGLE;
+			break;
+		}
+		else
+			break;
+	}
+	for (i = fromRow - 1; i >= 0; i--)
+	{
+		if (colors[i][fromCol] == EMPTY)
+			blueRectangles[i][fromCol] = BLUE_RECTANGLE;
+		else if (colors[i][fromCol] == color)
+		{
+			blueRectangles[i][fromCol] = BLUE_RECTANGLE;
+			break;
+		}
+		else
+			break;
+	}
+
+	// Left and right checks
+	for (i = fromCol + 1; i < 8; i++)
+	{
+		if (colors[fromRow][i] == EMPTY)
+			blueRectangles[fromRow][i] = BLUE_RECTANGLE;
+		else if (colors[fromRow][i] == color)
+		{
+			blueRectangles[fromRow][i] = BLUE_RECTANGLE;
+			break;
+		}
+		else
+			break;
+	}
+	for (i = fromCol - 1; i >= 0; i--)
+	{
+		if (colors[fromRow][i] == EMPTY)
+			blueRectangles[fromRow][i] = BLUE_RECTANGLE;
+		else if (colors[fromRow][i] == color)
+		{
+			blueRectangles[fromRow][i] = BLUE_RECTANGLE;
+			break;
+		}
+		else
+			break;
 	}
 }

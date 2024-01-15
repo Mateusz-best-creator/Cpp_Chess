@@ -22,7 +22,7 @@ void BlueRectangle::calculateXY()
 void BlueRectangle::update()
 {
 	calculateXY();
-	sourceRect.h = 68;
+	sourceRect.h = 69;
 	sourceRect.w = 90;
 	sourceRect.x = 0;
 	sourceRect.y = 0;

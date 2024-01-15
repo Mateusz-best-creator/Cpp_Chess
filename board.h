@@ -28,25 +28,25 @@ class Board
 private:
 	int board[HEIGHT][WIDTH] =
 	{
-		{1, 2, 0, 0, 0, 0, 2, 1},
+		{1, 0, 0, 0, 0, 0, 0, 1},
 		{6, 6, 6, 6, 6, 6, 6, 6},
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{0, 0, 0, 0, 0, 0, 0, 0},
 		{6, 6, 6, 6, 6, 6, 6, 6},
-		{1, 2, 0, 0, 0, 0, 2, 1}
+		{1, 0, 0, 0, 0, 0, 0, 1}
 	};
 	char colors[HEIGHT][WIDTH] =
 	{
-		{'w', 'w', 'e', 'e', 'e', 'e', 'w', 'w'},
+		{'w', 'e', 'e', 'e', 'e', 'e', 'e', 'w'},
 		{'w', 'w', 'w', 'w', 'w', 'w', 'w', 'w'},
 		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
 		{'e', 'e', 'e', 'e', 'e', 'e', 'e', 'e'},
 		{'b', 'b', 'b', 'b', 'b', 'b', 'b', 'b'},
-		{'b', 'b', 'e', 'e', 'e', 'e', 'b', 'b'}
+		{'b', 'e', 'e', 'e', 'e', 'e', 'e', 'b'}
 	};
 	char blueRectanglesBoard[HEIGHT][WIDTH] =
 	{
@@ -68,6 +68,7 @@ private:
 	std::vector<std::unique_ptr<Piece>> pieces; // Polymorphism
 	std::shared_ptr<Pawn> pawn;
 	std::shared_ptr<Rook> rook;
+	std::shared_ptr<Knight> knight;
 
 	int fromRow, fromCol;
 	int toRow, toCol;
