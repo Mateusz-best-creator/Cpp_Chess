@@ -44,6 +44,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	knight = std::make_shared<Knight>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
 	bishop = std::make_shared<Bishop>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
 	queen = std::make_shared<Queen>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
+	king = std::make_shared<King>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
 }
 
 Board::~Board() {}
@@ -157,14 +158,12 @@ void Board::addPieces(int i, int j, int boardR)
 				("ChessPieces/Chess_qdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case KING:
-		/*
 		if (colors[i][j] == 'w')
 			pieces.push_back(std::make_unique<King>
-				("ChessPieces/Chess_klt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'w'));
+				("ChessPieces/Chess_klt60.png", renderer, boardR, j + 1, WHITE));
 		else
 			pieces.push_back(std::make_unique<King>
-				("ChessPieces/Chess_kdt60.png", renderer, 53 + j * PIECES_X_DISTANCE, 35 + i * PIECES_Y_DISTANCE, 1, 'b'));
-				*/
+				("ChessPieces/Chess_kdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	}
 }
@@ -200,6 +199,9 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 			break;
 		case QUEEN:
 			queen->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			break;
+		case KING:
+			king->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
 		}
 		return;
 	}
@@ -254,6 +256,10 @@ bool Board::updatePieces()
 		if (!updatePiece(queen))
 			return false;
 		break;
+	case KING:
+		if (!updatePiece(king))
+			return false;
+		break;
 	default:
 		break;
 	}
@@ -292,8 +298,7 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 		board[toRow][toCol] = BISHOP;
 	else if (typeid(Queen) == typeid(*piece))
 		board[toRow][toCol] = QUEEN;
-	/*else if (typeid(King) == typeid(*piece))
+	else if (typeid(King) == typeid(*piece))
 		board[toRow][toCol] = KING;
-	*/
 	return true;
 }
