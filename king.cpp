@@ -2,13 +2,31 @@
 #include "king.h"
 
 King::King(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c)
-	: Piece(filename, ren, bRow, bCol, c) {}
+	: Piece(filename, ren, bRow, bCol, c) 
+{
+	if (c == WHITE)
+	{
+		kingRow = 0;
+		kingColumn = 4;
+	}
+	else if (c == BLACK)
+	{
+		kingRow = 7;
+		kingColumn = 4;
+	}
+}
 
 King::~King() {}
 
 bool King::move(int toRow, int toCol, char blueRectangles[][8])
 {
-	return blueRectangles[toRow][toCol] == BLUE_RECTANGLE;
+	if (blueRectangles[toRow][toCol] == BLUE_RECTANGLE)
+	{
+		kingRow = toRow;
+		kingColumn = toCol;
+		return true;
+	}
+	return false;
 }
 
 void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8])
@@ -33,8 +51,14 @@ void King::updateRectangles(char color, int fromRow, int fromCol, int board[][8]
 
 		if (toRow <= 7 && toRow >= 0 && toCol <= 7 && toCol >= 0)
 		{
-			if (colors[toRow][toCol] == EMPTY || colors[toRow][toCol] == color)
+			// Different parameters here!!!
+			if ((colors[toRow][toCol] == EMPTY || colors[toRow][toCol] == color))
 				blueRectangles[toRow][toCol] = BLUE_RECTANGLE;
 		}
 	}
+}
+
+bool King::checkIfMoveValid(int toRow, int toColumn, char colorsSquares[][8])
+{
+	return colorsSquares[toRow][toColumn] == EMPTY;
 }

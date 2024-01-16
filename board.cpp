@@ -2,6 +2,7 @@
 #include "textureManager.h"
 #include <cstring>
 #include <typeinfo>
+#include <iostream>
 
 // Helper function
 void resetBlueRectanglesBoard(char blueRectanglesBoard[][WIDTH])
@@ -121,7 +122,7 @@ void Board::addPieces(int i, int j, int boardR)
 		if (colors[i][j] == WHITE)
 			pieces.push_back(std::make_unique<Pawn>
 				("ChessPieces/Chess_plt60.png", renderer, boardR, j + 1, WHITE));
-		else
+		else if (colors[i][j] == BLACK)
 			pieces.push_back(std::make_unique<Pawn>
 				("ChessPieces/Chess_pdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
@@ -129,7 +130,7 @@ void Board::addPieces(int i, int j, int boardR)
 		if (colors[i][j] == WHITE)
 			pieces.push_back(std::make_unique<Rook>
 				("ChessPieces/Chess_rlt60.png", renderer, boardR, j + 1, WHITE));
-		else
+		else if (colors[i][j] == BLACK)
 			pieces.push_back(std::make_unique<Rook>
 				("ChessPieces/Chess_rdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
@@ -137,7 +138,7 @@ void Board::addPieces(int i, int j, int boardR)
 		if (colors[i][j] == WHITE)
 			pieces.push_back(std::make_unique<Knight>
 				("ChessPieces/Chess_nlt60.png", renderer, boardR, j + 1, WHITE));
-		else
+		else if (colors[i][j] == BLACK)
 			pieces.push_back(std::make_unique<Knight>
 				("ChessPieces/Chess_ndt60.png", renderer, boardR, j + 1, BLACK));
 		break;
@@ -145,7 +146,7 @@ void Board::addPieces(int i, int j, int boardR)
 		if (colors[i][j] == WHITE)
 			pieces.push_back(std::make_unique<Bishop>
 				("ChessPieces/Chess_blt60.png", renderer, boardR, j + 1, WHITE));
-		else
+		else if (colors[i][j] == BLACK)
 			pieces.push_back(std::make_unique<Bishop>
 				("ChessPieces/Chess_bdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
@@ -153,7 +154,7 @@ void Board::addPieces(int i, int j, int boardR)
 		if (colors[i][j] == WHITE)
 			pieces.push_back(std::make_unique<Queen>
 				("ChessPieces/Chess_qlt60.png", renderer, boardR, j + 1, WHITE));
-		else
+		else if (colors[i][j] == BLACK)
 			pieces.push_back(std::make_unique<Queen>
 				("ChessPieces/Chess_qdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
@@ -161,7 +162,7 @@ void Board::addPieces(int i, int j, int boardR)
 		if (colors[i][j] == 'w')
 			pieces.push_back(std::make_unique<King>
 				("ChessPieces/Chess_klt60.png", renderer, boardR, j + 1, WHITE));
-		else
+		else if (colors[i][j] == BLACK)
 			pieces.push_back(std::make_unique<King>
 				("ChessPieces/Chess_kdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
@@ -223,17 +224,15 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 		return;
 	}
 	// Update all the pieces
-	if (updatePieces())
-	{
-		playerIndex = (playerIndex == 1) ? 2 : 1;
-		updateColorsSquares(whiteSquaresBoard);
-		updateColorsSquares(blackSquaresBoard);
-	}
-
+	bool updated = updatePieces();
 	resetBlueRectanglesBoard(blueRectanglesBoard);
-
 	// Reset variables
 	fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
+	if (updated)
+	{
+		playerIndex = (playerIndex == 1) ? 2 : 1;
+		updateColorsSquares(colors, whiteSquaresBoard, blackSquaresBoard);
+	}
 }
 
 bool Board::updatePieces()
@@ -308,41 +307,82 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 }
 
 
-void Board::updateColorsSquares(char boardToUpdate[][8])
+void Board::updateColorsSquares(char colors[][8], char whiteBoardToUpdate[][8], char blackBoardToUpdate[][8])
 {
-	for (size_t i = 0; i < HEIGHT; i++)
-		for (size_t j = 0; j < WIDTH; j++)
-			blackSquaresBoard[i][j] = EMPTY;
+	// Reset both boards
+	for (int i = 0; i < HEIGHT; i++)
+		for (int j = 0; j < WIDTH; j++)
+			whiteBoardToUpdate[i][j] = blackBoardToUpdate[i][j] = EMPTY;
 	
-	for (size_t i = 0; i < HEIGHT; i++)
+	for (int i = 0; i < HEIGHT; i++)
 	{
-		for (size_t j = 0; j < WIDTH; j++)
+		for (int j = WIDTH - 1; j >= 0; j--)
 		{
-			if (colors[i][j] == BLACK)
+			switch (board[i][j])
 			{
-				switch (board[i][j])
+			case NONE:
+				break;
+			/*
+				Updating possible occupied squares by pawns is a bit different 
+				than for other pieces, we have to check diagonals. 
+			*/
+			case PAWN:
+				if (colors[i][j] == WHITE) 
 				{
-				case NONE:
-					break;
-				case PAWN:
-					pawn->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
-					break;
-				case ROOK:
-					rook->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
-					break;
-				case KNIGHT:
-					knight->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
-					break;
-				case BISHOP:
-					bishop->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
-					break;
-				case QUEEN:
-					queen->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
-					break;
-				case KING:
-					king->displayBlueRectangles(fromRow, fromCol, board, colors, boardToUpdate);
+					if (j - 1 >= 0 && i + 1 < 8)
+						whiteBoardToUpdate[i + 1][j - 1] = BLUE_RECTANGLE;
+					if (j + 1 < 8 && i + 1 < 8)
+						whiteBoardToUpdate[i + 1][j + 1] = BLUE_RECTANGLE;
 				}
+				else if (colors[i][j] == BLACK) {
+					if (j - 1 >= 0 && i - 1 >= 0)
+						blackBoardToUpdate[i - 1][j - 1] = BLUE_RECTANGLE;
+					if (j + 1 < 8 && i - 1 >= 0)
+						blackBoardToUpdate[i - 1][j + 1] = BLUE_RECTANGLE;
+				}
+				break;
+				/*
+			case ROOK:
+				if (colors[i][j] == WHITE)
+					rook->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate);
+				else if (colors[i][j] == BLACK)
+					rook->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate);
+				break;
+			case KNIGHT:
+				if (colors[i][j] == WHITE)
+					knight->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate);
+				else if (colors[i][j] == BLACK)
+					knight->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate);
+				break;
+			case BISHOP:
+				if (colors[i][j] == WHITE)
+					bishop->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate);
+				else if (colors[i][j] == BLACK)
+					bishop->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate);
+				break;
+			case QUEEN:
+				if (colors[i][j] == WHITE)
+					queen->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate);
+				else if (colors[i][j] == BLACK)
+					queen->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate);
+				break;
+			case KING:
+				if (colors[i][j] == WHITE)
+					king->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate);
+				else if (colors[i][j] == BLACK)
+					king->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate);
+				break;
+				*/
 			}
 		}
+	}
+	std::cout << "\nAfter update:\n";
+	for (int i = HEIGHT - 1; i >= 0; i--)
+	{
+		for (int j = 0; j < WIDTH; j++)
+		{
+			std::cout << whiteBoardToUpdate[i][j] << " ";
+		}
+		std::cout << std::endl;
 	}
 }
