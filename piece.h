@@ -29,5 +29,5 @@ public:
 	int getY() { return yPosition; }
 
 	virtual bool move(int toRow, int toCol, char blueRectangles[][8]) = 0;
-	virtual void displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8]) = 0;
+	virtual void displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks) = 0;
 };

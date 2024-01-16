@@ -11,15 +11,15 @@ bool Bishop::move(int toRow, int toCol, char blueRectangles[][8])
 	return blueRectangles[toRow][toCol] == BLUE_RECTANGLE;
 }
 
-void Bishop::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8])
+void Bishop::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks)
 {
 	if (colors[fromRow][fromCol] == WHITE)
-		updateRectangles(WHITE, fromRow, fromCol, board, colors, blueRectangles);
+		updateRectangles(WHITE, fromRow, fromCol, board, colors, blueRectangles, forChecks);
 	else if (colors[fromRow][fromCol] == BLACK)
-		updateRectangles(BLACK, fromRow, fromCol, board, colors, blueRectangles);
+		updateRectangles(BLACK, fromRow, fromCol, board, colors, blueRectangles, forChecks);
 }
 
-void Bishop::updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8])
+void Bishop::updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks)
 {
     // Define the possible directions for diagonal moves
     int directions[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
@@ -36,7 +36,7 @@ void Bishop::updateRectangles(char color, int fromRow, int fromCol, int board[][
             // Check if the position is within the bounds of the chessboard
             if (toRow >= 0 && toRow < 8 && toCol >= 0 && toCol < 8) 
             {
-                if (colors[toRow][toCol] == EMPTY || colors[toRow][toCol] != color) 
+                if (colors[toRow][toCol] == EMPTY || colors[toRow][toCol] != color || (forChecks && colors[toRow][toCol] == color))
                     blueRectangles[toRow][toCol] = BLUE_RECTANGLE;
 
                 // Stop further moves if the position is not empty

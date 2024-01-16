@@ -187,22 +187,22 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 		switch (board[fromRow][fromCol])
 		{
 		case PAWN:
-			pawn->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			pawn->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false);
 			break;
 		case ROOK:
-			rook->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			rook->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false);
 			break;
 		case KNIGHT:
-			knight->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			knight->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false);
 			break;
 		case BISHOP:
-			bishop->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			bishop->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false);
 			break;
 		case QUEEN:
-			queen->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			queen->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false);
 			break;
 		case KING:
-			king->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard);
+			king->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false);
 		}
 		return;
 	}
@@ -341,38 +341,36 @@ void Board::updateColorsSquares(char colors[][8], char whiteBoardToUpdate[][8], 
 						blackBoardToUpdate[i - 1][j + 1] = BLUE_RECTANGLE;
 				}
 				break;
-				/*
 			case ROOK:
 				if (colors[i][j] == WHITE)
-					rook->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate);
+					rook->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate, true);
 				else if (colors[i][j] == BLACK)
-					rook->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate);
+					rook->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate, true);
 				break;
 			case KNIGHT:
 				if (colors[i][j] == WHITE)
-					knight->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate);
+					knight->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate, true);
 				else if (colors[i][j] == BLACK)
-					knight->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate);
+					knight->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate, true);
 				break;
 			case BISHOP:
 				if (colors[i][j] == WHITE)
-					bishop->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate);
+					bishop->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate, true);
 				else if (colors[i][j] == BLACK)
-					bishop->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate);
+					bishop->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate, true);
 				break;
 			case QUEEN:
 				if (colors[i][j] == WHITE)
-					queen->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate);
+					queen->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate, true);
 				else if (colors[i][j] == BLACK)
-					queen->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate);
+					queen->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate, true);
 				break;
 			case KING:
 				if (colors[i][j] == WHITE)
-					king->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate);
+					king->displayBlueRectangles(i, j, board, colors, whiteBoardToUpdate, true);
 				else if (colors[i][j] == BLACK)
-					king->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate);
+					king->displayBlueRectangles(i, j, board, colors, blackBoardToUpdate, true);
 				break;
-				*/
 			}
 		}
 	}
