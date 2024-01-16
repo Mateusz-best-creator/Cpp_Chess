@@ -17,6 +17,7 @@ King::King(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c)
 		kingRow = 7;
 		kingColumn = 4;
 	}
+	check = true;
 }
 
 King::~King() {}

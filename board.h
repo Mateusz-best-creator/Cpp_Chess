@@ -83,7 +83,7 @@ private:
 		{'r', 'r', 'r', 'r', 'r', 'r' , 'r', 'r'}
 	};
 
-	SDL_Texture* boardTexture, * blueRectangleTexture;
+	SDL_Texture* boardTexture;
 	SDL_Renderer* renderer;
 	SDL_Rect sourceRect, destinationRect;
 
@@ -95,6 +95,8 @@ private:
 	std::shared_ptr<Bishop> bishop;
 	std::shared_ptr<Queen> queen;
 	std::shared_ptr<King> king;
+	// Exact same thing as blue rectangle but with different color
+	std::unique_ptr<BlueRectangle> redRectangle;
 
 	int fromRow, fromCol;
 	int toRow, toCol;

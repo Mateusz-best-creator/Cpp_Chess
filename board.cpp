@@ -17,8 +17,8 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 {
 	renderer = ren;
 	boardTexture = TextureManager::LoadTexture(filename, renderer);
-	blueRectangleTexture = TextureManager::LoadTexture("ChesPieces/blue.png", renderer);
 	movingPieceType = NONE;
+	redRectangle = std::make_unique<BlueRectangle>("ChessPieces/red.png", renderer, 1, 1);
 
 	int boardR = 0;
 	pieces.clear();
@@ -88,6 +88,13 @@ void Board::update()
 	{
 		pieces[i]->update();
 	}
+
+	if (king->getCheck())
+	{
+		redRectangle->getBoardRow() = king->getKingRow() + 1; // We add 1 beacuse we index from 0
+		redRectangle->getBoardcolumn() = king->getKingColumn() + 1;
+		redRectangle->update();
+	}
 }
 
 void Board::render()
@@ -108,6 +115,10 @@ void Board::render()
 			counter++;
 		}
 	}
+	// Render red rectangle if there is a check
+	if (king->getCheck())
+		redRectangle->render();
+
 	// Render all the pieces
 	for (size_t i = 0; i < pieces.size(); i++)
 		pieces[i]->render();
