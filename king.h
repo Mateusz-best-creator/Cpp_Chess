@@ -12,7 +12,13 @@ public:
 	~King();
 
 	virtual bool move(int toRow, int toCol, char blueRectangles[][8]) override;
-	virtual void displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks) override;
-	void updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks);
+
+	virtual void displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8],
+		char blueRectangles[][8], bool forChecks) override {}
+
+	virtual void displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], 
+		char blueRectangles[][8], bool forChecks, char whiteColorsSquares[][8], char blackColorsSquares[][8]);
+	void updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], 
+		char blueRectangles[][8], bool forChecks, char colorsSquares[][8]);
 	bool checkIfMoveValid(int toRow, int toColumn, char colorsSquares[][8]);
 };

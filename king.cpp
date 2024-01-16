@@ -29,15 +29,17 @@ bool King::move(int toRow, int toCol, char blueRectangles[][8])
 	return false;
 }
 
-void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks)
+void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], 
+	char blueRectangles[][8], bool forChecks, char whiteColorsSquares[][8], char blackColorsSquares[][8])
 {
 	if (colors[fromRow][fromCol] == WHITE)
-		updateRectangles(BLACK, fromRow, fromCol, board, colors, blueRectangles, forChecks);
+		updateRectangles(BLACK, fromRow, fromCol, board, colors, blueRectangles, forChecks, blackColorsSquares);
 	else if (colors[fromRow][fromCol] == BLACK)
-		updateRectangles(WHITE, fromRow, fromCol, board, colors, blueRectangles, forChecks);
+		updateRectangles(WHITE, fromRow, fromCol, board, colors, blueRectangles, forChecks, whiteColorsSquares);
 }
 
-void King::updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks)
+void King::updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], 
+	char blueRectangles[][8], bool forChecks, char colorsSquares[][8])
 {
 	// We start indexing directions from bottom left border
 	int directions[8][2] = { {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1} };
@@ -52,7 +54,8 @@ void King::updateRectangles(char color, int fromRow, int fromCol, int board[][8]
 		if (toRow <= 7 && toRow >= 0 && toCol <= 7 && toCol >= 0)
 		{
 			if (colors[toRow][toCol] == EMPTY || colors[toRow][toCol] == color || (forChecks && colors[toRow][toCol] != color))
-				blueRectangles[toRow][toCol] = BLUE_RECTANGLE;
+				if (checkIfMoveValid(toRow, toCol, colorsSquares))
+					blueRectangles[toRow][toCol] = BLUE_RECTANGLE;
 		}
 	}
 }

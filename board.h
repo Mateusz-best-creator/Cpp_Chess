@@ -116,5 +116,6 @@ public:
 	bool updatePiece(std::shared_ptr<Piece> piece);
 
 	// Functions for updating occupied squares
-	void updateColorsSquares(char colors[][8], char whiteBoardToUpdate[][8], char blackBoardToUpdate[][8]);
+	void updateColorsSquares();
+	void resetBlueRectanglesBoard();
 };
