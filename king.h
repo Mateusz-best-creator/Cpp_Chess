@@ -1,6 +1,7 @@
 #pragma once
 
 #include "piece.h"
+#include <iostream>
 
 class King : public Piece
 {
@@ -32,5 +33,7 @@ public:
 	bool isValidSquare(int row, int col);
 	bool isValidMove(char color, int toRow, int toCol, char colors[][8], bool forChecks, char colorsSquares[][8]);
 
+	// Functions for checking if there is a check or checkmate
 	bool checkIfCheck(char boardToCheck[][8]);
+	bool checkIfCheckmate(char board[][8], char colors[][8], void (*updateSquares)());
 };

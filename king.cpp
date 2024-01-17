@@ -97,5 +97,46 @@ bool King::checkIfMoveValid(int toRow, int toColumn, char colorsSquares[][8])
 
 bool King::checkIfCheck(char boardToCheck[][8])
 {
-	return boardToCheck[kingRow][kingColumn] != EMPTY;
+	check =  boardToCheck[kingRow][kingColumn] != EMPTY;
+	return check;
+}
+
+bool King::checkIfCheckmate(char board[][8], char colors[][8], void (*updateSquares)())
+{
+	if (check)
+	{
+		// Idea 2
+		// Loop thorugh all the pieces of given color, perform all possible moves,
+		// Check if we can deny checks, blackSquaresBoard[kingRow][kingCol] == EMPTY
+		// 
+
+		// Idea 1
+		// Find squares, from which we get a check,
+		// Once we find them check if this is a double check
+		// If it is check if king is able to move somewhere, if not -> checkmate
+		
+		// If it is not double check, check whiteSquares board if we can remove checking piece
+		// If we cannot remove and king has no squares -> checkmate
+
+
+		// Loop through each piece
+		for (int i = 0; i < HEIGHT; i++)
+		{
+			for (int j = 0; j < WIDTH; j++)
+			{
+				if (colors[i][j] == kingColor)
+				{
+					switch (board[i][j])
+					{
+					case PAWN:
+						
+					}
+				}
+				else
+					continue;
+			}
+		}
+
+	}
+	return false;
 }
