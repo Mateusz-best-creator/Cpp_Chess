@@ -135,7 +135,10 @@
   <ItemGroup>
     <ClCompile Include="bishop.cpp" />
     <ClCompile Include="blueRectangle.cpp" />
-    <ClCompile Include="board.cpp" />
+    <ClCompile Include="boardUpdateColorsSquares.cpp" />
+    <ClCompile Include="boardInit.cpp" />
+    <ClCompile Include="boardMovingPiece.cpp" />
+    <ClCompile Include="boardUpdateRender.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="king.cpp" />
     <ClCompile Include="knight.cpp" />

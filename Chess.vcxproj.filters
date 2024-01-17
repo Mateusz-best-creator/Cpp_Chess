@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Board">
+      <UniqueIdentifier>{81ed3a4d-0514-4437-8626-426cd574f838}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -22,9 +25,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="piece.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pawn.cpp">
@@ -56,6 +56,18 @@
     </ClCompile>
     <ClCompile Include="blueRectangle.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="boardUpdateColorsSquares.cpp">
+      <Filter>Source Files\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="boardInit.cpp">
+      <Filter>Source Files\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="boardUpdateRender.cpp">
+      <Filter>Source Files\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="boardMovingPiece.cpp">
+      <Filter>Source Files\Board</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,6 @@ bool King::move(int toRow, int toCol, char blueRectangles[][8])
 {
 	if (blueRectangles[toRow][toCol] == BLUE_RECTANGLE)
 	{
-		std::cout << "Updating king coordinates to: " << toRow << " " << toCol << std::endl;
 		kingRow = toRow;
 		kingColumn = toCol;
 		return true;
@@ -98,7 +97,5 @@ bool King::checkIfMoveValid(int toRow, int toColumn, char colorsSquares[][8])
 
 bool King::checkIfCheck(char boardToCheck[][8])
 {
-	std::cout << "King row: " << kingRow << " King column: " << kingColumn << " " << 
-		static_cast<char>(boardToCheck[kingRow][kingColumn]) << std::endl;
 	return boardToCheck[kingRow][kingColumn] != EMPTY;
 }
