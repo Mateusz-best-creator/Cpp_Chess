@@ -7,6 +7,7 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	boardTexture = TextureManager::LoadTexture(filename, renderer);
 	movingPieceType = NONE;
 	redRectangle = std::make_unique<BlueRectangle>("ChessPieces/red.png", renderer, 1, 1);
+	gameRunning = true;
 
 	int boardR = 0;
 	pieces.clear();

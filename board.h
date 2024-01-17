@@ -99,17 +99,16 @@ private:
 	// Exact same thing as blue rectangle but with different color
 	std::unique_ptr<BlueRectangle> redRectangle;
 
-	int fromRow, fromCol;
-	int toRow, toCol;
-	int movingPieceType;
+	int fromRow, fromCol, toRow, toCol, movingPieceType;
 	enum { INITIAL_VALUE = -1 };
+	bool gameRunning;
 
 public:
 	Board(const char* filename, SDL_Renderer* ren);
 	~Board();
 
 	void render();
-	void update();
+	bool update();
 	void addPieces(int i, int j, int boardR);
 	void movingPiece(int row, int column, int& playerIndex);
 

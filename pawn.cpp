@@ -47,7 +47,6 @@ void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 
     else if (colors[fromRow][fromCol] == BLACK)
     {
-        std::cout << "HALO HALO...\n";
         // Black pawn moves
         if (fromRow - 2 >= 0 && colors[fromRow - 2][fromCol] == EMPTY && fromRow == 6)
             boardToUpdate[fromRow - 2][fromCol] = BLUE_RECTANGLE;

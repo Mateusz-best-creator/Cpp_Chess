@@ -92,7 +92,8 @@ bool Game::handleEvents()
 
 void Game::update()
 {
-	board->update();
+	if (!board->update())
+		isRunning = false;
 }
 
 /*

@@ -1,6 +1,6 @@
 #include "board.h"
 
-void Board::update()
+bool Board::update()
 {
 	sourceRect.h = 600;
 	sourceRect.w = 800;
@@ -48,6 +48,7 @@ void Board::update()
 		redRectangle->getBoardcolumn() = blackKing->getKingColumn() + 1;
 		redRectangle->update();
 	}
+	return gameRunning;
 }
 
 void Board::render()

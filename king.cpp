@@ -148,7 +148,7 @@ bool King::checkIfCheck(char boardToCheck[][8])
 	return check;
 }
 
-bool King::checkIfCheckmate(char board[][8], char colors[][8], void (*updateSquares)())
+bool King::checkIfCheckmate(int board[][8], char colors[][8])
 {
 	if (check)
 	{
@@ -185,6 +185,7 @@ bool King::checkIfCheckmate(char board[][8], char colors[][8], void (*updateSqua
 			}
 		}
 		*/
+		return true;
 	}
 	return false;
 }

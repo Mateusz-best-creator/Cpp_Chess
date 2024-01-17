@@ -79,6 +79,14 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	}
 	// Reset variables
 	fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
+	if (playerIndex == 1 && whiteKing->checkIfCheckmate(board, colors))
+	{
+		gameRunning = false;
+	}
+	else if (playerIndex == 2 && blackKing->checkIfCheckmate(board, colors))
+	{
+		gameRunning = false;
+	}
 }
 
 bool Board::updatePieces()
