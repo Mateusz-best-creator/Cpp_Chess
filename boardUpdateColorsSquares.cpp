@@ -1,15 +1,5 @@
 #include "board.h"
 
-// Helper function
-void Board::resetBlueRectanglesBoard()
-{
-	// Reset blue rectangles
-	for (size_t i = 0; i < HEIGHT; i++)
-		for (size_t j = 0; j < WIDTH; j++)
-			blueRectanglesBoard[i][j] = EMPTY;
-}
-
-
 void Board::updateColorsSquares()
 {
 	// Reset both boards

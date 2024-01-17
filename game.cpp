@@ -65,7 +65,6 @@ bool Game::handleEvents()
 			if (xValue < X_OFFSET || xValue > SCREEN_WIDTH - X_OFFSET || yValue < Y_OFFSET || yValue > SCREEN_HEIGHT - Y_OFFSET)
 				return false;
 			
-			std::cout << event.button.x << " " << event.button.y << std::endl;
 			int boardColumn = (xValue - X_OFFSET) / PIECES_X_DISTANCE + 1;
 			int boardRow = (yValue - Y_OFFSET) / PIECES_Y_DISTANCE + 1;
 
@@ -74,7 +73,6 @@ bool Game::handleEvents()
 			choosenRow = boardRow;
 			choosenColumn = boardColumn;
 
-			std::cout << "ROWS and COLS: " << choosenRow << " " << choosenColumn << std::endl;
 			try
 			{
 				board->movingPiece(choosenRow, choosenColumn, playerIndex);

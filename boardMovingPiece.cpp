@@ -1,6 +1,15 @@
 #include "board.h"
 #include <typeinfo>
 
+// Helper function
+void Board::resetBlueRectanglesBoard()
+{
+	// Reset blue rectangles
+	for (size_t i = 0; i < HEIGHT; i++)
+		for (size_t j = 0; j < WIDTH; j++)
+			blueRectanglesBoard[i][j] = EMPTY;
+}
+
 void Board::movingPiece(int row, int column, int& playerIndex)
 {
 	// Subtract one beacuse arrays are indexes from 0 (rows and cols from 1)
@@ -57,16 +66,16 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	}
 	// Update all the pieces
 	bool updated = updatePieces();
+	// Reset blue rectangles board
 	resetBlueRectanglesBoard();
-	// Reset variables
-	fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
+
 	if (updated)
 	{
 		playerIndex = (playerIndex == 1) ? 2 : 1;
 		updateColorsSquares();
 	}
-
-
+	// Reset variables
+	fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
 }
 
 bool Board::updatePieces()
@@ -120,11 +129,51 @@ bool Board::updatePieces()
 		colors[fromRow][fromCol] = EMPTY;
 		colors[toRow][toCol] = BLACK;
 	}
+
+	updateColorsSquares();
+	if ((whiteSquaresBoard[blackKing->getKingRow()][blackKing->getKingColumn()] != EMPTY && colors[toRow][toCol] == BLACK)
+		|| (blackSquaresBoard[whiteKing->getKingRow()][whiteKing->getKingColumn()] != EMPTY && colors[toRow][toCol] == WHITE))
+	{
+		std::cout << "Move is invalid\n";
+		board[toRow][toCol] = EMPTY;
+		switch (movingPieceType)
+		{
+		case PAWN:
+			board[fromRow][fromCol] = PAWN;
+			break;
+		case KNIGHT:
+			board[fromRow][fromCol] = KNIGHT;
+			break;
+		case BISHOP:
+			board[fromRow][fromCol] = BISHOP;
+			break;
+		case ROOK:
+			board[fromRow][fromCol] = ROOK;
+			break;
+		case QUEEN:
+			board[fromRow][fromCol] = QUEEN;
+			break;
+		}
+
+		if (colors[toRow][toCol] == WHITE)
+		{
+			colors[fromRow][fromCol] = WHITE;
+			colors[toRow][toCol] = EMPTY;
+		}
+		else if (colors[toRow][toCol] == BLACK)
+		{
+			colors[fromRow][fromCol] = BLACK;
+			colors[toRow][toCol] = EMPTY;
+		}
+		updateColorsSquares();
+		return false;
+	}
 	return true;
 }
 
 bool Board::updatePiece(std::shared_ptr<Piece> piece)
 {
+	// Check if move is valid
 	if (!piece->move(toRow, toCol, blueRectanglesBoard))
 	{
 		std::cout << "You cant move from " << fromRow << ", " << fromCol << " to " << toRow << ", " << toCol << " with "
@@ -132,6 +181,7 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 		fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
 		return false;
 	}
+
 	board[fromRow][fromCol] = NONE;
 	if (typeid(Pawn) == typeid(*piece))
 		board[toRow][toCol] = PAWN;
@@ -145,5 +195,6 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 		board[toRow][toCol] = QUEEN;
 	else if (typeid(King) == typeid(*piece))
 		board[toRow][toCol] = KING;
+
 	return true;
 }
