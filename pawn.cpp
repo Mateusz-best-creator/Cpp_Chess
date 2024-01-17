@@ -58,10 +58,37 @@ void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
             boardToUpdate[fromRow - 1][fromCol - 1] = BLUE_RECTANGLE;
 
         // check for "bicie w przelocie" for black pawns
-        if (currentColPreviousPawn - previousRowPreviousPawn == 2)
+        if (currentRowPreviousPawn - previousRowPreviousPawn == 2)
         {
-
+            // From the left site
+            if (currentColPreviousPawn + 1 == fromCol && colors[fromRow - 1][fromCol - 1] == EMPTY && fromCol - 1 >= 0 && fromRow - 1 >= 0)
+                boardToUpdate[fromRow - 1][fromCol - 1] = BLUE_RECTANGLE;
+            // From the right site
+            if (currentColPreviousPawn - 1 == fromCol && colors[fromRow - 1][fromCol + 1] == EMPTY && fromCol - 1 >= 0 && fromCol + 1 < 8 && fromRow - 1 >= 0)
+                boardToUpdate[fromRow - 1][fromCol + 1] = BLUE_RECTANGLE;
         }
     }
 }
 
+void Pawn::enPassantMove(int fromRow, int fromCol, int toRow, int toCol, char colors[][8], int board[][8], char blueRectangles[][8])
+{
+    if (colors[fromRow][fromCol] == WHITE)
+    {
+        if (blueRectangles[toRow][toCol] == BLUE_RECTANGLE && colors[toRow][toCol] == EMPTY && toRow == fromRow + 1 && toCol != fromCol)
+        {
+            // Remove black pawn after en passant move
+            board[toRow - 1][toCol] = NONE;
+            colors[toRow - 1][toCol] = EMPTY;
+        }
+    }
+    if (colors[fromRow][fromCol] == BLACK)
+    {
+        if (blueRectangles[toRow][toCol] == BLUE_RECTANGLE && colors[toRow][toCol] == EMPTY && toRow == fromRow - 1 && toCol != fromCol)
+        {
+            // Remove black pawn after en passant move
+            board[toRow + 1][toCol] = NONE;
+            colors[toRow + 1][toCol] = EMPTY;
+        }
+    }
+   
+}

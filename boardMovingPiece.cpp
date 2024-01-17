@@ -90,6 +90,7 @@ bool Board::updatePieces()
 	case PAWN:
 		if (!updatePiece(pawn))
 			return false;
+		pawn->enPassantMove(fromRow, fromCol, toRow, toCol, colors, board, blueRectanglesBoard);
 		pawn->getPreviousRow() = fromRow;
 		pawn->getCurrentCol() = toCol;
 		pawn->getCurrentRow() = toRow;
