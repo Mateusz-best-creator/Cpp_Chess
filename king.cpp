@@ -53,32 +53,41 @@ void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 			targetColorsSquares[toRow][toCol] = BLUE_RECTANGLE;
 		}
 	}
+	std::cout << colors[fromRow][fromCol] << " " << hasMoved << std::endl;
 	// Only if king didnt move we can make a castle
-	std::cout << "Boolean values: " << hasMoved << "\n";
 	if (!hasMoved)
 	{
-		if (colors[fromRow][fromCol] == WHITE)
+		// Short castle
+		if (!shortCastleRookMoved)
 		{
-			if (blackColorsSquares[0][5] == EMPTY && blackColorsSquares[0][6] == EMPTY &&
-				colors[0][5] == EMPTY && colors[0][6] == EMPTY)
+			if (colors[fromRow][fromCol] == WHITE)
 			{
-				blueRectangles[0][6] = BLUE_RECTANGLE;
+				if (blackColorsSquares[0][5] == EMPTY && blackColorsSquares[0][6] == EMPTY &&
+					colors[0][5] == EMPTY && colors[0][6] == EMPTY)
+				{
+					blueRectangles[0][6] = BLUE_RECTANGLE;
+				}
+
 			}
-					
-		}
-		if (colors[fromRow][fromCol] == BLACK)
-		{
-			if (blackColorsSquares[7][5] == EMPTY && blackColorsSquares[7][6] == EMPTY &&
-				colors[7][5] == EMPTY && colors[7][6] == EMPTY)
+			if (colors[fromRow][fromCol] == BLACK)
 			{
-				blueRectangles[7][6] = BLUE_RECTANGLE;
+				if (whiteColorsSquares[7][5] == EMPTY && whiteColorsSquares[7][6] == EMPTY &&
+					colors[7][5] == EMPTY && colors[7][6] == EMPTY)
+				{
+					blueRectangles[7][6] = BLUE_RECTANGLE;
+				}
 			}
 		}
+		// Long castle
 		if (!longCastleRookMoved)
 		{
 			if (colors[fromRow][fromCol] == WHITE)
 			{
-
+				if (blackColorsSquares[0][1] == EMPTY && blackColorsSquares[0][2] == EMPTY && blackColorsSquares[0][3] == EMPTY 
+					&& colors[0][1] == EMPTY && colors[0][2] == EMPTY && colors[0][3] == EMPTY)
+				{
+					blueRectangles[0][2] = BLUE_RECTANGLE;
+				}
 			}
 		}
 	}

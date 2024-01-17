@@ -89,6 +89,18 @@ bool Board::updatePieces()
 	case ROOK:
 		if (!updatePiece(rook))
 			return false;
+		else
+		{
+			// Update variables necessary for castle move
+			if (fromRow == 0 && fromCol == 0)
+				whiteKing->getLongCastleRookMoved() = true;
+			else if (fromRow == 0 && fromCol == 7)
+				whiteKing->getShortCastleRookMoved() = true;
+			else if (fromRow == 7 && fromCol == 0)
+				blackKing->getLongCastleRookMoved() = true;
+			else if (fromRow == 7 && fromCol == 7)
+				blackKing->getShortCastleRookMoved() = true;
+		}
 		break;
 	case KNIGHT:
 		if (!updatePiece(knight))
@@ -106,17 +118,29 @@ bool Board::updatePieces()
 		if (colors[fromRow][fromCol] == WHITE)
 		{
 			// Short castle for white king
-			if (!whiteKing->getHasMoved() && toCol == 6 && blueRectanglesBoard[0][6] == BLUE_RECTANGLE)
+			if (!whiteKing->getHasMoved() && toCol == 6 && blueRectanglesBoard[0][6] == BLUE_RECTANGLE && !whiteKing->getShortCastleRookMoved())
 			{
 				board[0][7] = NONE;
 				board[0][5] = ROOK;
 				colors[0][7] = EMPTY;
-				colors[0][5] = WHITE;
+				colors[0][5] = colors[0][6] = WHITE;
 				board[0][6] = KING;
-				colors[0][6] = WHITE;
 				whiteKing->getKingRow() = 0;
 				whiteKing->getKingColumn() = 6;
-				whiteKing->getHasMoved() = true;
+				whiteKing->getShortCastleRookMoved() = whiteKing->getLongCastleRookMoved() = whiteKing->getHasMoved() = true;
+				break;
+			}
+			// Long castle for white king
+			else if (!whiteKing->getHasMoved() && toCol == 2 && blueRectanglesBoard[0][2] == BLUE_RECTANGLE && !whiteKing->getLongCastleRookMoved())
+			{
+				board[0][0] = NONE;
+				board[0][2] = KING;
+				board[0][3] = ROOK;
+				colors[0][0] = EMPTY;
+				colors[0][3] = colors[0][2] = WHITE;
+				whiteKing->getKingRow() = 0;
+				whiteKing->getKingColumn() = 2;
+				whiteKing->getShortCastleRookMoved() = whiteKing->getLongCastleRookMoved() = whiteKing->getHasMoved() = true;
 				break;
 			}
 
@@ -127,17 +151,16 @@ bool Board::updatePieces()
 		else if (colors[fromRow][fromCol] == BLACK)
 		{
 			// Short castle for black king
-			if (!blackKing->getHasMoved() && toCol == 6 && blueRectanglesBoard[7][6] == BLUE_RECTANGLE)
+			if (!blackKing->getHasMoved() && toCol == 6 && blueRectanglesBoard[7][6] == BLUE_RECTANGLE && !blackKing->getShortCastleRookMoved())
 			{
 				board[7][7] = NONE;
 				board[7][5] = ROOK;
 				colors[7][7] = EMPTY;
-				colors[7][5] = BLACK;
+				colors[7][5] = colors[7][6] = BLACK;
 				board[7][6] = KING;
-				colors[7][6] = BLACK;
-				blackKing->getKingRow() = 0;
+				blackKing->getKingRow() = 7;
 				blackKing->getKingColumn() = 6;
-				blackKing->getHasMoved() = true;
+				blackKing->getShortCastleRookMoved() = blackKing->getLongCastleRookMoved() = blackKing->getHasMoved() = true;
 				break;
 			}
 			if (!updatePiece(blackKing))

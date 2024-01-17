@@ -14,10 +14,15 @@ public:
 	King(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c);
 	~King();
 
+	// Getters
 	bool getCheck() const { return check; }
 	bool& getCheck() { return check; }
 	bool getHasMoved() const { return hasMoved; }
 	bool& getHasMoved() { return hasMoved; }
+	bool getShortCastleRookMoved() const { return shortCastleRookMoved; }
+	bool getLongCastleRookMoved() const { return longCastleRookMoved; }
+	bool& getShortCastleRookMoved() { return shortCastleRookMoved; }
+	bool& getLongCastleRookMoved() { return longCastleRookMoved; }
 	int getKingRow() const { return kingRow; }
 	int getKingColumn() const { return kingColumn; }
 	int& getKingRow() { return kingRow; }

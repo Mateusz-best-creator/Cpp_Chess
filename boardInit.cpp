@@ -33,8 +33,8 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	knight = std::make_shared<Knight>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
 	bishop = std::make_shared<Bishop>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
 	queen = std::make_shared<Queen>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
-	whiteKing = std::make_shared<King>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
-	blackKing = std::make_shared<King>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, BLACK);
+	whiteKing = std::make_shared<King>("ChessPieces/Chess_ndt60.png", renderer, 1, 5, WHITE);
+	blackKing = std::make_shared<King>("ChessPieces/Chess_ndt60.png", renderer, 8, 5, BLACK);
 }
 
 Board::~Board() 
