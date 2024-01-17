@@ -8,7 +8,7 @@ class King : public Piece
 private:
 	int kingRow, kingColumn;
 	char kingColor;
-	bool check;
+	bool check, hasMoved, shortCastleRookMoved, longCastleRookMoved;
 
 public:
 	King(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c);
@@ -16,8 +16,12 @@ public:
 
 	bool getCheck() const { return check; }
 	bool& getCheck() { return check; }
+	bool getHasMoved() const { return hasMoved; }
+	bool& getHasMoved() { return hasMoved; }
 	int getKingRow() const { return kingRow; }
 	int getKingColumn() const { return kingColumn; }
+	int& getKingRow() { return kingRow; }
+	int& getKingColumn() { return kingColumn; }
 	char getKingcolor() const { return kingColor; }
 
 	virtual bool move(int toRow, int toCol, char blueRectangles[][8]) override;

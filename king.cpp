@@ -12,13 +12,14 @@ King::King(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c)
 		kingRow = 0;
 		kingColumn = 4;
 	}
-	else if (c == BLACK)
+	else
 	{
 		kingRow = 7;
 		kingColumn = 4;
 	}
+
 	kingColor = c;
-	check = false;
+	check = hasMoved = longCastleRookMoved = shortCastleRookMoved = false;
 }
 
 King::~King() {}
@@ -50,6 +51,35 @@ void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 		{
 			char(*targetColorsSquares)[8] = (colors[fromRow][fromCol] == WHITE) ? whiteColorsSquares : blackColorsSquares;
 			targetColorsSquares[toRow][toCol] = BLUE_RECTANGLE;
+		}
+	}
+	// Only if king didnt move we can make a castle
+	std::cout << "Boolean values: " << hasMoved << "\n";
+	if (!hasMoved)
+	{
+		if (colors[fromRow][fromCol] == WHITE)
+		{
+			if (blackColorsSquares[0][5] == EMPTY && blackColorsSquares[0][6] == EMPTY &&
+				colors[0][5] == EMPTY && colors[0][6] == EMPTY)
+			{
+				blueRectangles[0][6] = BLUE_RECTANGLE;
+			}
+					
+		}
+		if (colors[fromRow][fromCol] == BLACK)
+		{
+			if (blackColorsSquares[7][5] == EMPTY && blackColorsSquares[7][6] == EMPTY &&
+				colors[7][5] == EMPTY && colors[7][6] == EMPTY)
+			{
+				blueRectangles[7][6] = BLUE_RECTANGLE;
+			}
+		}
+		if (!longCastleRookMoved)
+		{
+			if (colors[fromRow][fromCol] == WHITE)
+			{
+
+			}
 		}
 	}
 }
@@ -120,6 +150,7 @@ bool King::checkIfCheckmate(char board[][8], char colors[][8], void (*updateSqua
 
 
 		// Loop through each piece
+		/*
 		for (int i = 0; i < HEIGHT; i++)
 		{
 			for (int j = 0; j < WIDTH; j++)
@@ -136,7 +167,7 @@ bool King::checkIfCheckmate(char board[][8], char colors[][8], void (*updateSqua
 					continue;
 			}
 		}
-
+		*/
 	}
 	return false;
 }

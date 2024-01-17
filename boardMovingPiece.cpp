@@ -105,11 +105,41 @@ bool Board::updatePieces()
 	case KING:
 		if (colors[fromRow][fromCol] == WHITE)
 		{
+			// Short castle for white king
+			if (!whiteKing->getHasMoved() && toCol == 6 && blueRectanglesBoard[0][6] == BLUE_RECTANGLE)
+			{
+				board[0][7] = NONE;
+				board[0][5] = ROOK;
+				colors[0][7] = EMPTY;
+				colors[0][5] = WHITE;
+				board[0][6] = KING;
+				colors[0][6] = WHITE;
+				whiteKing->getKingRow() = 0;
+				whiteKing->getKingColumn() = 6;
+				whiteKing->getHasMoved() = true;
+				break;
+			}
+
 			if (!updatePiece(whiteKing))
 				return false;
+				
 		}
 		else if (colors[fromRow][fromCol] == BLACK)
 		{
+			// Short castle for black king
+			if (!blackKing->getHasMoved() && toCol == 6 && blueRectanglesBoard[7][6] == BLUE_RECTANGLE)
+			{
+				board[7][7] = NONE;
+				board[7][5] = ROOK;
+				colors[7][7] = EMPTY;
+				colors[7][5] = BLACK;
+				board[7][6] = KING;
+				colors[7][6] = BLACK;
+				blackKing->getKingRow() = 0;
+				blackKing->getKingColumn() = 6;
+				blackKing->getHasMoved() = true;
+				break;
+			}
 			if (!updatePiece(blackKing))
 				return false;
 		}
