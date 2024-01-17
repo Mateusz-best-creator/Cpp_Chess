@@ -14,8 +14,6 @@ bool Knight::move(int toRow, int toCol, char blueRectangles[][8])
 
 void Knight::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks)
 {
-	std::cout << static_cast<char>(colors[fromRow][fromCol]) << std::endl;
-	std::cout << "Coordinates : " << fromRow << " " << fromCol << std::endl;
 	if (colors[fromRow][fromCol] == WHITE)
 		updateRectangles(BLACK, fromRow, fromCol, board, colors, blueRectangles, forChecks);
 	if (colors[fromRow][fromCol] == BLACK)

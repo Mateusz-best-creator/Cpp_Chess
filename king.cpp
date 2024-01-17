@@ -17,7 +17,8 @@ King::King(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c)
 		kingRow = 7;
 		kingColumn = 4;
 	}
-	check = true;
+	kingColor = c;
+	check = false;
 }
 
 King::~King() {}
@@ -26,6 +27,7 @@ bool King::move(int toRow, int toCol, char blueRectangles[][8])
 {
 	if (blueRectangles[toRow][toCol] == BLUE_RECTANGLE)
 	{
+		std::cout << "Updating king coordinates to: " << toRow << " " << toCol << std::endl;
 		kingRow = toRow;
 		kingColumn = toCol;
 		return true;
@@ -92,4 +94,11 @@ bool King::isValidMove(char color, int toRow, int toCol, char colors[][8], bool 
 bool King::checkIfMoveValid(int toRow, int toColumn, char colorsSquares[][8])
 {
 	return colorsSquares[toRow][toColumn] == EMPTY;
+}
+
+bool King::checkIfCheck(char boardToCheck[][8])
+{
+	std::cout << "King row: " << kingRow << " King column: " << kingColumn << " " << 
+		static_cast<char>(boardToCheck[kingRow][kingColumn]) << std::endl;
+	return boardToCheck[kingRow][kingColumn] != EMPTY;
 }

@@ -88,13 +88,14 @@ private:
 	SDL_Rect sourceRect, destinationRect;
 
 	std::vector<std::unique_ptr<BlueRectangle>> rectangles;
-	std::vector<std::unique_ptr<Piece>> pieces; // Polymorphism
+	std::vector<std::shared_ptr<Piece>> pieces; // Polymorphism
 	std::shared_ptr<Pawn> pawn;
 	std::shared_ptr<Rook> rook;
 	std::shared_ptr<Knight> knight;
 	std::shared_ptr<Bishop> bishop;
 	std::shared_ptr<Queen> queen;
-	std::shared_ptr<King> king;
+	std::shared_ptr<King> whiteKing;
+	std::shared_ptr<King> blackKing;
 	// Exact same thing as blue rectangle but with different color
 	std::unique_ptr<BlueRectangle> redRectangle;
 

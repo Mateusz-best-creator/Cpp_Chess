@@ -45,7 +45,8 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	knight = std::make_shared<Knight>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
 	bishop = std::make_shared<Bishop>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
 	queen = std::make_shared<Queen>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
-	king = std::make_shared<King>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
+	whiteKing = std::make_shared<King>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
+	blackKing = std::make_shared<King>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, BLACK);
 }
 
 Board::~Board() {}
@@ -78,21 +79,24 @@ void Board::update()
 		for (size_t j = 0; j < WIDTH; j++)
 		{
 			if (blueRectanglesBoard[i][j] != EMPTY)
-			{
 				rectangles[counter]->update();
-			}
 			counter++;
 		}
 	}
+	
 	for (size_t i = 0; i < pieces.size(); i++)
-	{
 		pieces[i]->update();
-	}
 
-	if (king->getCheck())
+	if (whiteKing->getCheck())
 	{
-		redRectangle->getBoardRow() = king->getKingRow() + 1; // We add 1 beacuse we index from 0
-		redRectangle->getBoardcolumn() = king->getKingColumn() + 1;
+		redRectangle->getBoardRow() = whiteKing->getKingRow() + 1; // We add 1 beacuse we index from 0
+		redRectangle->getBoardcolumn() = whiteKing->getKingColumn() + 1;
+		redRectangle->update();
+	}
+	else if (blackKing->getCheck())
+	{
+		redRectangle->getBoardRow() = blackKing->getKingRow() + 1; // We add 1 beacuse we index from 0
+		redRectangle->getBoardcolumn() = blackKing->getKingColumn() + 1;
 		redRectangle->update();
 	}
 }
@@ -116,7 +120,7 @@ void Board::render()
 		}
 	}
 	// Render red rectangle if there is a check
-	if (king->getCheck())
+	if (whiteKing->getCheck() || blackKing->getCheck())
 		redRectangle->render();
 
 	// Render all the pieces
@@ -131,50 +135,50 @@ void Board::addPieces(int i, int j, int boardR)
 	case PAWN:
 
 		if (colors[i][j] == WHITE)
-			pieces.push_back(std::make_unique<Pawn>
+			pieces.push_back(std::make_shared<Pawn>
 				("ChessPieces/Chess_plt60.png", renderer, boardR, j + 1, WHITE));
 		else if (colors[i][j] == BLACK)
-			pieces.push_back(std::make_unique<Pawn>
+			pieces.push_back(std::make_shared<Pawn>
 				("ChessPieces/Chess_pdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case ROOK:
 		if (colors[i][j] == WHITE)
-			pieces.push_back(std::make_unique<Rook>
+			pieces.push_back(std::make_shared<Rook>
 				("ChessPieces/Chess_rlt60.png", renderer, boardR, j + 1, WHITE));
 		else if (colors[i][j] == BLACK)
-			pieces.push_back(std::make_unique<Rook>
+			pieces.push_back(std::make_shared<Rook>
 				("ChessPieces/Chess_rdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case KNIGHT:
 		if (colors[i][j] == WHITE)
-			pieces.push_back(std::make_unique<Knight>
+			pieces.push_back(std::make_shared<Knight>
 				("ChessPieces/Chess_nlt60.png", renderer, boardR, j + 1, WHITE));
 		else if (colors[i][j] == BLACK)
-			pieces.push_back(std::make_unique<Knight>
+			pieces.push_back(std::make_shared<Knight>
 				("ChessPieces/Chess_ndt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case BISHOP:
 		if (colors[i][j] == WHITE)
-			pieces.push_back(std::make_unique<Bishop>
+			pieces.push_back(std::make_shared<Bishop>
 				("ChessPieces/Chess_blt60.png", renderer, boardR, j + 1, WHITE));
 		else if (colors[i][j] == BLACK)
-			pieces.push_back(std::make_unique<Bishop>
+			pieces.push_back(std::make_shared<Bishop>
 				("ChessPieces/Chess_bdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case QUEEN:
 		if (colors[i][j] == WHITE)
-			pieces.push_back(std::make_unique<Queen>
+			pieces.push_back(std::make_shared<Queen>
 				("ChessPieces/Chess_qlt60.png", renderer, boardR, j + 1, WHITE));
 		else if (colors[i][j] == BLACK)
-			pieces.push_back(std::make_unique<Queen>
+			pieces.push_back(std::make_shared<Queen>
 				("ChessPieces/Chess_qdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	case KING:
 		if (colors[i][j] == 'w')
-			pieces.push_back(std::make_unique<King>
+			pieces.push_back(std::make_shared<King>
 				("ChessPieces/Chess_klt60.png", renderer, boardR, j + 1, WHITE));
 		else if (colors[i][j] == BLACK)
-			pieces.push_back(std::make_unique<King>
+			pieces.push_back(std::make_shared<King>
 				("ChessPieces/Chess_kdt60.png", renderer, boardR, j + 1, BLACK));
 		break;
 	}
@@ -213,7 +217,7 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 			queen->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false);
 			break;
 		case KING:
-			king->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false, whiteSquaresBoard, blackSquaresBoard);
+			whiteKing->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false, whiteSquaresBoard, blackSquaresBoard);
 		}
 		return;
 	}
@@ -244,6 +248,8 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 		playerIndex = (playerIndex == 1) ? 2 : 1;
 		updateColorsSquares();
 	}
+
+
 }
 
 bool Board::updatePieces()
@@ -271,8 +277,16 @@ bool Board::updatePieces()
 			return false;
 		break;
 	case KING:
-		if (!updatePiece(king))
-			return false;
+		if (colors[fromRow][fromCol] == WHITE)
+		{
+			if (!updatePiece(whiteKing))
+				return false;
+		}
+		else if (colors[fromRow][fromCol] == BLACK)
+		{
+			if (!updatePiece(blackKing))
+				return false;
+		}
 		break;
 	default:
 		break;
@@ -378,20 +392,14 @@ void Board::updateColorsSquares()
 				break;
 			case KING:
 				if (colors[i][j] == WHITE)
-					king->displayBlueRectangles(i, j, board, colors, whiteSquaresBoard, true, whiteSquaresBoard, blackSquaresBoard);
+					whiteKing->displayBlueRectangles(i, j, board, colors, whiteSquaresBoard, true, whiteSquaresBoard, blackSquaresBoard);
 				else if (colors[i][j] == BLACK)
-					king->displayBlueRectangles(i, j, board, colors, blackSquaresBoard, true, whiteSquaresBoard, blackSquaresBoard);
+					blackKing->displayBlueRectangles(i, j, board, colors, blackSquaresBoard, true, whiteSquaresBoard, blackSquaresBoard);
 				break;
 			}
 		}
 	}
-	std::cout << "\nAfter update:\n";
-	for (int i = HEIGHT - 1; i >= 0; i--)
-	{
-		for (int j = 0; j < WIDTH; j++)
-		{
-			std::cout << whiteSquaresBoard[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
+	// Check for checks
+	whiteKing->getCheck() = whiteKing->checkIfCheck(blackSquaresBoard) ? true : false;
+	blackKing->getCheck() = blackKing->checkIfCheck(whiteSquaresBoard) ? true : false;
 }
