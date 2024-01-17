@@ -5,7 +5,7 @@
 
 
 Pawn::Pawn(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char c)
-	: Piece(filename, ren, bRow, bColumn, c), color(EMPTY) 
+    : Piece(filename, ren, bRow, bColumn, c), color(EMPTY)
 {
     currentColPreviousPawn = currentRowPreviousPawn = previousRowPreviousPawn = -1;
 }
@@ -16,7 +16,7 @@ static int previousRow, previousCol;
 
 bool Pawn::move(int toRow, int toCol, char blueRectangles[][8])
 {
-	return blueRectangles[toRow][toCol] == BLUE_RECTANGLE;
+    return blueRectangles[toRow][toCol] == BLUE_RECTANGLE;
 }
 
 void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char boardToUpdate[][8], bool forChecks)
@@ -34,7 +34,7 @@ void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
             boardToUpdate[fromRow + 1][fromCol - 1] = BLUE_RECTANGLE;
 
         // check for "bicie w przelocie" for white pawns
-        if (previousRowPreviousPawn - currentRowPreviousPawn == 2)
+        if (previousRowPreviousPawn - currentRowPreviousPawn == 2 && fromRow == 4)
         {
             // From the left site
             if (currentColPreviousPawn + 1 == fromCol && colors[fromRow + 1][fromCol - 1] == EMPTY && fromCol >= 0 && fromRow + 1 < 8)
@@ -47,6 +47,7 @@ void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 
     else if (colors[fromRow][fromCol] == BLACK)
     {
+        std::cout << "HALO HALO...\n";
         // Black pawn moves
         if (fromRow - 2 >= 0 && colors[fromRow - 2][fromCol] == EMPTY && fromRow == 6)
             boardToUpdate[fromRow - 2][fromCol] = BLUE_RECTANGLE;
@@ -58,7 +59,7 @@ void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
             boardToUpdate[fromRow - 1][fromCol - 1] = BLUE_RECTANGLE;
 
         // check for "bicie w przelocie" for black pawns
-        if (currentRowPreviousPawn - previousRowPreviousPawn == 2)
+        if (currentRowPreviousPawn - previousRowPreviousPawn == 2 && fromRow == 3)
         {
             // From the left site
             if (currentColPreviousPawn + 1 == fromCol && colors[fromRow - 1][fromCol - 1] == EMPTY && fromCol - 1 >= 0 && fromRow - 1 >= 0)
@@ -74,21 +75,21 @@ void Pawn::enPassantMove(int fromRow, int fromCol, int toRow, int toCol, char co
 {
     if (colors[fromRow][fromCol] == WHITE)
     {
-        if (blueRectangles[toRow][toCol] == BLUE_RECTANGLE && colors[toRow][toCol] == EMPTY && toRow == fromRow + 1 && toCol != fromCol)
-        {
-            // Remove black pawn after en passant move
-            board[toRow - 1][toCol] = NONE;
-            colors[toRow - 1][toCol] = EMPTY;
-        }
+        handleEnPassant(blueRectangles, board, colors, fromRow, fromCol, toRow, toCol, 1);
     }
-    if (colors[fromRow][fromCol] == BLACK)
+    else if (colors[fromRow][fromCol] == BLACK)
     {
-        if (blueRectangles[toRow][toCol] == BLUE_RECTANGLE && colors[toRow][toCol] == EMPTY && toRow == fromRow - 1 && toCol != fromCol)
-        {
-            // Remove black pawn after en passant move
-            board[toRow + 1][toCol] = NONE;
-            colors[toRow + 1][toCol] = EMPTY;
-        }
+        handleEnPassant(blueRectangles, board, colors, fromRow, fromCol, toRow, toCol, -1);
     }
-   
+}
+
+void Pawn::handleEnPassant(char blueRectangles[][8], int board[][8], char colors[][8], int fromRow, int fromCol, int toRow, int toCol, int direction)
+{
+    if (blueRectangles[toRow][toCol] == BLUE_RECTANGLE && colors[toRow][toCol] == EMPTY
+        && toRow == fromRow + direction && toCol != fromCol)
+    {
+        // Remove pawn after en passant move
+        board[toRow - direction][toCol] = NONE;
+        colors[toRow - direction][toCol] = EMPTY;
+    }
 }

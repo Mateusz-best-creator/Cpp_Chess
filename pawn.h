@@ -21,4 +21,5 @@ public:
 	virtual bool move(int toRow, int toCol, char blueRectangles[][8]) override;
 	virtual void displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks) override;
 	void enPassantMove(int fromRow, int fromCol, int toRow, int toCol, char colors[][8], int board[][8], char blueRectangles[][8]);
+	void handleEnPassant(char blueRectangles[][8], int board[][8], char colors[][8], int fromRow, int fromCol, int toRow, int toCol, int direction);
 };

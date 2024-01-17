@@ -195,11 +195,7 @@ bool Board::updatePieces()
 	}
 
 	if (!updatedValuesForPoisson)
-	{
-		pawn->getPreviousRow() = INITIAL_VALUE;
-		pawn->getCurrentCol() = INITIAL_VALUE;
-		pawn->getCurrentRow() = INITIAL_VALUE;
-	}
+		pawn->getCurrentRow() = pawn->getCurrentCol() = pawn->getPreviousRow() = INITIAL_VALUE;
 
 	if (colors[fromRow][fromCol] == WHITE)
 	{
