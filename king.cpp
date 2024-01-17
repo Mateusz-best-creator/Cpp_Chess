@@ -69,7 +69,7 @@ void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 				}
 
 			}
-			if (colors[fromRow][fromCol] == BLACK)
+			else if (colors[fromRow][fromCol] == BLACK)
 			{
 				if (whiteColorsSquares[7][5] == EMPTY && whiteColorsSquares[7][6] == EMPTY &&
 					colors[7][5] == EMPTY && colors[7][6] == EMPTY)
@@ -87,6 +87,14 @@ void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 					&& colors[0][1] == EMPTY && colors[0][2] == EMPTY && colors[0][3] == EMPTY)
 				{
 					blueRectangles[0][2] = BLUE_RECTANGLE;
+				}
+			}
+			else if (colors[fromRow][fromCol] == BLACK)
+			{
+				if (whiteColorsSquares[7][1] == EMPTY && whiteColorsSquares[7][2] == EMPTY && whiteColorsSquares[7][3] == EMPTY
+					&& colors[7][1] == EMPTY && colors[7][2] == EMPTY && colors[7][3] == EMPTY)
+				{
+					blueRectangles[7][2] = BLUE_RECTANGLE;
 				}
 			}
 		}

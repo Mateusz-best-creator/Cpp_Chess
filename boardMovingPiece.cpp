@@ -43,7 +43,10 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 			queen->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false);
 			break;
 		case KING:
-			whiteKing->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false, whiteSquaresBoard, blackSquaresBoard);
+			if (colors[fromRow][fromCol] == WHITE)
+				whiteKing->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false, whiteSquaresBoard, blackSquaresBoard);
+			else if (colors[fromRow][fromCol] == BLACK)
+				blackKing->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false, whiteSquaresBoard, blackSquaresBoard);
 		}
 		return;
 	}
@@ -160,6 +163,19 @@ bool Board::updatePieces()
 				board[7][6] = KING;
 				blackKing->getKingRow() = 7;
 				blackKing->getKingColumn() = 6;
+				blackKing->getShortCastleRookMoved() = blackKing->getLongCastleRookMoved() = blackKing->getHasMoved() = true;
+				break;
+			}
+			// Long castle for black king
+			else if (!blackKing->getHasMoved() && toCol == 2 && blueRectanglesBoard[7][2] == BLUE_RECTANGLE && !blackKing->getLongCastleRookMoved())
+			{
+				board[7][0] = NONE;
+				board[7][2] = KING;
+				board[7][3] = ROOK;
+				colors[7][0] = EMPTY;
+				colors[7][3] = colors[7][2] = BLACK;
+				blackKing->getKingRow() = 7;
+				blackKing->getKingColumn() = 2;
 				blackKing->getShortCastleRookMoved() = blackKing->getLongCastleRookMoved() = blackKing->getHasMoved() = true;
 				break;
 			}
