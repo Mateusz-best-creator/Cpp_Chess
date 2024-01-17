@@ -83,11 +83,17 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 
 bool Board::updatePieces()
 {
+	bool updatedValuesForPoisson = false;
+
 	switch (movingPieceType)
 	{
 	case PAWN:
 		if (!updatePiece(pawn))
 			return false;
+		pawn->getPreviousRow() = fromRow;
+		pawn->getCurrentCol() = toCol;
+		pawn->getCurrentRow() = toRow;
+		updatedValuesForPoisson = true;
 		break;
 	case ROOK:
 		if (!updatePiece(rook))
@@ -187,6 +193,13 @@ bool Board::updatePieces()
 		break;
 	}
 
+	if (!updatedValuesForPoisson)
+	{
+		pawn->getPreviousRow() = INITIAL_VALUE;
+		pawn->getCurrentCol() = INITIAL_VALUE;
+		pawn->getCurrentRow() = INITIAL_VALUE;
+	}
+
 	if (colors[fromRow][fromCol] == WHITE)
 	{
 		colors[fromRow][fromCol] = EMPTY;
@@ -252,6 +265,7 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 	}
 
 	board[fromRow][fromCol] = NONE;
+	
 	if (typeid(Pawn) == typeid(*piece))
 		board[toRow][toCol] = PAWN;
 	else if (typeid(Rook) == typeid(*piece))

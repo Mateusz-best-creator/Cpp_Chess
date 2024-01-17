@@ -53,7 +53,7 @@ void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 			targetColorsSquares[toRow][toCol] = BLUE_RECTANGLE;
 		}
 	}
-	std::cout << colors[fromRow][fromCol] << " " << hasMoved << std::endl;
+	
 	// Only if king didnt move we can make a castle
 	if (!hasMoved)
 	{

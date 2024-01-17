@@ -103,7 +103,6 @@ private:
 	int toRow, toCol;
 	int movingPieceType;
 	enum { INITIAL_VALUE = -1 };
-	
 
 public:
 	Board(const char* filename, SDL_Renderer* ren);
