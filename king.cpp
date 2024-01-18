@@ -5,7 +5,7 @@
 int directions[8][2] = { {-1, -1}, {-1, 0}, {-1, 1}, {0, -1}, {0, 1}, {1, -1}, {1, 0}, {1, 1} };
 
 King::King(const char* filename, SDL_Renderer* ren, int bRow, int bCol, char c)
-	: Piece(filename, ren, bRow, bCol, c) 
+	: Piece(filename, ren, bRow, bCol, c)
 {
 	if (c == WHITE)
 	{
@@ -52,8 +52,8 @@ void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 			char(*targetColorsSquares)[8] = (colors[fromRow][fromCol] == WHITE) ? whiteColorsSquares : blackColorsSquares;
 			targetColorsSquares[toRow][toCol] = BLUE_RECTANGLE;
 		}
-	} 
-	
+	}
+
 	// Only if king didnt move we can make a castle
 	if (!hasMoved)
 	{
@@ -126,7 +126,7 @@ bool King::checkIfMoveValid(int toRow, int toColumn, char colorsSquares[][8])
 
 bool King::checkIfCheck(char boardToCheck[][8])
 {
-	check =  boardToCheck[kingRow][kingColumn] != EMPTY;
+	check = boardToCheck[kingRow][kingColumn] != EMPTY;
 	return check;
 }
 
@@ -137,13 +137,13 @@ bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSq
 	if (check)
 	{
 		char boardToCheck[HEIGHT][WIDTH];
-		if (colors[kingRow][kingColumn] == WHITE) 
-			assignArray(boardToCheck, whiteColorsSquares);
-		else 
+		if (colors[kingRow][kingColumn] == WHITE)
+			assignArray(boardToCheck, blackColorsSquares);
+		else
 			assignArray(boardToCheck, whiteColorsSquares);
 
 		// Check if there are some blue rectangles for king available
-		int moves[][2] = 
+		int moves[][2] =
 		{
 			{-1, -1}, {-1, 0}, {-1, 1},
 			{0, -1},           {0, 1},
@@ -151,13 +151,13 @@ bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSq
 		};
 
 		// Check each possible move
-		for (int i = 0; i < 8; ++i) 
+		for (int i = 0; i < 8; ++i)
 		{
 			int newRow = kingRow + moves[i][0];
 			int newCol = kingColumn + moves[i][1];
 
 			// Check if the king can move to the new position
-			if (canMoveTo(board, blackColorsSquares, newRow, newCol)) 
+			if (canMoveTo(colors, blackColorsSquares, newRow, newCol))
 				kingHaveSquare = true;
 		}
 
@@ -181,11 +181,21 @@ void King::assignArray(char boardTocheck[][8], char colorsSquares[][8])
 	}
 }
 
-bool King::canMoveTo(int board[][8], char occupiedSquares[][8], int row, int col) 
+bool King::canMoveTo(char colors[][8], char occupiedSquares[][8], int row, int col)
 {
-	if (isValidSquare(row, col) && board[row][col] == NONE)
+	std::cout << "Occupied squares:\n";
+	for (int i = 0; i < 8; i++)
 	{
-		return occupiedSquares[row][col] == EMPTY;
+		for (int j = 0; j < 8; j++)
+		{
+			std::cout << occupiedSquares[i][j] << " ";
+		}
+		std::cout << std::endl;
 	}
+	char enemyColor = colors[row][col] == WHITE ? BLACK : WHITE;
+	if (occupiedSquares[row][col] == EMPTY && colors[row][col] == enemyColor)
+		return true;
+	if (isValidSquare(row, col) && colors[row][col] == EMPTY)
+		return occupiedSquares[row][col] == EMPTY;
 	return false;
 }

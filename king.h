@@ -46,5 +46,5 @@ public:
 	// Functions for checking if there is a check or checkmate
 	bool checkIfCheck(char boardToCheck[][8]);
 	bool checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSquares[][8], char blackColorsSquares[][8]);
-	bool canMoveTo(int board[][8], char occupiedSquares[][8], int row, int col);
+	bool canMoveTo(char colors[][8], char occupiedSquares[][8], int row, int col);
 };

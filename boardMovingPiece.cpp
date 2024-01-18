@@ -86,13 +86,11 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	{
 		gameRunning = false;
 		std::cout << "Checkmate, black pieces won!\n";
-		// Pause the program for 3 seconds
 	}
 	else if (playerIndex == 2 && blackKing->checkIfCheckmate(board, colors, whiteSquaresBoard, blackSquaresBoard))
 	{
 		gameRunning = false;
 		std::cout << "Checkmate, white pieces won!\n";
-		// Pause the program for 3 seconds
 	}
 }
 

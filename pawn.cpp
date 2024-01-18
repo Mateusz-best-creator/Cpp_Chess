@@ -24,7 +24,7 @@ void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
     if (colors[fromRow][fromCol] == WHITE)
     {
         // White pawn moves
-        if (fromRow + 2 < 8 && colors[fromRow + 2][fromCol] == EMPTY && fromRow == 1)
+        if (fromRow + 2 < 8 && colors[fromRow + 2][fromCol] == EMPTY && fromRow == 1 && colors[fromRow + 1][fromCol] == EMPTY)
             boardToUpdate[fromRow + 2][fromCol] = BLUE_RECTANGLE;
         if (fromRow + 1 < 8 && colors[fromRow + 1][fromCol] == EMPTY)
             boardToUpdate[fromRow + 1][fromCol] = BLUE_RECTANGLE;
@@ -48,7 +48,7 @@ void Pawn::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
     else if (colors[fromRow][fromCol] == BLACK)
     {
         // Black pawn moves
-        if (fromRow - 2 >= 0 && colors[fromRow - 2][fromCol] == EMPTY && fromRow == 6)
+        if (fromRow - 2 >= 0 && colors[fromRow - 2][fromCol] == EMPTY && fromRow == 6 && colors[fromRow - 1][fromCol] == EMPTY)
             boardToUpdate[fromRow - 2][fromCol] = BLUE_RECTANGLE;
         if (fromRow - 1 >= 0 && colors[fromRow - 1][fromCol] == EMPTY)
             boardToUpdate[fromRow - 1][fromCol] = BLUE_RECTANGLE;
