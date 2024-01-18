@@ -1,4 +1,6 @@
 #include "game.h"
+#include <thread>
+#include <chrono>
 
 int main(int argc, char* argv[])
 {
@@ -37,7 +39,7 @@ int main(int argc, char* argv[])
 			SDL_Delay(frameDelay - frameTime);
 		}
 	}
-
+	std::this_thread::sleep_for(std::chrono::seconds(3));
 	game->clean();
     return 0;
 }

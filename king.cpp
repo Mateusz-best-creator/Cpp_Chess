@@ -148,20 +148,62 @@ bool King::checkIfCheck(char boardToCheck[][8])
 	return check;
 }
 
-bool King::checkIfCheckmate(int board[][8], char colors[][8], char colorsSquares[][8])
+bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSquares[][8], char blackColorsSquares[][8])
 {
+	bool kingHaveSquare = false;
+	bool piecePreventCheckmate = false;
 	if (check)
 	{
+		char boardToCheck[HEIGHT][WIDTH];
+		if (colors[kingRow][kingColumn] == WHITE) 
+			assignArray(boardToCheck, whiteColorsSquares);
+		else 
+			assignArray(boardToCheck, whiteColorsSquares);
+
 		// Check if there are some blue rectangles for king available
-		for (int i = 0; i < 8; i++)
+		int moves[][2] = 
 		{
-			for (int j = 0; j < 8; j++)
+			{-1, -1}, {-1, 0}, {-1, 1},
+			{0, -1},           {0, 1},
+			{1, -1}, {1, 0}, {1, 1}
+		};
+
+		// Check each possible move
+		for (int i = 0; i < 8; ++i) {
+			int newRow = kingRow + moves[i][0];
+			int newCol = kingColumn + moves[i][1];
+
+			// Check if the king can move to the new position
+			if (canMoveTo(board, blackColorsSquares, newRow, newCol)) 
 			{
-				if (colorsSquares[i][j] != EMPTY)
-					return false;
+				std::cout << "King can move to: (" << newRow << ", " << newCol << ")" << std::endl;
+				kingHaveSquare = true;
 			}
 		}
-		return true;
+
+		// Check if we can move some other piece than king to prevent the checkmate
+		if (!kingHaveSquare && !piecePreventCheckmate)
+			return true;
+	}
+	return false;
+}
+
+// Helper function
+void King::assignArray(char boardTocheck[][8], char colorsSquares[][8])
+{
+	for (int i = 0; i < HEIGHT; ++i)
+	{
+		for (int j = 0; j < WIDTH; ++j) {
+			boardTocheck[i][j] = colorsSquares[i][j];
+		}
+	}
+}
+
+bool King::canMoveTo(int board[][8], char occupiedSquares[][8], int row, int col) 
+{
+	if (isValidSquare(row, col) && board[row][col] == NONE)
+	{
+		return occupiedSquares[row][col] == EMPTY;
 	}
 	return false;
 }

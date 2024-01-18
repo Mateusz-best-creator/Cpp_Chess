@@ -36,6 +36,7 @@ public:
 		char blueRectangles[][8], bool forChecks, char whiteColorsSquares[][8], char blackColorsSquares[][8]);
 	void updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], 
 		char blueRectangles[][8], bool forChecks, char colorsSquares[][8]);
+	void assignArray(char boardTocheck[][8], char colorsSquares[][8]);
 
 	bool checkIfMoveValid(int toRow, int toColumn, char colorsSquares[][8]);
 	void calculateDestination(int fromRow, int fromCol, int direction[], int& toRow, int& toCol);
@@ -44,5 +45,6 @@ public:
 
 	// Functions for checking if there is a check or checkmate
 	bool checkIfCheck(char boardToCheck[][8]);
-	bool checkIfCheckmate(int board[][8], char colors[][8], char colorsSquares[][8]);
+	bool checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSquares[][8], char blackColorsSquares[][8]);
+	bool canMoveTo(int board[][8], char occupiedSquares[][8], int row, int col);
 };
