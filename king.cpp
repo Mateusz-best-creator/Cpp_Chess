@@ -57,45 +57,34 @@ void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 	// Only if king didnt move we can make a castle
 	if (!hasMoved)
 	{
+		int castleIndex = colors[fromRow][fromCol] == WHITE ? 0 : 7;
 		// Short castle
 		if (!shortCastleRookMoved)
 		{
-			if (colors[fromRow][fromCol] == WHITE)
+			if (blackColorsSquares[castleIndex][5] == EMPTY && blackColorsSquares[castleIndex][6] == EMPTY &&
+				colors[castleIndex][5] == EMPTY && colors[0][6] == EMPTY)
 			{
-				if (blackColorsSquares[0][5] == EMPTY && blackColorsSquares[0][6] == EMPTY &&
-					colors[0][5] == EMPTY && colors[0][6] == EMPTY)
-				{
-					blueRectangles[0][6] = BLUE_RECTANGLE;
-				}
-
+				blueRectangles[castleIndex][6] = BLUE_RECTANGLE;
 			}
-			else if (colors[fromRow][fromCol] == BLACK)
+			if (whiteColorsSquares[castleIndex][5] == EMPTY && whiteColorsSquares[castleIndex][6] == EMPTY &&
+				colors[castleIndex][5] == EMPTY && colors[castleIndex][6] == EMPTY)
 			{
-				if (whiteColorsSquares[7][5] == EMPTY && whiteColorsSquares[7][6] == EMPTY &&
-					colors[7][5] == EMPTY && colors[7][6] == EMPTY)
-				{
-					blueRectangles[7][6] = BLUE_RECTANGLE;
-				}
+				blueRectangles[castleIndex][6] = BLUE_RECTANGLE;
 			}
 		}
 		// Long castle
 		if (!longCastleRookMoved)
 		{
-			if (colors[fromRow][fromCol] == WHITE)
+			if (blackColorsSquares[castleIndex][1] == EMPTY && blackColorsSquares[castleIndex][2] == EMPTY 
+				&& blackColorsSquares[castleIndex][3] == EMPTY && colors[castleIndex][1] == EMPTY 
+				&& colors[castleIndex][2] == EMPTY && colors[castleIndex][3] == EMPTY)
 			{
-				if (blackColorsSquares[0][1] == EMPTY && blackColorsSquares[0][2] == EMPTY && blackColorsSquares[0][3] == EMPTY 
-					&& colors[0][1] == EMPTY && colors[0][2] == EMPTY && colors[0][3] == EMPTY)
-				{
-					blueRectangles[0][2] = BLUE_RECTANGLE;
-				}
+				blueRectangles[castleIndex][2] = BLUE_RECTANGLE;
 			}
-			else if (colors[fromRow][fromCol] == BLACK)
+			if (whiteColorsSquares[castleIndex][1] == EMPTY && whiteColorsSquares[castleIndex][2] == EMPTY && whiteColorsSquares[castleIndex][3] == EMPTY
+				&& colors[castleIndex][1] == EMPTY && colors[castleIndex][2] == EMPTY && colors[castleIndex][3] == EMPTY)
 			{
-				if (whiteColorsSquares[7][1] == EMPTY && whiteColorsSquares[7][2] == EMPTY && whiteColorsSquares[7][3] == EMPTY
-					&& colors[7][1] == EMPTY && colors[7][2] == EMPTY && colors[7][3] == EMPTY)
-				{
-					blueRectangles[7][2] = BLUE_RECTANGLE;
-				}
+				blueRectangles[castleIndex][2] = BLUE_RECTANGLE;
 			}
 		}
 	}
