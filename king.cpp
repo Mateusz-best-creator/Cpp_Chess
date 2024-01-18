@@ -161,7 +161,9 @@ bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSq
 				kingHaveSquare = true;
 		}
 
-		// Check if we can move some other piece than king to prevent the checkmate
+		// Check if we can move some other piece than can prevent the checkmate
+
+
 		if (!kingHaveSquare && !piecePreventCheckmate)
 			return true;
 	}
