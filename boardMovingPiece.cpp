@@ -171,7 +171,8 @@ bool Board::updatePieces()
 
 			if (!updatePiece(whiteKing))
 				return false;
-				
+			else
+				whiteKing->getHasMoved() = true;
 		}
 		else if (colors[fromRow][fromCol] == BLACK)
 		{
@@ -203,6 +204,8 @@ bool Board::updatePieces()
 			}
 			if (!updatePiece(blackKing))
 				return false;
+			else
+				blackKing->getHasMoved() = true;
 		}
 		break;
 	default:
