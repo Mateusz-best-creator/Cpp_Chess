@@ -44,5 +44,5 @@ public:
 
 	// Functions for checking if there is a check or checkmate
 	bool checkIfCheck(char boardToCheck[][8]);
-	bool checkIfCheckmate(int board[][8], char colors[][8]);
+	bool checkIfCheckmate(int board[][8], char colors[][8], char colorsSquares[][8]);
 };

@@ -69,6 +69,7 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	}
 	// Update all the pieces
 	bool updated = updatePieces();
+
 	// Reset blue rectangles board
 	resetBlueRectanglesBoard();
 
@@ -79,13 +80,17 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	}
 	// Reset variables
 	fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
-	if (playerIndex == 1 && whiteKing->checkIfCheckmate(board, colors))
+
+	// Check for checkmate
+	if (playerIndex == 1 && whiteKing->checkIfCheckmate(board, colors, blueRectanglesBoard))
 	{
 		gameRunning = false;
+		std::cout << "Checkmate, black pieces won!\n";
 	}
-	else if (playerIndex == 2 && blackKing->checkIfCheckmate(board, colors))
+	else if (playerIndex == 2 && blackKing->checkIfCheckmate(board, colors, blueRectanglesBoard))
 	{
 		gameRunning = false;
+		std::cout << "Checkmate, white pieces won!\n";
 	}
 }
 
