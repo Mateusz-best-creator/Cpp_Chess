@@ -61,13 +61,10 @@ void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 		// Short castle
 		if (!shortCastleRookMoved)
 		{
-			if (blackColorsSquares[castleIndex][5] == EMPTY && blackColorsSquares[castleIndex][6] == EMPTY &&
-				colors[castleIndex][5] == EMPTY && colors[castleIndex][6] == EMPTY)
-			{
-				blueRectangles[castleIndex][6] = BLUE_RECTANGLE;
-			}
-			if (whiteColorsSquares[castleIndex][5] == EMPTY && whiteColorsSquares[castleIndex][6] == EMPTY &&
-				colors[castleIndex][5] == EMPTY && colors[castleIndex][6] == EMPTY)
+			if ((blackColorsSquares[castleIndex][5] == EMPTY && blackColorsSquares[castleIndex][6] == EMPTY &&
+				colors[castleIndex][5] == EMPTY && colors[castleIndex][6] == EMPTY) ||
+				(whiteColorsSquares[castleIndex][5] == EMPTY && whiteColorsSquares[castleIndex][6] == EMPTY &&
+					colors[castleIndex][5] == EMPTY && colors[castleIndex][6] == EMPTY))
 			{
 				blueRectangles[castleIndex][6] = BLUE_RECTANGLE;
 			}
@@ -75,14 +72,10 @@ void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 		// Long castle
 		if (!longCastleRookMoved)
 		{
-			if (blackColorsSquares[castleIndex][1] == EMPTY && blackColorsSquares[castleIndex][2] == EMPTY 
-				&& blackColorsSquares[castleIndex][3] == EMPTY && colors[castleIndex][1] == EMPTY 
-				&& colors[castleIndex][2] == EMPTY && colors[castleIndex][3] == EMPTY)
-			{
-				blueRectangles[castleIndex][2] = BLUE_RECTANGLE;
-			}
-			if (whiteColorsSquares[castleIndex][1] == EMPTY && whiteColorsSquares[castleIndex][2] == EMPTY && whiteColorsSquares[castleIndex][3] == EMPTY
-				&& colors[castleIndex][1] == EMPTY && colors[castleIndex][2] == EMPTY && colors[castleIndex][3] == EMPTY)
+			if ((blackColorsSquares[castleIndex][1] == EMPTY && blackColorsSquares[castleIndex][2] == EMPTY && blackColorsSquares[castleIndex][3] == EMPTY &&
+				colors[castleIndex][1] == EMPTY && colors[castleIndex][2] == EMPTY && colors[castleIndex][3] == EMPTY) ||
+				(whiteColorsSquares[castleIndex][1] == EMPTY && whiteColorsSquares[castleIndex][2] == EMPTY && whiteColorsSquares[castleIndex][3] == EMPTY &&
+					colors[castleIndex][1] == EMPTY && colors[castleIndex][2] == EMPTY && colors[castleIndex][3] == EMPTY))
 			{
 				blueRectangles[castleIndex][2] = BLUE_RECTANGLE;
 			}
@@ -165,10 +158,7 @@ bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSq
 
 			// Check if the king can move to the new position
 			if (canMoveTo(board, blackColorsSquares, newRow, newCol)) 
-			{
-				std::cout << "King can move to: (" << newRow << ", " << newCol << ")" << std::endl;
 				kingHaveSquare = true;
-			}
 		}
 
 		// Check if we can move some other piece than king to prevent the checkmate
