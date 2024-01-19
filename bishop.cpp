@@ -23,6 +23,7 @@ void Bishop::updateRectangles(char color, int fromRow, int fromCol, int board[][
 {
     // Define the possible directions for diagonal moves
     int directions[4][2] = { {1, 1}, {1, -1}, {-1, 1}, {-1, -1} };
+    char enemyColor;
 
     for (size_t d = 0; d < 4; d++) 
     {
@@ -32,6 +33,7 @@ void Bishop::updateRectangles(char color, int fromRow, int fromCol, int board[][
         for (size_t step = 1; step < 8; step++) {
             int toRow = fromRow + step * dirRow;
             int toCol = fromCol + step * dirCol;
+            enemyColor = colors[fromRow][fromCol] == WHITE ? BLACK : WHITE;
 
             // Check if the position is within the bounds of the chessboard
             if (toRow >= 0 && toRow < 8 && toCol >= 0 && toCol < 8) 
@@ -40,7 +42,7 @@ void Bishop::updateRectangles(char color, int fromRow, int fromCol, int board[][
                     blueRectangles[toRow][toCol] = BLUE_RECTANGLE;
 
                 // Stop further moves if the position is not empty
-                if (colors[toRow][toCol] != EMPTY)
+                if (colors[toRow][toCol] != EMPTY && board[toRow][toCol] != KING && colors[toRow][toCol] == enemyColor)
                     break;
             }
             // Stop when going out of the board
