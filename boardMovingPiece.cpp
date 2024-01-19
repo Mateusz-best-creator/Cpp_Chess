@@ -80,7 +80,13 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	}
 	// Reset variables
 	fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
-
+	
+	checkIfCheckmate(playerIndex);
+}
+#include <thread>
+#include <chrono>
+void Board::checkIfCheckmate(int playerIndex)
+{
 	// Check for checkmate
 	if (playerIndex == 1 && whiteKing->checkIfCheckmate(board, colors, whiteSquaresBoard, blackSquaresBoard))
 	{
@@ -89,6 +95,24 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	}
 	else if (playerIndex == 2 && blackKing->checkIfCheckmate(board, colors, whiteSquaresBoard, blackSquaresBoard))
 	{
+		for (int i = 0; i < HEIGHT; i++)
+		{
+			for (int j = 0; j < WIDTH; j++)
+			{
+				if (colors[i][j] == BLACK)
+				{
+					switch (board[i][j])
+					{
+					case PAWN:
+						fromRow = i;
+						fromCol = j;
+						pawn->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false);
+						break;
+					}
+				}
+				//resetBlueRectanglesBoard();
+			}
+		}
 		gameRunning = false;
 		std::cout << "Checkmate, white pieces won!\n";
 	}
@@ -226,6 +250,13 @@ bool Board::updatePieces()
 	}
 
 	updateColorsSquares();
+	if (!checkMoveValidation())
+		return false;
+	return true;
+}
+
+bool Board::checkMoveValidation()
+{
 	if ((whiteSquaresBoard[blackKing->getKingRow()][blackKing->getKingColumn()] != EMPTY && colors[toRow][toCol] == BLACK)
 		|| (blackSquaresBoard[whiteKing->getKingRow()][whiteKing->getKingColumn()] != EMPTY && colors[toRow][toCol] == WHITE))
 	{

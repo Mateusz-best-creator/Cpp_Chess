@@ -42,8 +42,12 @@ void Bishop::updateRectangles(char color, int fromRow, int fromCol, int board[][
                     blueRectangles[toRow][toCol] = BLUE_RECTANGLE;
 
                 // Stop further moves if the position is not empty
-                if (colors[toRow][toCol] != EMPTY && board[toRow][toCol] != KING && colors[toRow][toCol] == enemyColor)
+                if (colors[toRow][toCol] != EMPTY)
+                {
+                    if (colors[toRow][toCol] == enemyColor && board[toRow][toCol] == KING)
+                        continue;
                     break;
+                }
             }
             // Stop when going out of the board
             else 

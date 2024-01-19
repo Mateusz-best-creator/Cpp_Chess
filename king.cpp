@@ -132,15 +132,6 @@ bool King::checkIfCheck(char boardToCheck[][8])
 
 bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSquares[][8], char blackColorsSquares[][8])
 {
-	std::cout << "\n\n";
-	for (int i = 7; i >= 0; i--)
-	{
-		for (int j = 0; j <= 7; j++)
-		{
-			std::cout << whiteColorsSquares[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
 	bool kingHaveSquare = false;
 	bool piecePreventCheckmate = false;
 	if (check)
@@ -173,7 +164,15 @@ bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSq
 			}
 		}
 
-		// Check if we can move some other piece than king to prevent the checkmate
+		// Check if we can move some other piece and prevent the checkmate
+		for (int i = 0; i < HEIGHT; i++)
+		{
+			for (int j = 0; j < WIDTH; j++)
+			{
+				
+			}
+		}
+
 		if (!kingHaveSquare && !piecePreventCheckmate)
 			return true;
 	}

@@ -25,8 +25,9 @@ public:
 	void render();
 	int absoluteValue(int a, int b);
 
-	int getX() { return xPosition; }
-	int getY() { return yPosition; }
+	int getBoardRow() { return boardRow; }
+	int getBoardColumn() { return boardColumn; }
+	char getPieceColor() { return color; }
 
 	virtual bool move(int toRow, int toCol, char blueRectangles[][8]) = 0;
 	virtual void displayBlueRectangles(int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks) = 0;

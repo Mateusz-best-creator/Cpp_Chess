@@ -115,6 +115,8 @@ public:
 	// Functions for updating pieces
 	bool updatePieces();
 	bool updatePiece(std::shared_ptr<Piece> piece);
+	bool checkMoveValidation();
+	void checkIfCheckmate(int);
 
 	// Functions for updating occupied squares
 	void updateColorsSquares();
