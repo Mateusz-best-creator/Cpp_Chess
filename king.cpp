@@ -132,6 +132,15 @@ bool King::checkIfCheck(char boardToCheck[][8])
 
 bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSquares[][8], char blackColorsSquares[][8])
 {
+	std::cout << "\n\n";
+	for (int i = 7; i >= 0; i--)
+	{
+		for (int j = 0; j <= 7; j++)
+		{
+			std::cout << whiteColorsSquares[i][j] << " ";
+		}
+		std::cout << std::endl;
+	}
 	bool kingHaveSquare = false;
 	bool piecePreventCheckmate = false;
 	if (check)
@@ -157,7 +166,7 @@ bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSq
 			int newCol = kingColumn + moves[i][1];
 
 			// Check if the king can move to the new position
-			if (canMoveTo(board, boardToCheck, newRow, newCol))
+			if (canMoveTo(colors, boardToCheck, newRow, newCol))
 			{
 				std::cout << "King can move to: " << newRow << " " << newCol << std::endl;
 				kingHaveSquare = true;
@@ -174,19 +183,18 @@ bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSq
 // Helper function
 void King::assignArray(char boardTocheck[][8], char colorsSquares[][8])
 {
-	for (int i = 0; i < HEIGHT; ++i)
+	for (int i = 0; i < HEIGHT; i++)
 	{
-		for (int j = 0; j < WIDTH; ++j) {
+		for (int j = 0; j < WIDTH; j++) {
 			boardTocheck[i][j] = colorsSquares[i][j];
 		}
 	}
 }
 
-bool King::canMoveTo(int board[][8], char occupiedSquares[][8], int row, int col)
+bool King::canMoveTo(char colors[][8], char occupiedSquares[][8], int row, int col)
 {
-	if (isValidSquare(row, col) && board[row][col] == NONE)
-	{
+	char enemyColor = colors[kingRow][kingColumn] == WHITE ? BLACK : WHITE;
+	if (isValidSquare(row, col) && (colors[row][col] == enemyColor || colors[row][col] == EMPTY))
 		return occupiedSquares[row][col] == EMPTY;
-	}
 	return false;
 }
