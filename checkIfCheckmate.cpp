@@ -21,32 +21,33 @@ void Board::checkIfCheckmate(int playerIndex)
 
 bool Board::checkIfCanPreventCheckmate(std::shared_ptr<King>king)
 {
+	char kingColor = king->getKingcolor();
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		for (int j = 0; j < WIDTH; j++)
 		{
-			if (colors[i][j] == BLACK)
+			if (colors[i][j] == kingColor)
 			{
 				switch (board[i][j])
 				{
 				case PAWN:
-					if (preventCheckmateWithPiece(pawn, PAWN, BLACK, i, j))
+					if (preventCheckmateWithPiece(pawn, PAWN, kingColor, i, j))
 						return true;
 					break;
 				case ROOK:
-					if (preventCheckmateWithPiece(rook, ROOK, BLACK, i, j))
+					if (preventCheckmateWithPiece(rook, ROOK, kingColor, i, j))
 						return true;
 					break;
 				case KNIGHT:
-					if (preventCheckmateWithPiece(knight, KNIGHT, BLACK, i, j))
+					if (preventCheckmateWithPiece(knight, KNIGHT, kingColor, i, j))
 						return true;
 					break;
 				case BISHOP:
-					if (preventCheckmateWithPiece(bishop, BISHOP, BLACK, i, j))
+					if (preventCheckmateWithPiece(bishop, BISHOP, kingColor, i, j))
 						return true;
 					break;
 				case QUEEN:
-					if (preventCheckmateWithPiece(queen, QUEEN, BLACK, i, j))
+					if (preventCheckmateWithPiece(queen, QUEEN, kingColor, i, j))
 						return true;
 					break;
 				}
@@ -61,7 +62,7 @@ bool Board::preventCheckmateWithPiece(std::shared_ptr<Piece> piece, int pieceTyp
 {
 	fromRow = i;
 	fromCol = j;
-	char enemyColor = color == WHITE ? BLACK : WHITE;
+	char enemyColor = (color == WHITE) ? BLACK : WHITE;
 	piece->displayBlueRectangles(fromRow, fromCol, board, colors, blueRectanglesBoard, false);
 	for (int k = 0; k < HEIGHT; k++)
 	{
@@ -74,16 +75,23 @@ bool Board::preventCheckmateWithPiece(std::shared_ptr<Piece> piece, int pieceTyp
 				updateBoardColors(NONE, pieceType, EMPTY, color);
 				updateColorsSquares();
 				if (!((whiteSquaresBoard[blackKing->getKingRow()][blackKing->getKingColumn()] != EMPTY && colors[toRow][toCol] == color)
-					|| (blackSquaresBoard[whiteKing->getKingRow()][whiteKing->getKingColumn()] != EMPTY && colors[toRow][toCol] == enemyColor)))
+					|| (blackSquaresBoard[whiteKing->getKingRow()][whiteKing->getKingColumn()] != EMPTY && colors[toRow][toCol] == color)))
 				{
 					updateBoardColors(pieceType, NONE, color, EMPTY);
+					board[fromRow][fromCol] = pieceType;
+					board[toRow][toCol] = NONE;
+					colors[fromRow][fromCol] = color;
+					colors[toRow][toCol] = EMPTY;
 					std::cout << static_cast<int>(pieceType) << " from " << i << " " << j << " can be moved to " << toRow << " " << toCol << std::endl;
 					resetBlueRectanglesBoard();
-					if (color == WHITE) whiteKing->getCheck() = true;
-					else if (color == BLACK) blackKing->getCheck() = true;
+					if (color == WHITE)
+						whiteKing->getCheck() = true;
+					else if (color == BLACK)
+						blackKing->getCheck() = true;
 					return true;
 				}
 				updateBoardColors(pieceType, NONE, color, EMPTY);
+				updateColorsSquares();
 			}
 		}
 	}

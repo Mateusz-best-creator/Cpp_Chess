@@ -133,7 +133,6 @@ bool King::checkIfCheck(char boardToCheck[][8])
 bool King::checkIfKingHasSquare(int board[][8], char colors[][8], char whiteColorsSquares[][8], char blackColorsSquares[][8])
 {
 	bool kingHaveSquare = false;
-	bool piecePreventCheckmate = false;
 	if (check)
 	{
 		char boardToCheck[HEIGHT][WIDTH];
@@ -163,9 +162,7 @@ bool King::checkIfKingHasSquare(int board[][8], char colors[][8], char whiteColo
 				kingHaveSquare = true;
 			}
 		}
-
-
-		if (!kingHaveSquare && !piecePreventCheckmate)
+		if (!kingHaveSquare)
 			return true;
 	}
 	return false;
