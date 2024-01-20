@@ -7,7 +7,6 @@
 class Pawn : public Piece
 {
 private:
-	char color;
 	int previousRowPreviousPawn, currentRowPreviousPawn, currentColPreviousPawn;
 
 public:

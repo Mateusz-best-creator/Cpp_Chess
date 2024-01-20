@@ -5,7 +5,7 @@
 
 
 Pawn::Pawn(const char* filename, SDL_Renderer* ren, int bRow, int bColumn, char c)
-    : Piece(filename, ren, bRow, bColumn, c), color(EMPTY)
+    : Piece(filename, ren, bRow, bColumn, c)
 {
     currentColPreviousPawn = currentRowPreviousPawn = previousRowPreviousPawn = -1;
 }

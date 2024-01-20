@@ -130,7 +130,7 @@ bool King::checkIfCheck(char boardToCheck[][8])
 	return check;
 }
 
-bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSquares[][8], char blackColorsSquares[][8])
+bool King::checkIfKingHasSquare(int board[][8], char colors[][8], char whiteColorsSquares[][8], char blackColorsSquares[][8])
 {
 	bool kingHaveSquare = false;
 	bool piecePreventCheckmate = false;

@@ -117,6 +117,9 @@ public:
 	bool updatePiece(std::shared_ptr<Piece> piece);
 	bool checkMoveValidation();
 	void checkIfCheckmate(int);
+	bool checkIfCanPreventCheckmate(std::shared_ptr<King>king);
+	bool preventCheckmateWithPiece(std::shared_ptr<Piece> piece, int pieceType, char color, int i, int j);
+	void updateBoardColors(int first, int second, char third, char fourth);
 
 	// Functions for updating occupied squares
 	void updateColorsSquares();

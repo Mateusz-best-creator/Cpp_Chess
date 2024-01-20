@@ -39,7 +39,8 @@ int main(int argc, char* argv[])
 			SDL_Delay(frameDelay - frameTime);
 		}
 	}
-	std::this_thread::sleep_for(std::chrono::seconds(20));
+	// After 3 seconds close the game
+	std::this_thread::sleep_for(std::chrono::seconds(3));
 	game->clean();
     return 0;
 }
