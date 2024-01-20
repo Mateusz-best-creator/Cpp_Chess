@@ -1,5 +1,7 @@
 #include "MainGameLoop.h"
+/*
 #include "game.h"
+
 #include <thread>
 #include <chrono>
 
@@ -15,6 +17,11 @@ int MainGameLoop::RunChessGame()
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
 	{
 		std::cout << "Failed to initialize SDL_image for PNG files: " << IMG_GetError << std::endl;
+		return 0;
+	}
+	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
+		std::cout << "Failed to initialize SDL_mixer for wav files: " << std::endl;
+		return 0;
 	}
 	SDL_Surface* boardSurface = NULL;
 
@@ -45,3 +52,4 @@ int MainGameLoop::RunChessGame()
 	game->clean();
 	return 0;
 }
+*/

@@ -1,5 +1,6 @@
 #pragma once
 
+// Include SDL packages here
 #include "SDL.h"
 #include "SDL_image.h"
 
