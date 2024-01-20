@@ -22,6 +22,38 @@ This is a C++ chess game, meticulously crafted using Object-Oriented Programming
 
 - **En Passant:** The game features the En Passant move, enhancing realism and strategic gameplay.
 
+This chess game project utilizes SDL2 and SDL2_image libraries. The required SDL2 libraries are included in the source files, but if you encounter issues starting the project, follow these steps:
+
+## Prerequisites
+
+If you are unable to start the project, download SDL2 and SDL_image from the following links:
+- [SDL2 Releases](https://github.com/libsdl-org/SDL/releases/tag/release-2.28.5)
+- [SDL_image Releases](https://github.com/libsdl-org/SDL_image/releases)
+
+Ensure you download the versions compatible with your Visual Studio setup. If you are using VS Code, download the VS Code versions of the libraries.
+
+## Configuration Steps
+
+1. **Configure Include Directories:**
+   - Go to the properties of your project.
+   - In the C/C++ section, click on General.
+   - Navigate to Additional Include Directories and provide the path to your SDL include folder.
+
+2. **Configure Linker Directories:**
+   - Still in the properties of your project, go to the Linker section.
+   - Click on General.
+   - Go to Additional Library Directories and select `lib\x86` from your SDL folder.
+
+3. **Configure Linker Input:**
+   - In the Linker section, go to Input.
+   - Navigate to Additional Dependencies.
+   - Add the following entries: `SDL2.lib;SDL2main.lib;SDL2_image.lib`.
+
+4. **Optional Recommendation:**
+   - Place the files from SDL_image into your SDL2 folder to ensure automatic linking.
+
+Now, you should be able to build and run the chess game smoothly.
+
 ## Build and Run in Microsoft Visual Studio
 
 To build and run the chess game using Microsoft Visual Studio, follow these simple steps:

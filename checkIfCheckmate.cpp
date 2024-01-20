@@ -78,7 +78,6 @@ bool Board::preventCheckmateWithPiece(std::shared_ptr<Piece> piece, int pieceTyp
 					|| (blackSquaresBoard[whiteKing->getKingRow()][whiteKing->getKingColumn()] != EMPTY && colors[toRow][toCol] == color)))
 				{
 					updateBoardColors(pieceType, NONE, color, EMPTY);
-					std::cout << static_cast<int>(pieceType) << " from " << i << " " << j << " can be moved to " << toRow << " " << toCol << std::endl;
 					resetBlueRectanglesBoard();
 					if (color == WHITE)
 						whiteKing->getCheck() = true;
