@@ -139,6 +139,7 @@
     <ClCompile Include="boardInit.cpp" />
     <ClCompile Include="boardMovingPiece.cpp" />
     <ClCompile Include="boardUpdateRender.cpp" />
+    <ClCompile Include="checkIfCheckmate.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="king.cpp" />
     <ClCompile Include="knight.cpp" />

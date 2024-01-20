@@ -164,14 +164,6 @@ bool King::checkIfCheckmate(int board[][8], char colors[][8], char whiteColorsSq
 			}
 		}
 
-		// Check if we can move some other piece and prevent the checkmate
-		for (int i = 0; i < HEIGHT; i++)
-		{
-			for (int j = 0; j < WIDTH; j++)
-			{
-				
-			}
-		}
 
 		if (!kingHaveSquare && !piecePreventCheckmate)
 			return true;
