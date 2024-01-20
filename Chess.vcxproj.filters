@@ -45,12 +45,6 @@
     <ClCompile Include="queen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="mainLoop.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mainLoop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -71,6 +65,12 @@
     </ClCompile>
     <ClCompile Include="checkIfCheckmate.cpp">
       <Filter>Source Files\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGameLoop.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGameLoop.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

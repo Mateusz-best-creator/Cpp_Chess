@@ -1,14 +1,16 @@
+#include "MainGameLoop.h"
+#include "game.h"
+#include <thread>
+#include <chrono>
 
-/*
-#include "mainLoop.h"
-
-void MainLoop::runChessGame()
+int MainGameLoop::RunChessGame()
 {
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
 
 	Uint32 frameStart;
 	int frameTime;
+	bool initial = true;
 
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
 	{
@@ -24,9 +26,13 @@ void MainLoop::runChessGame()
 	{
 		frameStart = SDL_GetTicks();
 
-		game->handleEvents();
-		game->update();
-		game->render();
+		// Only if user did something, update() and then render()
+		if (game->handleEvents() || initial)
+		{
+			game->update();
+			game->render();
+			initial = false;
+		}
 
 		frameTime = SDL_GetTicks() - frameStart;
 		if (frameDelay > frameTime)
@@ -34,7 +40,8 @@ void MainLoop::runChessGame()
 			SDL_Delay(frameDelay - frameTime);
 		}
 	}
-
+	// After 3 seconds close the game
+	std::this_thread::sleep_for(std::chrono::seconds(3));
 	game->clean();
+	return 0;
 }
-*/
