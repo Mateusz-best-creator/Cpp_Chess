@@ -1,8 +1,6 @@
 #pragma once
 
 #include "piece.h"
-#include <string>
-#include <tuple>
 
 class Pawn : public Piece
 {

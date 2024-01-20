@@ -13,9 +13,9 @@ bool Board::update()
 	destinationRect.h = sourceRect.h;
 
 	pieces.clear();
-	for (size_t i = 0; i < HEIGHT; i++)
+	for (int i = 0; i < HEIGHT; i++)
 	{
-		for (size_t j = 0; j < WIDTH; j++)
+		for (int j = 0; j < WIDTH; j++)
 		{
 			if (board[i][j] == NONE)
 				continue;
@@ -23,9 +23,9 @@ bool Board::update()
 		}
 	}
 	int counter = 0;
-	for (size_t i = 0; i < HEIGHT; i++)
+	for (int i = 0; i < HEIGHT; i++)
 	{
-		for (size_t j = 0; j < WIDTH; j++)
+		for (int j = 0; j < WIDTH; j++)
 		{
 			if (blueRectanglesBoard[i][j] != EMPTY)
 				rectangles[counter]->update();
@@ -33,7 +33,7 @@ bool Board::update()
 		}
 	}
 
-	for (size_t i = 0; i < pieces.size(); i++)
+	for (int i = 0; i < pieces.size(); i++)
 		pieces[i]->update();
 
 	if (whiteKing->getCheck())
@@ -58,9 +58,9 @@ void Board::render()
 
 	// Render all blue rectangles
 	int counter = 0;
-	for (size_t i = 0; i < HEIGHT; i++)
+	for (int i = 0; i < HEIGHT; i++)
 	{
-		for (size_t j = 0; j < WIDTH; j++)
+		for (int j = 0; j < WIDTH; j++)
 		{
 			if (blueRectanglesBoard[i][j] != EMPTY)
 			{
@@ -74,6 +74,6 @@ void Board::render()
 		redRectangle->render();
 
 	// Render all the pieces
-	for (size_t i = 0; i < pieces.size(); i++)
+	for (int i = 0; i < pieces.size(); i++)
 		pieces[i]->render();
 }

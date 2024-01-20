@@ -54,7 +54,7 @@
     <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="blueRectangle.cpp">
+    <ClCompile Include="rectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="boardUpdateColorsSquares.cpp">
@@ -104,7 +104,7 @@
     <ClInclude Include="queen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="blueRectangle.h">
+    <ClInclude Include="rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="errorsObjects.h">

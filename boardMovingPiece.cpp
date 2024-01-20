@@ -5,8 +5,8 @@
 void Board::resetBlueRectanglesBoard()
 {
 	// Reset blue rectangles
-	for (size_t i = 0; i < HEIGHT; i++)
-		for (size_t j = 0; j < WIDTH; j++)
+	for (int i = 0; i < HEIGHT; i++)
+		for (int j = 0; j < WIDTH; j++)
 			blueRectanglesBoard[i][j] = EMPTY;
 }
 
@@ -79,27 +79,28 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 		updateColorsSquares();
 	}
 	
-	char boardTocheckWhite[8][8];
-	char boardTocheckBlack[8][8];
-	int boardzik[8][8];
-	char kolorki[8][8];
+	// Copy the state of current game
+	char currentWhiteSquaresBoard[8][8];
+	char currentBlackSquaresBoard[8][8];
+	int currentBoard[8][8];
+	char currentColors[8][8];
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		for (int j = 0; j < WIDTH; j++) {
-			boardTocheckBlack[i][j] = blackSquaresBoard[i][j];
-			boardTocheckWhite[i][j] = whiteSquaresBoard[i][j];
-			boardzik[i][j] = board[i][j];
-			kolorki[i][j] = colors[i][j];
+			currentBlackSquaresBoard[i][j] = blackSquaresBoard[i][j];
+			currentWhiteSquaresBoard[i][j] = whiteSquaresBoard[i][j];
+			currentBoard[i][j] = board[i][j];
+			currentColors[i][j] = colors[i][j];
 		}
 	}
 	checkIfCheckmate(playerIndex);
 	for (int i = 0; i < HEIGHT; i++)
 	{
 		for (int j = 0; j < WIDTH; j++) {
-			whiteSquaresBoard[i][j] = boardTocheckWhite[i][j];
-			blackSquaresBoard[i][j] = boardTocheckBlack[i][j];
-			board[i][j] = boardzik[i][j];
-			colors[i][j] = kolorki[i][j];
+			whiteSquaresBoard[i][j] = currentWhiteSquaresBoard[i][j];
+			blackSquaresBoard[i][j] = currentBlackSquaresBoard[i][j];
+			board[i][j] = currentBoard[i][j];
+			colors[i][j] = currentColors[i][j];
 		}
 	}
 	// Reset variables
@@ -155,27 +156,13 @@ bool Board::updatePieces()
 			// Short castle for white king
 			if (!whiteKing->getHasMoved() && toCol == 6 && blueRectanglesBoard[0][6] == BLUE_RECTANGLE && !whiteKing->getShortCastleRookMoved())
 			{
-				board[0][7] = NONE;
-				board[0][5] = ROOK;
-				colors[0][7] = EMPTY;
-				colors[0][5] = colors[0][6] = WHITE;
-				board[0][6] = KING;
-				whiteKing->getKingRow() = 0;
-				whiteKing->getKingColumn() = 6;
-				whiteKing->getShortCastleRookMoved() = whiteKing->getLongCastleRookMoved() = whiteKing->getHasMoved() = true;
+				whiteKing->performShortCastle(whiteKing->getKingRow(), toCol, board, colors);
 				break;
 			}
 			// Long castle for white king
 			else if (!whiteKing->getHasMoved() && toCol == 2 && blueRectanglesBoard[0][2] == BLUE_RECTANGLE && !whiteKing->getLongCastleRookMoved())
 			{
-				board[0][0] = NONE;
-				board[0][2] = KING;
-				board[0][3] = ROOK;
-				colors[0][0] = EMPTY;
-				colors[0][3] = colors[0][2] = WHITE;
-				whiteKing->getKingRow() = 0;
-				whiteKing->getKingColumn() = 2;
-				whiteKing->getShortCastleRookMoved() = whiteKing->getLongCastleRookMoved() = whiteKing->getHasMoved() = true;
+				whiteKing->performLongCastle(whiteKing->getKingRow(), toCol, board, colors);
 				break;
 			}
 
@@ -189,27 +176,13 @@ bool Board::updatePieces()
 			// Short castle for black king
 			if (!blackKing->getHasMoved() && toCol == 6 && blueRectanglesBoard[7][6] == BLUE_RECTANGLE && !blackKing->getShortCastleRookMoved())
 			{
-				board[7][7] = NONE;
-				board[7][5] = ROOK;
-				colors[7][7] = EMPTY;
-				colors[7][5] = colors[7][6] = BLACK;
-				board[7][6] = KING;
-				blackKing->getKingRow() = 7;
-				blackKing->getKingColumn() = 6;
-				blackKing->getShortCastleRookMoved() = blackKing->getLongCastleRookMoved() = blackKing->getHasMoved() = true;
+				blackKing->performShortCastle(blackKing->getKingRow(), toCol, board, colors);
 				break;
 			}
 			// Long castle for black king
 			else if (!blackKing->getHasMoved() && toCol == 2 && blueRectanglesBoard[7][2] == BLUE_RECTANGLE && !blackKing->getLongCastleRookMoved())
 			{
-				board[7][0] = NONE;
-				board[7][2] = KING;
-				board[7][3] = ROOK;
-				colors[7][0] = EMPTY;
-				colors[7][3] = colors[7][2] = BLACK;
-				blackKing->getKingRow() = 7;
-				blackKing->getKingColumn() = 2;
-				blackKing->getShortCastleRookMoved() = blackKing->getLongCastleRookMoved() = blackKing->getHasMoved() = true;
+				blackKing->performLongCastle(blackKing->getKingRow(), toCol, board, colors);
 				break;
 			}
 			if (!updatePiece(blackKing))

@@ -134,7 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bishop.cpp" />
-    <ClCompile Include="blueRectangle.cpp" />
+    <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="boardUpdateColorsSquares.cpp" />
     <ClCompile Include="boardInit.cpp" />
     <ClCompile Include="boardMovingPiece.cpp" />
@@ -154,7 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bishop.h" />
-    <ClInclude Include="blueRectangle.h" />
+    <ClInclude Include="rectangle.h" />
     <ClInclude Include="board.h" />
     <ClInclude Include="errorsObjects.h" />
     <ClInclude Include="game.h" />

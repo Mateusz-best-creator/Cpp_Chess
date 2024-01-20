@@ -2,7 +2,7 @@
 
 #include "SDL.h"
 
-class BlueRectangle
+class Rectangle
 {
 private:
 	int boardRow, boardColumn, xPosition, yPosition;
@@ -12,8 +12,8 @@ private:
 	SDL_Renderer* renderer;
 
 public:
-	BlueRectangle(const char* filename, SDL_Renderer* ren, int bRow, int bColumn);
-	~BlueRectangle();
+	Rectangle(const char* filename, SDL_Renderer* ren, int bRow, int bColumn);
+	~Rectangle();
 
 	int& getBoardRow() { return boardRow; }
 	int& getBoardcolumn() { return boardColumn; }

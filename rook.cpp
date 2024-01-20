@@ -23,6 +23,7 @@ void Rook::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 void Rook::updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks)
 {
     int directions[4][2] = { {1, 0}, {-1, 0}, {0, 1}, {0, -1} };
+    char enemyColor;
 
     for (int d = 0; d < 4; ++d) {
         int dirRow = directions[d][0];
@@ -32,6 +33,7 @@ void Rook::updateRectangles(char color, int fromRow, int fromCol, int board[][8]
         {
             int toRow = fromRow + step * dirRow;
             int toCol = fromCol + step * dirCol;
+            enemyColor = colors[fromRow][fromCol] == WHITE ? BLACK : WHITE;
 
             // Check if the position is within the bounds of the chessboard
             if (toRow >= 0 && toRow < 8 && toCol >= 0 && toCol < 8) 
@@ -41,8 +43,12 @@ void Rook::updateRectangles(char color, int fromRow, int fromCol, int board[][8]
                     blueRectangles[toRow][toCol] = BLUE_RECTANGLE;
 
                 // Stop further moves if the position is not empty
-                if (colors[toRow][toCol] != EMPTY) 
+                if (colors[toRow][toCol] != EMPTY)
+                {
+                    if (colors[toRow][toCol] == enemyColor && board[toRow][toCol] == KING)
+                        continue;
                     break;
+                }
             }
             else
                 break;

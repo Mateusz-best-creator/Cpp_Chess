@@ -7,7 +7,7 @@
 #include "bishop.h"
 #include "king.h"
 #include "queen.h"
-#include "blueRectangle.h"
+#include "rectangle.h"
 #include "errorsObjects.h"
 
 #include <vector>
@@ -87,7 +87,7 @@ private:
 	SDL_Renderer* renderer;
 	SDL_Rect sourceRect, destinationRect;
 
-	std::vector<std::unique_ptr<BlueRectangle>> rectangles;
+	std::vector<std::unique_ptr<Rectangle>> rectangles;
 	std::vector<std::shared_ptr<Piece>> pieces; // Polymorphism
 	std::shared_ptr<Pawn> pawn;
 	std::shared_ptr<Rook> rook;
@@ -97,7 +97,7 @@ private:
 	std::shared_ptr<King> whiteKing;
 	std::shared_ptr<King> blackKing;
 	// Exact same thing as blue rectangle but with different color
-	std::unique_ptr<BlueRectangle> redRectangle;
+	std::unique_ptr<Rectangle> redRectangle;
 
 	int fromRow, fromCol, toRow, toCol, movingPieceType;
 	enum { INITIAL_VALUE = -1 };

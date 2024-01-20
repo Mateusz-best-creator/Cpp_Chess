@@ -59,26 +59,34 @@ void King::displayBlueRectangles(int fromRow, int fromCol, int board[][8], char 
 	{
 		int castleIndex = colors[fromRow][fromCol] == WHITE ? 0 : 7;
 		// Short castle
-		if (!shortCastleRookMoved)
+		bool isValidShortCastle = true;
+		for (int i = 5; i <= 6; i++) 
 		{
-			if ((blackColorsSquares[castleIndex][5] == EMPTY && blackColorsSquares[castleIndex][6] == EMPTY &&
-				colors[castleIndex][5] == EMPTY && colors[castleIndex][6] == EMPTY) ||
-				(whiteColorsSquares[castleIndex][5] == EMPTY && whiteColorsSquares[castleIndex][6] == EMPTY &&
-					colors[castleIndex][5] == EMPTY && colors[castleIndex][6] == EMPTY))
+			if ((blackColorsSquares[castleIndex][i] != EMPTY || colors[castleIndex][i] != EMPTY) &&
+				(whiteColorsSquares[castleIndex][i] != EMPTY || colors[castleIndex][i] != EMPTY)) 
 			{
-				blueRectangles[castleIndex][6] = BLUE_RECTANGLE;
+				isValidShortCastle = false;
+				break;
 			}
 		}
+		if (!shortCastleRookMoved && isValidShortCastle)
+			blueRectangles[castleIndex][6] = BLUE_RECTANGLE;
+
 		// Long castle
 		if (!longCastleRookMoved)
 		{
-			if ((blackColorsSquares[castleIndex][1] == EMPTY && blackColorsSquares[castleIndex][2] == EMPTY && blackColorsSquares[castleIndex][3] == EMPTY &&
-				colors[castleIndex][1] == EMPTY && colors[castleIndex][2] == EMPTY && colors[castleIndex][3] == EMPTY) ||
-				(whiteColorsSquares[castleIndex][1] == EMPTY && whiteColorsSquares[castleIndex][2] == EMPTY && whiteColorsSquares[castleIndex][3] == EMPTY &&
-					colors[castleIndex][1] == EMPTY && colors[castleIndex][2] == EMPTY && colors[castleIndex][3] == EMPTY))
+			bool isValidLongCastle = true;
+			for (int i = 1; i <= 3; i++) 
 			{
-				blueRectangles[castleIndex][2] = BLUE_RECTANGLE;
+				if ((blackColorsSquares[castleIndex][i] != EMPTY || colors[castleIndex][i] != EMPTY) &&
+					(whiteColorsSquares[castleIndex][i] != EMPTY || colors[castleIndex][i] != EMPTY)) 
+				{
+					isValidLongCastle = false;
+					break;
+				}
 			}
+			if (!longCastleRookMoved && isValidLongCastle) 
+				blueRectangles[castleIndex][2] = BLUE_RECTANGLE;
 		}
 	}
 }
@@ -185,4 +193,28 @@ bool King::canMoveTo(char colors[][8], char occupiedSquares[][8], int row, int c
 	if (isValidSquare(row, col) && (colors[row][col] == enemyColor || colors[row][col] == EMPTY))
 		return occupiedSquares[row][col] == EMPTY;
 	return false;
+}
+
+void King::performShortCastle(int row, int column, int board[][8], char colors[][8])
+{
+	board[row][column + 1] = NONE;
+	board[row][column - 1] = ROOK;
+	colors[row][column + 1] = EMPTY;
+	colors[row][column - 1] = colors[row][column] = color;
+	board[row][column] = KING;
+	kingRow = row;
+	kingColumn = column;
+	shortCastleRookMoved = longCastleRookMoved = hasMoved = true;
+}
+
+void King::performLongCastle(int row, int column, int board[][8], char colors[][8])
+{
+	board[row][column] = KING;
+	board[row][column + 1] = ROOK;
+	colors[row][column + 1] = colors[row][column] = color;
+	colors[row][column - 2] = EMPTY;
+	board[row][column - 2] = NONE;
+	kingRow = row;
+	kingColumn = column;
+	shortCastleRookMoved = longCastleRookMoved = hasMoved = true;
 }

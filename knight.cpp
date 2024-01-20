@@ -22,43 +22,20 @@ void Knight::displayBlueRectangles(int fromRow, int fromCol, int board[][8], cha
 
 void Knight::updateRectangles(char color, int fromRow, int fromCol, int board[][8], char colors[][8], char blueRectangles[][8], bool forChecks)
 {
-	// top right
-	if (fromCol + 1 < 8 && fromRow + 2 < 8 && (colors[fromRow + 2][fromCol + 1] == EMPTY || colors[fromRow + 2][fromCol + 1] == color
-		|| forChecks && colors[fromRow][fromCol] != color))
-		blueRectangles[fromRow + 2][fromCol + 1] = BLUE_RECTANGLE;
+    const int moves[][2] = 
+    {
+        {2, 1}, {2, -1}, {-2, 1}, {-2, -1},
+        {1, 2}, {-1, 2}, {1, -2}, {-1, -2}
+    };
 
-	// top left
-	if (fromCol - 1 >= 0 && fromRow + 2 < 8 && (colors[fromRow + 2][fromCol - 1] == EMPTY || colors[fromRow + 2][fromCol - 1] == color
-		|| forChecks && colors[fromRow][fromCol] != color))
-		blueRectangles[fromRow + 2][fromCol - 1] = BLUE_RECTANGLE;
+    for (int i = 0; i < 8; ++i) {
+        int newRow = fromRow + moves[i][0];
+        int newCol = fromCol + moves[i][1];
 
-	// bottom right
-	if (fromCol + 1 < 8 && fromRow - 2 >= 0 && (colors[fromRow - 2][fromCol + 1] == EMPTY || colors[fromRow - 2][fromCol + 1] == color
-		|| forChecks && colors[fromRow][fromCol] != color))
-		blueRectangles[fromRow - 2][fromCol + 1] = BLUE_RECTANGLE;
-
-	// bottom left
-	if (fromCol - 1 >= 0 && fromRow - 2 >= 0 && (colors[fromRow - 2][fromCol - 1] == EMPTY || colors[fromRow - 2][fromCol - 1] == color
-		|| forChecks && colors[fromRow][fromCol] != color))
-		blueRectangles[fromRow - 2][fromCol - 1] = BLUE_RECTANGLE;
-
-	// right top
-	if (fromCol + 2 < 8 && fromRow - 1 >= 0 && (colors[fromRow - 1][fromCol + 2] == EMPTY || colors[fromRow - 1][fromCol + 2] == color
-		|| forChecks && colors[fromRow][fromCol] != color))
-		blueRectangles[fromRow - 1][fromCol + 2] = BLUE_RECTANGLE;
-
-	// right bottom
-	if (fromCol + 2 < 8 && fromRow + 1 < 8 && (colors[fromRow + 1][fromCol + 2] == EMPTY || colors[fromRow + 1][fromCol + 2] == color
-		|| forChecks && colors[fromRow][fromCol] != color))
-		blueRectangles[fromRow + 1][fromCol + 2] = BLUE_RECTANGLE;
-
-	// left top
-	if (fromCol - 2 >= 0 && fromRow + 1 < 8 && (colors[fromRow + 1][fromCol - 2] == EMPTY || colors[fromRow + 1][fromCol - 2] == color
-		|| forChecks && colors[fromRow][fromCol] != color))
-		blueRectangles[fromRow + 1][fromCol - 2] = BLUE_RECTANGLE;
-
-	// left bottom
-	if (fromCol - 2 >= 0 && fromRow - 1 >= 0 && (colors[fromRow - 1][fromCol - 2] == EMPTY || colors[fromRow - 1][fromCol - 2] == color
-		|| forChecks && colors[fromRow][fromCol] != color))
-		blueRectangles[fromRow - 1][fromCol - 2] = BLUE_RECTANGLE;
+        if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8 &&
+            (colors[newRow][newCol] == EMPTY || colors[newRow][newCol] == color ||
+                (forChecks && colors[fromRow][fromCol] != color))) {
+            blueRectangles[newRow][newCol] = BLUE_RECTANGLE;
+        }
+    }
 }

@@ -47,4 +47,6 @@ public:
 	bool checkIfCheck(char boardToCheck[][8]);
 	bool checkIfKingHasSquare(int board[][8], char colors[][8], char whiteColorsSquares[][8], char blackColorsSquares[][8]);
 	bool canMoveTo(char colors[][8], char occupiedSquares[][8], int row, int col);
+	void performShortCastle(int row, int column, int board[][8], char colors[][8]);
+	void performLongCastle(int row, int column, int board[][8], char colors[][8]);
 };

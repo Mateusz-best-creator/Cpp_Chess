@@ -1,7 +1,7 @@
-#include "blueRectangle.h"
+#include "rectangle.h"
 #include "textureManager.h"
 
-BlueRectangle::BlueRectangle(const char* filename, SDL_Renderer* ren, int bRow, int bColumn)
+Rectangle::Rectangle(const char* filename, SDL_Renderer* ren, int bRow, int bColumn)
 {
 	xPosition = yPosition = 0;
 	renderer = ren;
@@ -11,15 +11,15 @@ BlueRectangle::BlueRectangle(const char* filename, SDL_Renderer* ren, int bRow, 
 	boardColumn = bColumn;
 }
 
-BlueRectangle::~BlueRectangle() {}
+Rectangle::~Rectangle() {}
 
-void BlueRectangle::calculateXY()
+void Rectangle::calculateXY()
 {
 	xPosition = (boardColumn - 1) * (PIECES_X_DISTANCE - 1) + 44;
 	yPosition = 600 - 33 - boardRow * PIECES_Y_DISTANCE;
 }
 
-void BlueRectangle::update()
+void Rectangle::update()
 {
 	calculateXY();
 	sourceRect.h = 69;
@@ -33,7 +33,7 @@ void BlueRectangle::update()
 	destinationRect.h = sourceRect.h;
 }
 
-void BlueRectangle::render()
+void Rectangle::render()
 {
 	SDL_RenderCopy(renderer, objectTexture, &sourceRect, &destinationRect);
 }
