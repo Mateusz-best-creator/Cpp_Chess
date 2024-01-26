@@ -127,14 +127,19 @@ void Interface::showInterface()
 					}
 					else if (xValue >= 255 + 70 && xValue <= 255 + 229 && yValue >= 312 && yValue <= 478)
 					{
-						std::cout << "Getting event for authentication\n";
-						// Add player
-						players.push_back(Player());
-						displayAuthenticationInterface(players);
-						if (true)
-							strcpy_s(blackPlayerName, NAME_MAX_LENGTH, "PierwszaOpcja");
+						int index = displayAuthenticationInterface(players);
+						
+						if (index != players.size() - 1 || (players.size() == 1 && index == 0))
+						{
+							strcpy_s(whitePlayerName, NAME_MAX_LENGTH, "Unknown");
+							strcpy_s(blackPlayerName, NAME_MAX_LENGTH, "Unknown");
+						}
+
+						if (players[index].getPlayingColor() == WHITE)
+							strcpy_s(whitePlayerName, NAME_MAX_LENGTH, players[index].getName());
 						else
-							strcpy_s(blackPlayerName, NAME_MAX_LENGTH, "DrugaOpcja");
+							strcpy_s(blackPlayerName, NAME_MAX_LENGTH, players[index].getName());
+							
 						displayInterface();
 					}
 					else if (xValue >= 255 + 255 + 70 && xValue <= 255 + 255 + 229 && yValue >= 312 && yValue <= 478)

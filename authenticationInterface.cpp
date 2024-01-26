@@ -1,8 +1,9 @@
 #include "interface.h"
 #include <cstring>
 #include <vector>
+#include <algorithm>
 
-void Interface::displayAuthenticationInterface(std::vector<Player> players)
+int Interface::displayAuthenticationInterface(std::vector<Player>& players)
 {
     SDL_Event event;
     bool quit = false;
@@ -31,6 +32,7 @@ void Interface::displayAuthenticationInterface(std::vector<Player> players)
     index = 0;
     quit = false;
     char localName[NAME_MAX_LENGTH];
+    localName[0] = '\0';
 
     while (!quit)
     {
@@ -47,7 +49,38 @@ void Interface::displayAuthenticationInterface(std::vector<Player> players)
         quit = handleAuthenticationInterfaceEvents(localName, index);
     }
     localName[index] = '\0';
-    std::cout << "Local nme: " << localName << std::endl;
+    std::cout << "Local name: " << localName << std::endl;
+
+    int newPlayerIndex;
+    bool playerFound = false;
+
+    // Search in vector and check if we already have that player
+    for (size_t i = 0; i < players.size(); ++i) 
+    {
+        std::cout << "Name = " << players[i].getName() << std::endl;
+        if (strcmp(players[i].getName(), localName) == 0)
+        {
+            newPlayerIndex = static_cast<int>(i);
+            playerFound = true;
+            break;
+        }
+    }
+
+    if (!playerFound)
+    {
+        players.push_back(Player(localName, localColor));
+        newPlayerIndex = static_cast<int>(players.size()) - 1;
+        return newPlayerIndex;
+    } 
+    else
+    {
+        std::cout << "Player found!\n";
+        players[newPlayerIndex].getPlayingColor() = localColor;
+    }
+        
+
+    std::cout << "Player index = " << newPlayerIndex << std::endl;
+    return newPlayerIndex;
 }
 
 bool Interface::handleAuthenticationInterfaceEvents(char* name, int& index, bool choosingColor)

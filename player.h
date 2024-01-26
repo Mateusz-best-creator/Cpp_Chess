@@ -7,13 +7,13 @@ class Player
 private:
 	int whiteWins, blackWins, whiteLoses, blackLoses;
 	char name[30];
-	Colors playingColor;
+	Colors currentPlayingColor;
 
 public:
 	Player() = default;
-	Player(const char* n);
+	Player(const char*, Colors);
 
 	char* getName() { return name; }
-	Colors& getPlayingColor() { return playingColor; }
-	Colors getPlayingColor() const { return playingColor; }
+	Colors& getPlayingColor() { return currentPlayingColor; }
+	Colors getPlayingColor() const { return currentPlayingColor; }
 };

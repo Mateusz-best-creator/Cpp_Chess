@@ -26,8 +26,8 @@ private:
 	int black, green, red, blue, white, grey;
 
 	std::vector<Player> players;
-	char whitePlayerName[NAME_MAX_LENGTH] = { "unknown" };
-	char blackPlayerName[NAME_MAX_LENGTH] = { "unknown" };
+	char whitePlayerName[NAME_MAX_LENGTH] = { "Unknown" };
+	char blackPlayerName[NAME_MAX_LENGTH] = { "Unknown" };
 
 public:
 	Interface();
@@ -35,7 +35,7 @@ public:
 
 	void showInterface();
 	void displayInterface();
-	void displayAuthenticationInterface(std::vector<Player>);
+	int displayAuthenticationInterface(std::vector<Player>&);
 	bool handleAuthenticationInterfaceEvents(char* name, int& index, bool choosingColor = false);
 
 	void DrawString(SDL_Surface* screen, int x, int y, const char* text, SDL_Surface* charset, Format format = Format::Small);
