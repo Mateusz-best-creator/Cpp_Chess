@@ -113,6 +113,10 @@ bool Interface::handleAuthenticationInterfaceEvents(char* name, int& index, bool
         }
         else if (event.type == SDL_TEXTINPUT && index < NAME_MAX_LENGTH)
         {
+            if (choosingColor && index >= 5)
+            {
+                return false;
+            }
             name[index] = *(event.text.text);
             index++;
             name[index] = '\0';

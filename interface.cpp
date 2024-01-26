@@ -102,7 +102,7 @@ void Interface::showInterface()
 				}
 				else if (event.key.keysym.sym == SDLK_2)
 				{
-
+					authenticationInterface();
 				}
 				else if (event.key.keysym.sym == SDLK_3)
 				{
@@ -126,22 +126,7 @@ void Interface::showInterface()
 						quit = 1;
 					}
 					else if (xValue >= 255 + 70 && xValue <= 255 + 229 && yValue >= 312 && yValue <= 478)
-					{
-						int index = displayAuthenticationInterface(players);
-						
-						if (index != players.size() - 1 || (players.size() == 1 && index == 0))
-						{
-							strcpy_s(whitePlayerName, NAME_MAX_LENGTH, "Unknown");
-							strcpy_s(blackPlayerName, NAME_MAX_LENGTH, "Unknown");
-						}
-
-						if (players[index].getPlayingColor() == WHITE)
-							strcpy_s(whitePlayerName, NAME_MAX_LENGTH, players[index].getName());
-						else
-							strcpy_s(blackPlayerName, NAME_MAX_LENGTH, players[index].getName());
-							
-						displayInterface();
-					}
+						authenticationInterface();
 					else if (xValue >= 255 + 255 + 70 && xValue <= 255 + 255 + 229 && yValue >= 312 && yValue <= 478)
 					{
 						std::cout << "Getting event for HallOfFame\n";
@@ -152,6 +137,23 @@ void Interface::showInterface()
 	};
 }
 
+void Interface::authenticationInterface()
+{
+	int index = displayAuthenticationInterface(players);
+
+	if (index != players.size() - 1 || (players.size() == 1 && index == 0))
+	{
+		strcpy_s(whitePlayerName, NAME_MAX_LENGTH, "Unknown");
+		strcpy_s(blackPlayerName, NAME_MAX_LENGTH, "Unknown");
+	}
+
+	if (players[index].getPlayingColor() == WHITE)
+		strcpy_s(whitePlayerName, NAME_MAX_LENGTH, players[index].getName());
+	else
+		strcpy_s(blackPlayerName, NAME_MAX_LENGTH, players[index].getName());
+
+	displayInterface();
+}
 
 /*
 draw a text txt on surface screen, starting from the point (x, y)
