@@ -1,11 +1,9 @@
-#include "MainGameLoop.h"
-/*
-#include "game.h"
+#include "mainLoop.h"
 
 #include <thread>
 #include <chrono>
 
-int MainGameLoop::RunChessGame()
+void MainGameLoop::RunChessGameLoop()
 {
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
@@ -14,15 +12,6 @@ int MainGameLoop::RunChessGame()
 	int frameTime;
 	bool initial = true;
 
-	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
-	{
-		std::cout << "Failed to initialize SDL_image for PNG files: " << IMG_GetError << std::endl;
-		return 0;
-	}
-	if (SDL_Init(SDL_INIT_AUDIO) < 0) {
-		std::cout << "Failed to initialize SDL_mixer for wav files: " << std::endl;
-		return 0;
-	}
 	SDL_Surface* boardSurface = NULL;
 
 	std::unique_ptr<Game> game = std::make_unique<Game>();
@@ -50,6 +39,4 @@ int MainGameLoop::RunChessGame()
 	// After 3 seconds close the game
 	std::this_thread::sleep_for(std::chrono::seconds(3));
 	game->clean();
-	return 0;
 }
-*/

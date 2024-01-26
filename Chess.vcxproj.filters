@@ -16,41 +16,20 @@
     <Filter Include="Source Files\Board">
       <UniqueIdentifier>{81ed3a4d-0514-4437-8626-426cd574f838}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Pieces">
+      <UniqueIdentifier>{db33480a-3c1d-4120-91ad-c60b3ba60c9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interface">
+      <UniqueIdentifier>{87f1ee29-5d81-4e79-8137-350c5d938355}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameInit">
+      <UniqueIdentifier>{d1654bfa-a13b-45d4-b622-e47a75d94cdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helper">
+      <UniqueIdentifier>{762f29fa-0ebc-41a0-a30b-f291a8d67671}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="textureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="piece.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pawn.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="knight.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rook.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bishop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="king.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="queen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rectangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="boardUpdateColorsSquares.cpp">
       <Filter>Source Files\Board</Filter>
     </ClCompile>
@@ -66,11 +45,44 @@
     <ClCompile Include="checkIfCheckmate.cpp">
       <Filter>Source Files\Board</Filter>
     </ClCompile>
-    <ClCompile Include="MainGameLoop.h">
-      <Filter>Header Files</Filter>
+    <ClCompile Include="bishop.cpp">
+      <Filter>Source Files\Pieces</Filter>
     </ClCompile>
-    <ClCompile Include="MainGameLoop.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="king.cpp">
+      <Filter>Source Files\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="knight.cpp">
+      <Filter>Source Files\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="pawn.cpp">
+      <Filter>Source Files\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="piece.cpp">
+      <Filter>Source Files\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="queen.cpp">
+      <Filter>Source Files\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="rook.cpp">
+      <Filter>Source Files\Pieces</Filter>
+    </ClCompile>
+    <ClCompile Include="interface.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files\GameInit</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\GameInit</Filter>
+    </ClCompile>
+    <ClCompile Include="rectangle.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="textureManager.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="mainLoop.cpp">
+      <Filter>Source Files\GameInit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +120,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="errorsObjects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mainLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

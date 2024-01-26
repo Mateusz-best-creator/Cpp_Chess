@@ -142,8 +142,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="bishop.cpp" />
-    <ClCompile Include="MainGameLoop.cpp" />
-    <ClCompile Include="MainGameLoop.h" />
+    <ClCompile Include="interface.cpp" />
+    <ClCompile Include="mainLoop.cpp" />
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="boardUpdateColorsSquares.cpp" />
     <ClCompile Include="boardInit.cpp" />
@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bishop.h" />
+    <ClInclude Include="mainLoop.h" />
     <ClInclude Include="rectangle.h" />
     <ClInclude Include="board.h" />
     <ClInclude Include="errorsObjects.h" />
