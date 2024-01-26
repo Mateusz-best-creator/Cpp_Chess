@@ -5,7 +5,6 @@
 
 int Interface::displayAuthenticationInterface(std::vector<Player>& players)
 {
-    SDL_Event event{};
     bool quit = false;
     int index = 0;
     char text[100];
@@ -96,10 +95,11 @@ bool Interface::handleAuthenticationInterfaceEvents(char* name, int& index, bool
             {
                 if (choosingColor)
                 {
-                    std::cout << "Color name = " << name << std::endl;
-                    if (strcmp(name, "White") == 0 || strcmp(name, "white") == 0 || strcmp(name, "WHITE") == 0)
+                    // Transform user input to lowercase 
+                    std::transform(name, name + strlen(name), name, ::tolower);
+                    if (strcmp(name, "white") == 0)
                         return true;
-                    if (strcmp(name, "Black") == 0 || strcmp(name, "black") == 0 || strcmp(name, "BLACK") == 0)
+                    if (strcmp(name, "black") == 0)
                         return true;
                     return false;
                 }

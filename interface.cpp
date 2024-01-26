@@ -89,8 +89,7 @@ void Interface::showInterface()
 	displayInterface();
 	while (!quit) 
 	{
-		
-		while (SDL_PollEvent(&event)) 
+		while (SDL_WaitEvent(&event)) 
 		{
 			switch (event.type) 
 			{
@@ -104,6 +103,7 @@ void Interface::showInterface()
 				{
 					display = true;
 					quit = 1;
+					return;
 				}
 				else if (event.key.keysym.sym == SDLK_2)
 				{
@@ -126,6 +126,7 @@ void Interface::showInterface()
 					{
 						display = true;
 						quit = 1;
+						return;
 					}
 					else if (xValue >= 255 + 70 && xValue <= 255 + 229 && yValue >= 312 && yValue <= 478)
 						authenticationInterface();
