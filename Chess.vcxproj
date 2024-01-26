@@ -141,9 +141,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="authenticationInterface.cpp" />
     <ClCompile Include="bishop.cpp" />
+    <ClCompile Include="icon.cpp" />
     <ClCompile Include="interface.cpp" />
     <ClCompile Include="mainLoop.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="boardUpdateColorsSquares.cpp" />
     <ClCompile Include="boardInit.cpp" />
@@ -162,7 +165,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bishop.h" />
+    <ClInclude Include="icon.h" />
+    <ClInclude Include="interface.h" />
     <ClInclude Include="mainLoop.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="rectangle.h" />
     <ClInclude Include="board.h" />
     <ClInclude Include="errorsObjects.h" />

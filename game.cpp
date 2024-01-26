@@ -55,14 +55,7 @@ bool Game::handleEvents()
 	switch (event.type)
 	{
 	case SDL_QUIT:
-		isRunning = false;
-		return true;
-	case SDL_KEYDOWN:
-		if (event.key.keysym.sym == SDLK_ESCAPE)
-		{
-			isRunning = false;
-		}
-		return true;
+		exit(EXIT_SUCCESS);
 	case SDL_MOUSEBUTTONDOWN:
 		if (event.button.button == SDL_BUTTON_LEFT) 
 		{

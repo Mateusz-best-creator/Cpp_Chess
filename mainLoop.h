@@ -1,9 +1,9 @@
 #pragma once
 
-#include "game.h"
-
-class MainGameLoop
+class MainLoop
 {
 public:
+	static void RunMainLoop();
+	static bool RunInterfaceLoop();
 	static void RunChessGameLoop();
 };

@@ -66,9 +66,6 @@
     <ClCompile Include="rook.cpp">
       <Filter>Source Files\Pieces</Filter>
     </ClCompile>
-    <ClCompile Include="interface.cpp">
-      <Filter>Source Files\Interface</Filter>
-    </ClCompile>
     <ClCompile Include="game.cpp">
       <Filter>Source Files\GameInit</Filter>
     </ClCompile>
@@ -83,6 +80,18 @@
     </ClCompile>
     <ClCompile Include="mainLoop.cpp">
       <Filter>Source Files\GameInit</Filter>
+    </ClCompile>
+    <ClCompile Include="icon.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="interface.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="authenticationInterface.cpp">
+      <Filter>Source Files\Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files\Helper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,6 +132,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="mainLoop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="icon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

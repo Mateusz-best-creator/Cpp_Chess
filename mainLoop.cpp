@@ -1,9 +1,31 @@
 #include "mainLoop.h"
+#include "interface.h"
 
+#include <cstdlib>
 #include <thread>
 #include <chrono>
 
-void MainGameLoop::RunChessGameLoop()
+void MainLoop::RunMainLoop()
+{
+	bool playChess{ true };
+	while (true)
+	{
+		playChess = RunInterfaceLoop();
+		if (!playChess)
+			exit(EXIT_SUCCESS);
+		else
+			RunChessGameLoop();
+	}
+}
+
+bool MainLoop::RunInterfaceLoop()
+{
+	Interface GameInterface;
+	GameInterface.showInterface();
+	return GameInterface.getDisplay();
+}
+
+void MainLoop::RunChessGameLoop()
 {
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;

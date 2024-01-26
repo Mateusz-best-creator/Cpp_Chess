@@ -2,6 +2,6 @@
 
 int main(int argc, char* argv[])
 {
-	MainGameLoop::RunChessGameLoop();
+	MainLoop::RunMainLoop();
 	return 0;
 }
