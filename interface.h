@@ -3,7 +3,6 @@
 #include "game.h"
 #include "icon.h"
 #include "player.h"
-#include <vector>
 
 const int NUMBER_INTERFACE_ICONS = 3, ICON_Y = 400, NAME_MAX_LENGTH = 30;
 
@@ -25,10 +24,6 @@ private:
 	char text[256];
 	int black, green, red, blue, white, grey;
 
-	std::vector<Player> players;
-	char whitePlayerName[NAME_MAX_LENGTH] = { "Unknown" };
-	char blackPlayerName[NAME_MAX_LENGTH] = { "Unknown" };
-
 public:
 	Interface();
 	~Interface();
@@ -46,5 +41,7 @@ public:
 	void DrawLine(SDL_Surface* screen, int x, int y, int l, int dx, int dy, Uint32 color);
 	void DrawRectangle(SDL_Surface* screen, int x, int y, int l, int k, Uint32 outlineColor, Uint32 fillColor);
 
-	bool getDisplay() { return display; };
+	bool getDisplay() const { return display; };
+	bool& getDisplay() { return display; };
+	int& getQuit() { return quit; }
 };

@@ -15,7 +15,7 @@ Rectangle::~Rectangle() {}
 
 void Rectangle::calculateXY()
 {
-	xPosition = (boardColumn - 1) * (PIECES_X_DISTANCE - 1) + 44;
+	xPosition = (boardColumn - 1) * (PIECES_X_DISTANCE - 1) + 43;
 	yPosition = 600 - 33 - boardRow * PIECES_Y_DISTANCE;
 }
 
@@ -23,7 +23,7 @@ void Rectangle::update()
 {
 	calculateXY();
 	sourceRect.h = 69;
-	sourceRect.w = 90;
+	sourceRect.w = 91;
 	sourceRect.x = 0;
 	sourceRect.y = 0;
 

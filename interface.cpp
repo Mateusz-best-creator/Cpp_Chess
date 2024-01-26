@@ -1,5 +1,10 @@
 ﻿#include "interface.h"
+#include <vector>
 
+// Global variable for storing players
+std::vector<Player> players;
+char whitePlayerName[NAME_MAX_LENGTH] = { "Unknown" };
+char blackPlayerName[NAME_MAX_LENGTH] = { "Unknown" };
 
 Interface::Interface()
 	: display(false)
@@ -80,6 +85,7 @@ void Interface::displayInterface()
 
 void Interface::showInterface()
 {
+	std::cout << "Quit value = " << quit << std::endl;
 	displayInterface();
 	while (!quit) 
 	{
@@ -96,7 +102,6 @@ void Interface::showInterface()
 				}
 				else if (event.key.keysym.sym == SDLK_1)
 				{
-					std::cout << "Getting event!\n";
 					display = true;
 					quit = 1;
 				}
@@ -110,16 +115,13 @@ void Interface::showInterface()
 				}
 				break;
 			case SDL_QUIT:
-				quit = 1;
 				exit(EXIT_SUCCESS);
-				break;
 			case SDL_MOUSEBUTTONDOWN:
 				if (event.button.button == SDL_BUTTON_LEFT)
 				{
 					int xValue = event.button.x;
 					int yValue = event.button.y;
 
-					std::cout << "X: " << xValue << ", " << "Y: " << yValue << std::endl;
 					if (xValue >= 70 && xValue <= 229 && yValue >= 312 && yValue <= 478)
 					{
 						display = true;

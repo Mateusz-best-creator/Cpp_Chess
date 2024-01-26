@@ -5,7 +5,7 @@
 
 int Interface::displayAuthenticationInterface(std::vector<Player>& players)
 {
-    SDL_Event event;
+    SDL_Event event{};
     bool quit = false;
     int index = 0;
     char text[100];
