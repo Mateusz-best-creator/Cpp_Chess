@@ -4,6 +4,16 @@
 
 This is a C++ chess game, meticulously crafted using Object-Oriented Programming (OOP) principles. The implementation includes a variety of features such as every possible chess move, castling on both sides and En Passant. You also have sound effects for different moves. One for moving piece into empty square and one for pieces that go to non empty square.
 
+## Interface
+
+Choose from three options to interact with the chess game:
+
+1. **Quick Start:** Initiate a chess game with currently logged players. If a player is not logged in, their name will be displayed as "Unknown".
+
+2. **Player Authentication:** Authenticate in the player database by providing pieces color you want to play with and your name. If your name is new, you will be added to the database. If your name already exists, you can specify whether you want to play as white or black.
+
+3. **Hall of Fame:** Explore the Hall of Fame to view metrics of the top 6 players. Compete with your friends to climb the rankings and establish yourself among the chess elite!
+
 ## Features
 
 - **Modular Design:** The game utilizes classes to organize code in a modular fashion, enhancing readability and maintainability.
