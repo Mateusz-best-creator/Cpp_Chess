@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a C++ chess game, meticulously crafted using Object-Oriented Programming (OOP) principles. The implementation includes a variety of features such as every possible chess move, castling on both sides, En Passant, and more.
+This is a C++ chess game, meticulously crafted using Object-Oriented Programming (OOP) principles. The implementation includes a variety of features such as every possible chess move, castling on both sides and En Passant. You also have sound effects for different moves. One for moving piece into empty square and one for pieces that go to non empty square.
 
 ## Features
 
@@ -22,15 +22,16 @@ This is a C++ chess game, meticulously crafted using Object-Oriented Programming
 
 - **En Passant:** The game features the En Passant move, enhancing realism and strategic gameplay.
 
-This chess game project utilizes SDL2 and SDL2_image libraries. The required SDL2 libraries are included in the source files, but if you encounter issues starting the project, follow these steps:
+This chess game project utilizes SDL2, SDL2_image, SDL2_mixer libraries. The required SDL2 libraries are included in the source files, but if you encounter issues starting the project, follow these steps:
 
 ## Prerequisites
 
-If you are unable to start the project, download SDL2 and SDL_image from the following links:
+If you are unable to start the project, download SDL2, SDL_image, SDL_mixer from the following links:
 - [SDL2 Releases](https://github.com/libsdl-org/SDL/releases/tag/release-2.28.5)
 - [SDL_image Releases](https://github.com/libsdl-org/SDL_image/releases)
+- [SDL_mixer Releases](https://github.com/libsdl-org/SDL_mixer/releases)
 
-Ensure you download the versions compatible with your Visual Studio setup. If you are using VS Code, download the VS Code versions of the libraries.
+Of course download the latest versions of the liblaries. Ensure you download the versions compatible with your Visual Studio setup. If you are using VS Code, download the VS Code versions of the libraries.
 
 ## Configuration Steps
 
@@ -47,10 +48,11 @@ Ensure you download the versions compatible with your Visual Studio setup. If yo
 3. **Configure Linker Input:**
    - In the Linker section, go to Input.
    - Navigate to Additional Dependencies.
-   - Add the following entries: `SDL2.lib;SDL2main.lib;SDL2_image.lib`.
+   - Add the following entries: `SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_mixer`.
 
 4. **Optional Recommendation:**
    - Place the files from SDL_image into your SDL2 folder to ensure automatic linking.
+   - If you get an error that SDL2_some_package.dll cannot be found, try to copy some_package.dll and paste it in the same directory where your main.cpp is.
 
 Now, you should be able to build and run the chess game smoothly.
 
@@ -65,6 +67,6 @@ To build and run the chess game using Microsoft Visual Studio, follow these simp
 2. **Build and Run:**
    - Press `F5` to build and run the chess game.
 
-That's it! You should now be able to enjoy playing chess. Feel free to explore the features and functionalities of the game.
+That's it! You should now be able to enjoy playing chess. Feel free to explore the features and functionalities of the game. The code is available here: https://github.com/Mateusz-best-creator/Chess/tree/master.
 
 Happy gaming!

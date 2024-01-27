@@ -148,7 +148,7 @@ void Interface::showInterface()
 				}
 				else if (event.key.keysym.sym == SDLK_3)
 				{
-
+					hallOfFameInterface(players);
 				}
 				break;
 			case SDL_QUIT:
