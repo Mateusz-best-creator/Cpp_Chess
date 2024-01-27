@@ -10,10 +10,12 @@
 #include "rectangle.h"
 #include "errorsObjects.h"
 
+#include <SDL_mixer.h>
 #include <vector>
 #include <memory>
 #include <iostream>
 #include <string>
+
 
 const int HEIGHT = 8, WIDTH = 8, INITIAL_PIECES_NUMBER = 32;
 const int PIECES_X_DISTANCE = 90, PIECES_Y_DISTANCE = 67;
@@ -102,6 +104,10 @@ private:
 	int fromRow, fromCol, toRow, toCol, movingPieceType;
 	enum { INITIAL_VALUE = -1 };
 	bool gameRunning;
+
+	// Sound effects
+	Mix_Chunk* pieceMoveSound = Mix_LoadWAV("Sounds/piece_move_sound.wav");
+	Mix_Chunk* pieceBeatSound = Mix_LoadWAV("Sounds/piece_beat_sound.wav");
 
 public:
 	Board(const char* filename, SDL_Renderer* ren);

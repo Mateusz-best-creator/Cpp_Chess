@@ -1,4 +1,5 @@
 #include "game.h"
+#include <SDL_mixer.h>
 
 Game::Game()
 {
@@ -41,6 +42,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
 	{
 		std::cout << "Failed to initialize SDL_image for PNG files: " << IMG_GetError << std::endl;
+		isRunning = false;
+		return;
+	}
+	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) 
+	{
+		std::cout << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << std::endl;
 		isRunning = false;
 		return;
 	}

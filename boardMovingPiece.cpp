@@ -269,8 +269,14 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 		return false;
 	}
 
+	// Play some sound effects
+	if (board[toRow][toCol] != NONE)
+		Mix_PlayChannel(-1, pieceBeatSound, 0);
+	else
+		Mix_PlayChannel(-1, pieceMoveSound, 0);
+
 	board[fromRow][fromCol] = NONE;
-	
+
 	if (typeid(Pawn) == typeid(*piece))
 		board[toRow][toCol] = PAWN;
 	else if (typeid(Rook) == typeid(*piece))

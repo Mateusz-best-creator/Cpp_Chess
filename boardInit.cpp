@@ -42,6 +42,9 @@ Board::~Board()
 {
 	rectangles.clear();
 	pieces.clear();
+	Mix_FreeChunk(pieceMoveSound);
+	Mix_FreeChunk(pieceBeatSound);
+	Mix_Quit();
 }
 
 void Board::addPieces(int i, int j, int boardR)
