@@ -26,7 +26,6 @@ int Interface::displayAuthenticationInterface(std::vector<Player>& players)
         quit = handleAuthenticationInterfaceEvents(colorName, index, true);
     }
     Colors localColor = (colorName[0] == 'W' || colorName[0] == 'w') ? WHITE : BLACK;
-    std::cout << "Local color: " << localColor << std::endl;
 
     index = 0;
     quit = false;
@@ -48,7 +47,6 @@ int Interface::displayAuthenticationInterface(std::vector<Player>& players)
         quit = handleAuthenticationInterfaceEvents(localName, index);
     }
     localName[index] = '\0';
-    std::cout << "Local name: " << localName << std::endl;
 
     int newPlayerIndex;
     bool playerFound = false;
@@ -56,7 +54,6 @@ int Interface::displayAuthenticationInterface(std::vector<Player>& players)
     // Search in vector and check if we already have that player
     for (size_t i = 0; i < players.size(); ++i) 
     {
-        std::cout << "Name = " << players[i].getName() << std::endl;
         if (strcmp(players[i].getName(), localName) == 0)
         {
             newPlayerIndex = static_cast<int>(i);
@@ -73,12 +70,8 @@ int Interface::displayAuthenticationInterface(std::vector<Player>& players)
     } 
     else
     {
-        std::cout << "Player found!\n";
         players[newPlayerIndex].getPlayingColor() = localColor;
     }
-        
-
-    std::cout << "Player index = " << newPlayerIndex << std::endl;
     return newPlayerIndex;
 }
 

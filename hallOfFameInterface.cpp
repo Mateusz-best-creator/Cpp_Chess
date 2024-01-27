@@ -7,12 +7,6 @@ void Interface::hallOfFameInterface(std::vector<Player>& players)
 	bool checking = true;
 	SDL_FillRect(screen, NULL, black);
 
-	for (int i = 0; i < players.size(); i++)
-	{
-		std::cout << "White = " << players[i].getWhiteWins() << " " << players[i].getWhiteLoses() << std::endl;
-		std::cout << "Black = " << players[i].getBlackWins() << " " << players[i].getBlackLoses() << std::endl;
-	}
-
 	if (players.size())
 		std::sort(players.begin(), players.end());
 

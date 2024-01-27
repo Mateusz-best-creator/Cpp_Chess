@@ -46,8 +46,8 @@ Interface::Interface()
 	text[0] = '\0';
 
 	trophyIcon = SDL_LoadBMP("./ChessPieces/golden_cup.bmp");
-	authenticateIcon = SDL_LoadBMP("./ChessPieces/golden_cup.bmp");
-	playIcon = SDL_LoadBMP("./ChessPieces/golden_cup.bmp");
+	authenticateIcon = SDL_LoadBMP("./ChessPieces/report.bmp");
+	playIcon = SDL_LoadBMP("./ChessPieces/play.bmp");
 }
 
 Interface::~Interface()
