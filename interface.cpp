@@ -69,7 +69,7 @@ void Interface::displayInterface()
 	DrawRectangle(screen, 4, 20, SCREEN_WIDTH - 8, 75, white, grey);
 	sprintf_s(text, 256, "C++ creafted chess game made by Mateusz Wieczorek");
 	DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 30, text, charset, Format::Big);
-	sprintf_s(text, 256, "Click appropriate rectangle to choose what you want to do.");
+	sprintf_s(text, 256, "Click on appropriate rectangle, or type 1, 2, 3 on your keyboard to choose what you want to do.");
 	DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 50, text, charset);
 	sprintf_s(text, 256, "1 - play chess   2 - authenticate yourself in database   3 - check HallOfFame");
 	DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 70, text, charset);

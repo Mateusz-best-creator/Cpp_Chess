@@ -11,16 +11,17 @@ Player::Player(const char* n, Colors c)
 	name[i] = '\0';
 }
 
+/*
+Comparison for sorting in descending order
+*/
 bool Player::operator<(const Player& p)
 {
-	if (blackWins + whiteWins > p.blackWins + p.whiteWins)
-		return false;
-	else if (blackWins + whiteWins == p.blackWins + p.whiteWins && blackLoses + whiteLoses < p.blackLoses + p.whiteLoses)
-	{
-		return false;
-	}
-	else if (blackWins + whiteWins == p.blackWins + p.whiteWins && whiteLoses + blackLoses == p.whiteLoses + p.blackLoses)
-		return false;
+    if (blackWins + whiteWins > p.blackWins + p.whiteWins)
+        return true;
+    else if (blackWins + whiteWins == p.blackWins + p.whiteWins && blackLoses + whiteLoses > p.blackLoses + p.whiteLoses)
+        return true;
+    else if (blackWins + whiteWins == p.blackWins + p.whiteWins && whiteLoses + blackLoses == p.whiteLoses + p.blackLoses)
+        return false;
 
-	return true;
+    return false;
 }
