@@ -85,48 +85,43 @@ int Interface::displayAuthenticationInterface(std::vector<Player>& players)
 bool Interface::handleAuthenticationInterfaceEvents(char* name, int& index, bool choosingColor)
 {
     SDL_Event event;
-    SDL_PollEvent(&event);
-
-    switch (event.type)
+    while (SDL_PollEvent(&event) != 0)
     {
-    case SDL_QUIT:
-        exit(EXIT_SUCCESS);
-    case SDL_KEYDOWN:
-        if (event.key.keysym.sym == SDLK_RETURN && index > 0)
+        if (event.type == SDL_QUIT)
+            exit(EXIT_SUCCESS);
+        else if (event.type == SDL_KEYDOWN)
         {
-
-            if (choosingColor)
+            if (event.key.keysym.sym == SDLK_RETURN && index > 0)
             {
-                // Transform user input to lowercase 
-                std::transform(name, name + strlen(name), name, ::tolower);
-                if (strcmp(name, "white") == 0)
-                    return true;
-                if (strcmp(name, "black") == 0)
-                    return true;
-                return false;
+                if (choosingColor)
+                {
+                    // Transform user input to lowercase 
+                    std::transform(name, name + strlen(name), name, ::tolower);
+                    if (strcmp(name, "white") == 0)
+                        return true;
+                    if (strcmp(name, "black") == 0)
+                        return true;
+                    return false;
+                }
+                return true;
             }
-            return true;
-        }
-        break;
-    case SDLK_BACKSPACE:
-        if (index > 0)
-        {
-            index--;
-            name[index] = '\0';
-        }
-        break;
-    case SDL_TEXTINPUT:
-        if (index < NAME_MAX_LENGTH)
-        {
-            if (!(choosingColor && index >= 5))
+            else if (event.key.keysym.sym == SDLK_BACKSPACE && index > 0)
             {
-                name[index] = *(event.text.text);
-                index++;
+                index--;
                 name[index] = '\0';
-                return false;
             }
         }
-        break;
+        else if (event.type == SDL_TEXTINPUT && index < NAME_MAX_LENGTH)
+        {
+            if (choosingColor && index >= 5)
+            {
+                return false;
+            }
+            name[index] = *(event.text.text);
+            index++;
+            name[index] = '\0';
+            return false;
+        }
     }
     return false;
 }

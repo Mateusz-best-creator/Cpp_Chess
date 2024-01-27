@@ -32,7 +32,6 @@ public:
 	void hallOfFameInterface(std::vector<Player>&);
 	bool hallOfFfameInterfaceEvents();
 	void authenticationInterface();
-	//void drawAuthenticationInterface(const char*, const char*, const char*, const char*, int);
 	int displayAuthenticationInterface(std::vector<Player>&);
 	bool handleAuthenticationInterfaceEvents(char* name, int& index, bool choosingColor = false);
 
