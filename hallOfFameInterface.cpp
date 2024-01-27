@@ -39,6 +39,9 @@ void Interface::hallOfFameInterface(std::vector<Player>& players)
 				DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 35 + i * 90, text, charset);
 				sprintf_s(text, 64, "Loses with white pieces: %d   Loses with black pieces: %d", players[i].getWhiteLoses(), players[i].getBlackLoses());
 				DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 50 + i * 90, text, charset);
+
+				if (i == 5)
+					break;
 			}
 		}
 
