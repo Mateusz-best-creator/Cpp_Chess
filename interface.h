@@ -1,7 +1,6 @@
 #pragma once
 
 #include "game.h"
-#include "icon.h"
 #include "player.h"
 
 const int NUMBER_INTERFACE_ICONS = 3, ICON_Y = 400, NAME_MAX_LENGTH = 30;
@@ -22,7 +21,7 @@ private:
 
 	bool display;
 	char text[256];
-	int black, green, red, blue, white, grey;
+	int black, green, red, blue, white, grey, gold, silver, brown;
 
 public:
 	Interface();
@@ -30,8 +29,10 @@ public:
 
 	void showInterface();
 	void displayInterface();
+	void hallOfFameInterface(std::vector<Player>&);
+	bool hallOfFfameInterfaceEvents();
 	void authenticationInterface();
-	void drawAuthenticationInterface(const char*, const char*, const char*, const char*, int);
+	//void drawAuthenticationInterface(const char*, const char*, const char*, const char*, int);
 	int displayAuthenticationInterface(std::vector<Player>&);
 	bool handleAuthenticationInterfaceEvents(char* name, int& index, bool choosingColor = false);
 

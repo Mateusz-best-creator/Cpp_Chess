@@ -4,9 +4,15 @@
 #include <cstdlib>
 #include <thread>
 #include <chrono>
+#include <fstream>
 
 void MainLoop::RunMainLoop()
 {
+	// Clear result file when we start the program
+	std::ofstream file("result.txt", std::ios_base::out | std::ios_base::trunc);
+	if (!file.is_open()) { std::cerr << "Error opening result.txt file\n";exit(EXIT_FAILURE); }
+	file.close(); file.clear();
+
 	bool playChess{ true };
 	while (true)
 	{

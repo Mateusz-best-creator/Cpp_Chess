@@ -1,5 +1,6 @@
 ﻿#include "interface.h"
 #include <vector>
+#include <fstream>
 
 // Global variable for storing players
 std::vector<Player> players;
@@ -38,6 +39,9 @@ Interface::Interface()
 	blue = SDL_MapRGB(screen->format, 0x11, 0x11, 0xCC);
 	white = SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF);
 	grey = SDL_MapRGB(screen->format, 0x24, 0x24, 0x24);
+	gold = SDL_MapRGB(screen->format, 0xff, 0xc8, 0x37);
+	silver = SDL_MapRGB(screen->format, 0xc1, 0xc9, 0xc8);
+	brown = SDL_MapRGB(screen->format, 0xa5, 0x2a, 0x2a);
 	quit = 0;
 	text[0] = '\0';
 
@@ -85,7 +89,40 @@ void Interface::displayInterface()
 
 void Interface::showInterface()
 {
-	std::cout << "Quit value = " << quit << std::endl;
+	// Open file and update players metrics
+	std::ifstream file("result.txt", std::ios_base::in);
+	if (!file.is_open()) 
+	{ 
+		std::cerr << "Error opening result.txt file\n"; 
+		exit(EXIT_FAILURE); 
+	}
+	std::string colorWon;
+	file >> colorWon;
+
+	auto it1 = std::find_if(players.begin(), players.end(), [](const Player& p) {
+		return strcmp(p.getName(), whitePlayerName) == 0;
+		});
+
+	auto it2 = std::find_if(players.begin(), players.end(), [](const Player& p) {
+		return strcmp(p.getName(), blackPlayerName) == 0;
+		});
+	if (colorWon == "white")
+	{
+		if (it1 != players.end())
+			it1->getWhiteWins()++;
+		if (it2 != players.end())
+			it2->getBlackLoses()++;
+	}
+	else if (colorWon == "black")
+	{
+		if (it1 != players.end())
+			it1->getWhiteLoses()++;
+		if (it2 != players.end())
+			it2->getBlackWins()++;
+	}
+	file.close(); 
+	file.clear();
+
 	displayInterface();
 	while (!quit) 
 	{
@@ -129,10 +166,12 @@ void Interface::showInterface()
 						return;
 					}
 					else if (xValue >= 255 + 70 && xValue <= 255 + 229 && yValue >= 312 && yValue <= 478)
+					{
 						authenticationInterface();
+					}
 					else if (xValue >= 255 + 255 + 70 && xValue <= 255 + 255 + 229 && yValue >= 312 && yValue <= 478)
 					{
-						std::cout << "Getting event for HallOfFame\n";
+						hallOfFameInterface(players);
 					}
 				}
 			}

@@ -1,7 +1,14 @@
 #include "board.h"
+#include <fstream>
 
 void Board::checkIfCheckmate(int playerIndex)
 {
+	std::ofstream file("result.txt", std::ios_base::out | std::ios_base::trunc);
+	if (!file.is_open())
+	{
+		std::cerr << "Error opening result.txt file\n";
+		exit(EXIT_FAILURE);
+	}
 	// Check for checkmate
 	if (playerIndex == 1 && whiteKing->checkIfKingHasSquare(board, colors, whiteSquaresBoard, blackSquaresBoard))
 	{
@@ -9,6 +16,7 @@ void Board::checkIfCheckmate(int playerIndex)
 			return;
 		gameRunning = false;
 		std::cout << "Checkmate, black pieces won!\n";
+		file << "black";
 	}
 	else if (playerIndex == 2 && blackKing->checkIfKingHasSquare(board, colors, whiteSquaresBoard, blackSquaresBoard))
 	{
@@ -16,7 +24,10 @@ void Board::checkIfCheckmate(int playerIndex)
 			return;
 		gameRunning = false;
 		std::cout << "Checkmate, white pieces won!\n";
+		file << "white";
 	}
+	file.clear();
+	file.close();
 }
 
 bool Board::checkIfCanPreventCheckmate(std::shared_ptr<King>king)

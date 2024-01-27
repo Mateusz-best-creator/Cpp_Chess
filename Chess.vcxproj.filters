@@ -81,9 +81,6 @@
     <ClCompile Include="mainLoop.cpp">
       <Filter>Source Files\GameInit</Filter>
     </ClCompile>
-    <ClCompile Include="icon.cpp">
-      <Filter>Source Files\Interface</Filter>
-    </ClCompile>
     <ClCompile Include="interface.cpp">
       <Filter>Source Files\Interface</Filter>
     </ClCompile>
@@ -92,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="hallOfFameInterface.cpp">
+      <Filter>Source Files\Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,14 +137,14 @@
     <ClInclude Include="interface.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="icon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="result.txt" />
   </ItemGroup>
 </Project>

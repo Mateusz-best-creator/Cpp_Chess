@@ -10,3 +10,17 @@ Player::Player(const char* n, Colors c)
 		name[i] = n[i];
 	name[i] = '\0';
 }
+
+bool Player::operator<(const Player& p)
+{
+	if (blackWins + whiteWins > p.blackWins + p.whiteWins)
+		return false;
+	else if (blackWins + whiteWins == p.blackWins + p.whiteWins && blackLoses + whiteLoses < p.blackLoses + p.whiteLoses)
+	{
+		return false;
+	}
+	else if (blackWins + whiteWins == p.blackWins + p.whiteWins && whiteLoses + blackLoses == p.whiteLoses + p.blackLoses)
+		return false;
+
+	return true;
+}
