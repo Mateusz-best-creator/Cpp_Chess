@@ -20,6 +20,7 @@
 const int HEIGHT = 8, WIDTH = 8, INITIAL_PIECES_NUMBER = 32;
 const int PIECES_X_DISTANCE = 90, PIECES_Y_DISTANCE = 67;
 const int X_OFFSET = 42, Y_OFFSET = 29;
+const int PROMOTION_RECTANGLE_HEIGHT = 70, PROMOTION_RECTANGLE_WIDTH = 355, PROMOTION_RECTANGLE_X_START = 43, PROMOTION_RECTANGLE_X_END = 398;
 
 enum Colors : char { WHITE = 'w', BLACK = 'b', EMPTY = 'e', BLUE_RECTANGLE = 'r' };
 enum PieceTypes : int { NONE = 0, ROOK, KNIGHT, BISHOP, KING, QUEEN, PAWN = 6 };
@@ -126,6 +127,8 @@ public:
 	bool checkIfCanPreventCheckmate(std::shared_ptr<King>king);
 	bool preventCheckmateWithPiece(std::shared_ptr<Piece> piece, int pieceType, char color, int i, int j);
 	void updateBoardColors(int first, int second, char third, char fourth);
+	void displayPromotionRentangle(int);
+	void handlePromotionRectangle(char);
 
 	// Functions for updating occupied squares
 	void updateColorsSquares();

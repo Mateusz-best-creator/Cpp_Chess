@@ -1,5 +1,6 @@
 #include "board.h"
 #include <typeinfo>
+#include <iostream>
 
 // Helper function
 void Board::resetBlueRectanglesBoard()
@@ -103,6 +104,21 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 			colors[i][j] = currentColors[i][j];
 		}
 	}
+	std::cout << "TO: " << toRow << " " << toCol << std::endl;
+	// Check for pawn promotion
+	// White promotes
+	if (toRow == 7 && board[toRow][toCol] == PAWN)
+	{
+		std::cout << "Promotion for white!" << std::endl;
+		handlePromotionRectangle(colors[toRow][toCol]);
+	}
+	// Black promotes
+	if (toRow == 0 && board[toRow][toCol] == PAWN)
+	{
+		std::cout << "Promotion for black!" << std::endl;
+		handlePromotionRectangle(colors[toRow][toCol]);
+	}
+
 	// Reset variables
 	fromRow = fromCol = toRow = toCol = INITIAL_VALUE;
 }
@@ -291,4 +307,48 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 		board[toRow][toCol] = KING;
 
 	return true;
+}
+
+void Board::displayPromotionRentangle(int y_pos)
+{
+	// Draw a white rectangle
+	SDL_Rect rect = { 45, y_pos, PROMOTION_RECTANGLE_WIDTH, PROMOTION_RECTANGLE_HEIGHT };
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(renderer, &rect);
+
+	// Update the window
+	SDL_RenderPresent(renderer);
+}
+
+void Board::handlePromotionRectangle(char color)
+{
+	// Show promotion rectangle
+	int y_pos = color == 'w' ? 166 : 365;
+	displayPromotionRentangle(y_pos);
+
+	bool quit = false;
+	SDL_Event event;
+	while (!quit)
+	{
+		while (SDL_WaitEvent(&event))
+		{
+			switch (event.type)
+			{
+			case SDL_QUIT:
+				exit(EXIT_SUCCESS);
+			case SDL_MOUSEBUTTONDOWN:
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					int xValue = event.button.x;
+					int yValue = event.button.y;
+					std::cout << "(x, y) = (" << xValue << ", " << yValue << ")" << std::endl;
+					if (yValue >= y_pos && yValue <= y_pos + PROMOTION_RECTANGLE_HEIGHT && 
+						xValue >= PROMOTION_RECTANGLE_X_START && xValue <= PROMOTION_RECTANGLE_X_END)
+					{
+						std::cout << "Clicking rectangle!!!" << std::endl;
+					}
+				}
+			}
+		};
+	}
 }
