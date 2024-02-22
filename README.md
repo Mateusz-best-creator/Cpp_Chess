@@ -4,6 +4,14 @@
 
 This is a C++ chess game, meticulously crafted using Object-Oriented Programming (OOP) principles. The implementation includes a variety of features such as every possible chess move, castling on both sides and En Passant. You also have sound effects for different moves. One for moving piece into empty square and one for pieces that go to non empty square.
 
+## Screenshots
+![Screenshot 1](ScreenShots/sc1.png)
+*Start page*
+
+![Screenshot 2](ScreenShots/sc2.png)
+*Game*
+
+
 ## Interface
 
 Choose from three options to interact with the chess game:
@@ -31,6 +39,8 @@ Choose from three options to interact with the chess game:
 - **Castling:** Castling is supported on both sides, adhering to the rules of the game.
 
 - **En Passant:** The game features the En Passant move, enhancing realism and strategic gameplay.
+
+- **Promotion:** pawns can be promoted.
 
 This chess game project utilizes SDL2, SDL2_image, SDL2_mixer libraries. The required SDL2 libraries are included in the source files, but if you encounter issues starting the project, follow these steps:
 
