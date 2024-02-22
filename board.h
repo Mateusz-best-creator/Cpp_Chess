@@ -21,6 +21,7 @@ const int HEIGHT = 8, WIDTH = 8, INITIAL_PIECES_NUMBER = 32;
 const int PIECES_X_DISTANCE = 90, PIECES_Y_DISTANCE = 67;
 const int X_OFFSET = 42, Y_OFFSET = 29;
 const int PROMOTION_RECTANGLE_HEIGHT = 70, PROMOTION_RECTANGLE_WIDTH = 355, PROMOTION_RECTANGLE_X_START = 43, PROMOTION_RECTANGLE_X_END = 398;
+const double PROMOTION_REACTANGLE_X_OFFSET = 88.75;
 
 enum Colors : char { WHITE = 'w', BLACK = 'b', EMPTY = 'e', BLUE_RECTANGLE = 'r' };
 enum PieceTypes : int { NONE = 0, ROOK, KNIGHT, BISHOP, KING, QUEEN, PAWN = 6 };
@@ -110,6 +111,10 @@ private:
 	Mix_Chunk* pieceMoveSound = Mix_LoadWAV("Sounds/piece_move_sound.wav");
 	Mix_Chunk* pieceBeatSound = Mix_LoadWAV("Sounds/piece_beat_sound.wav");
 
+	// Get image textures for promotion rectangle
+	SDL_Texture* whiteImagesPromotionTextures[4];
+	SDL_Texture* blackImagesPromotionTextures[4];
+
 public:
 	Board(const char* filename, SDL_Renderer* ren);
 	~Board();
@@ -127,8 +132,8 @@ public:
 	bool checkIfCanPreventCheckmate(std::shared_ptr<King>king);
 	bool preventCheckmateWithPiece(std::shared_ptr<Piece> piece, int pieceType, char color, int i, int j);
 	void updateBoardColors(int first, int second, char third, char fourth);
-	void displayPromotionRentangle(int);
-	void handlePromotionRectangle(char);
+	void displayPromotionRentangle(int, SDL_Texture* images[4]);
+	PieceTypes handlePromotionRectangle(char);
 
 	// Functions for updating occupied squares
 	void updateColorsSquares();

@@ -36,6 +36,17 @@ Board::Board(const char* filename, SDL_Renderer* ren)
 	queen = std::make_shared<Queen>("ChessPieces/Chess_ndt60.png", renderer, 1, 1, WHITE);
 	whiteKing = std::make_shared<King>("ChessPieces/Chess_ndt60.png", renderer, 1, 5, WHITE);
 	blackKing = std::make_shared<King>("ChessPieces/Chess_ndt60.png", renderer, 8, 5, BLACK);
+
+	// For promotion rectangle
+	whiteImagesPromotionTextures[0] = TextureManager::LoadTexture("ChessPieces/Chess_nlt60.png", renderer);
+	whiteImagesPromotionTextures[1] = TextureManager::LoadTexture("ChessPieces/Chess_blt60.png", renderer);
+	whiteImagesPromotionTextures[2] = TextureManager::LoadTexture("ChessPieces/Chess_rlt60.png", renderer);
+	whiteImagesPromotionTextures[3] = TextureManager::LoadTexture("ChessPieces/Chess_qlt60.png", renderer);
+
+	blackImagesPromotionTextures[0] = TextureManager::LoadTexture("ChessPieces/Chess_ndt60.png", renderer);
+	blackImagesPromotionTextures[1] = TextureManager::LoadTexture("ChessPieces/Chess_bdt60.png", renderer);
+	blackImagesPromotionTextures[2] = TextureManager::LoadTexture("ChessPieces/Chess_rdt60.png", renderer);
+	blackImagesPromotionTextures[3] = TextureManager::LoadTexture("ChessPieces/Chess_qdt60.png", renderer);
 }
 
 Board::~Board() 

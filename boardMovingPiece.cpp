@@ -1,6 +1,7 @@
 #include "board.h"
+#include "textureManager.h"
 #include <typeinfo>
-#include <iostream>
+#include <string>
 
 // Helper function
 void Board::resetBlueRectanglesBoard()
@@ -71,6 +72,13 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 	// Update all the pieces
 	bool updated = updatePieces();
 
+	// Check for pawn promotion for both colors
+	if ((toRow == 7 || toRow == 0) && board[toRow][toCol] == PAWN)
+	{
+		PieceTypes piece_option = handlePromotionRectangle(colors[toRow][toCol]);
+		board[toRow][toCol] = piece_option;
+	}
+
 	// Reset blue rectangles board
 	resetBlueRectanglesBoard();
 
@@ -94,6 +102,7 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 			currentColors[i][j] = colors[i][j];
 		}
 	}
+
 	checkIfCheckmate(playerIndex);
 	for (int i = 0; i < HEIGHT; i++)
 	{
@@ -103,20 +112,6 @@ void Board::movingPiece(int row, int column, int& playerIndex)
 			board[i][j] = currentBoard[i][j];
 			colors[i][j] = currentColors[i][j];
 		}
-	}
-	std::cout << "TO: " << toRow << " " << toCol << std::endl;
-	// Check for pawn promotion
-	// White promotes
-	if (toRow == 7 && board[toRow][toCol] == PAWN)
-	{
-		std::cout << "Promotion for white!" << std::endl;
-		handlePromotionRectangle(colors[toRow][toCol]);
-	}
-	// Black promotes
-	if (toRow == 0 && board[toRow][toCol] == PAWN)
-	{
-		std::cout << "Promotion for black!" << std::endl;
-		handlePromotionRectangle(colors[toRow][toCol]);
 	}
 
 	// Reset variables
@@ -309,22 +304,46 @@ bool Board::updatePiece(std::shared_ptr<Piece> piece)
 	return true;
 }
 
-void Board::displayPromotionRentangle(int y_pos)
+void Board::displayPromotionRentangle(int y_pos, SDL_Texture* images[4])
 {
 	// Draw a white rectangle
 	SDL_Rect rect = { 45, y_pos, PROMOTION_RECTANGLE_WIDTH, PROMOTION_RECTANGLE_HEIGHT };
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 	SDL_RenderFillRect(renderer, &rect);
 
+	// Draw dark borders and separate the content into 5 squares
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Set color to black
+	for (int i = 1; i < 4; ++i) 
+	{
+		// Draw vertical borders
+		SDL_RenderDrawLine(renderer, rect.x + i * PROMOTION_REACTANGLE_X_OFFSET, rect.y, rect.x + i * PROMOTION_REACTANGLE_X_OFFSET, rect.y + rect.h);
+	}
+
+	// Render the image in each square
+	for (int i = 0; i < 4; ++i)
+	{
+		SDL_Rect dstRect = { 14 + rect.x + i * PROMOTION_REACTANGLE_X_OFFSET, 5 + rect.y, 60, 60 }; // Adjust dimensions as needed
+		SDL_RenderCopy(renderer, images[i], NULL, &dstRect);
+	}
+	
 	// Update the window
 	SDL_RenderPresent(renderer);
 }
 
-void Board::handlePromotionRectangle(char color)
+PieceTypes Board::handlePromotionRectangle(char color)
 {
 	// Show promotion rectangle
 	int y_pos = color == 'w' ? 166 : 365;
-	displayPromotionRentangle(y_pos);
+	if (color == 'w')
+	{
+		y_pos = 166;
+		displayPromotionRentangle(y_pos, whiteImagesPromotionTextures);
+	}
+	else
+	{
+		y_pos = 365;
+		displayPromotionRentangle(y_pos, blackImagesPromotionTextures);
+	}
 
 	bool quit = false;
 	SDL_Event event;
@@ -341,11 +360,17 @@ void Board::handlePromotionRectangle(char color)
 				{
 					int xValue = event.button.x;
 					int yValue = event.button.y;
-					std::cout << "(x, y) = (" << xValue << ", " << yValue << ")" << std::endl;
 					if (yValue >= y_pos && yValue <= y_pos + PROMOTION_RECTANGLE_HEIGHT && 
 						xValue >= PROMOTION_RECTANGLE_X_START && xValue <= PROMOTION_RECTANGLE_X_END)
 					{
-						std::cout << "Clicking rectangle!!!" << std::endl;
+						if (xValue <= 131.75)
+							return KNIGHT;
+						else if (xValue <= 220.5)
+							return BISHOP;
+						else if (xValue <= 309.25)
+							return ROOK;
+						else
+							return QUEEN;
 					}
 				}
 			}
