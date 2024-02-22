@@ -5,10 +5,10 @@
 This is a C++ chess game, meticulously crafted using Object-Oriented Programming (OOP) principles. The implementation includes a variety of features such as every possible chess move, castling on both sides and En Passant. You also have sound effects for different moves. One for moving piece into empty square and one for pieces that go to non empty square.
 
 ## Screenshots
-![Screenshot 1](ScreenShots/sc1.png)
+<img src="ScreenShots/sc1.png" alt="Screenshot 1" width="400">
 *Start page*
 
-![Screenshot 2](ScreenShots/sc2.png)
+<img src="ScreenShots/sc2.png" alt="Screenshot 2" width="400">
 *Game*
 
 
