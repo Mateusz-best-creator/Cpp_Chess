@@ -1,4 +1,4 @@
-# Chess Game in C++ (OOP)
+# Chess Game in C++
 
 ## Overview
 
