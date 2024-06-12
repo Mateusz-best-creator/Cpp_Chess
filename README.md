@@ -55,6 +55,9 @@ Of course download the latest versions of the liblaries. Ensure you download the
 
 ## Configuration Steps
 
+0. **x86:**
+   - Remember to switch your solution platform to: `x86`
+
 1. **Configure Include Directories:**
    - Go to the properties of your project.
    - In the C/C++ section, click on General.
