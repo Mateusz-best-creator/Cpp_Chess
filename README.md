@@ -51,13 +51,13 @@ Choose from three options to interact with the chess game:
 
 - **Comprehensive Moves:** Every standard chess move is implemented, allowing players to enjoy a complete and authentic gaming experience.
 
-- **Castling:** Castling is supported on both sides, adhering to the rules of the game.
+- **Castling**.
 
-- **En Passant:** The game features the En Passant move, enhancing realism and strategic gameplay.
+- **En Passant**.
 
-- **Promotion:** pawns can be promoted.
+- **Promotion**.
 
-This chess game project utilizes SDL2, SDL2_image, SDL2_mixer libraries. The required SDL2 libraries are included in the source files, but if you encounter issues starting the project, follow these steps:
+This chess game project utilizes SDL2, SDL2_image, SDL2_mixer libraries.
 
 ## Prerequisites
 
